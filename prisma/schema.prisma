@@ -1,0 +1,206 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model chats {
+  chat_id       Int           @id @default(autoincrement())
+  request_id    Int
+  responder_id  Int
+  created_at    DateTime?     @default(now()) @db.Timestamp(6)
+  help_requests help_requests @relation(fields: [request_id], references: [request_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_chat_request")
+  users         users         @relation(fields: [responder_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_chat_responder")
+  messages      messages[]
+
+  @@unique([request_id, responder_id], map: "unique_chat")
+}
+
+model cities {
+  city_id       Int             @id @default(autoincrement())
+  city_name     String          @db.VarChar(100)
+  district      String          @db.VarChar(100)
+  state         String          @db.VarChar(100)
+  help_requests help_requests[]
+  ngos          ngos[]
+  users         users[]
+
+  @@unique([city_name, district, state], map: "unique_city")
+}
+
+model help_requests {
+  request_id        Int                 @id @default(autoincrement())
+  user_id           Int
+  request_type      request_type
+  title             String              @db.VarChar(150)
+  description       String
+  city_id           Int
+  latitude          Decimal?            @db.Decimal(10, 8)
+  longitude         Decimal?            @db.Decimal(11, 8)
+  status            request_status?     @default(PENDING)
+  created_at        DateTime?           @default(now()) @db.Timestamp(6)
+  updated_at        DateTime?           @default(now()) @db.Timestamp(6)
+  chats             chats[]
+  cities            cities              @relation(fields: [city_id], references: [city_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_request_city")
+  users             users               @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_request_user")
+  request_responses request_responses[]
+}
+
+model messages {
+  message_id Int       @id @default(autoincrement())
+  chat_id    Int
+  sender_id  Int
+  message    String
+  sent_at    DateTime? @default(now()) @db.Timestamp(6)
+  is_read    Boolean?  @default(false)
+  chats      chats     @relation(fields: [chat_id], references: [chat_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_message_chat")
+  users      users     @relation(fields: [sender_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_message_sender")
+}
+
+model ngo_services {
+  service_id Int          @id @default(autoincrement())
+  ngo_id     Int
+  service    service_type
+  ngos       ngos         @relation(fields: [ngo_id], references: [ngo_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_service_ngo")
+
+  @@unique([ngo_id, service], map: "unique_ngo_service")
+}
+
+model ngo_verification {
+  verification_id     Int       @id @default(autoincrement())
+  ngo_id              Int
+  verification_method String    @db.VarChar(100)
+  verified_by         String?   @db.VarChar(100)
+  verification_date   DateTime? @default(dbgenerated("CURRENT_DATE")) @db.Date
+  remarks             String?
+  ngos                ngos      @relation(fields: [ngo_id], references: [ngo_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_verification_ngo")
+}
+
+model ngos {
+  ngo_id              Int                  @id @default(autoincrement())
+  user_id             Int                  @unique
+  ngo_name            String               @db.VarChar(255)
+  registration_number String?              @unique @db.VarChar(100)
+  ngo_darpan_id       String?              @unique @db.VarChar(100)
+  contact_person      String               @db.VarChar(100)
+  phone_number        String?              @db.VarChar(15)
+  email               String?              @db.VarChar(255)
+  website             String?
+  city_id             Int
+  address             String
+  latitude            Decimal?             @db.Decimal(10, 8)
+  longitude           Decimal?             @db.Decimal(11, 8)
+  verification_status verification_status? @default(PENDING)
+  description         String?
+  created_at          DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at          DateTime?            @default(now()) @db.Timestamp(6)
+  ngo_services        ngo_services[]
+  ngo_verification    ngo_verification[]
+  cities              cities               @relation(fields: [city_id], references: [city_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ngo_city")
+  users               users                @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_ngo_user")
+  reports             reports[]
+}
+
+model reports {
+  report_id  Int            @id @default(autoincrement())
+  ngo_id     Int
+  user_id    Int
+  reason     String
+  status     report_status? @default(PENDING)
+  created_at DateTime?      @default(now()) @db.Timestamp(6)
+  ngos       ngos           @relation(fields: [ngo_id], references: [ngo_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_report_ngo")
+  users      users          @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_report_user")
+}
+
+model request_responses {
+  response_id      Int              @id @default(autoincrement())
+  request_id       Int
+  responder_id     Int
+  response_message String
+  response_time    DateTime?        @default(now()) @db.Timestamp(6)
+  status           response_status? @default(ACCEPTED)
+  help_requests    help_requests    @relation(fields: [request_id], references: [request_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_response_request")
+  users            users            @relation(fields: [responder_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_response_user")
+
+  @@unique([request_id, responder_id], map: "unique_response")
+}
+
+model users {
+  user_id           Int                 @id @default(autoincrement())
+  full_name         String              @db.VarChar(100)
+  email             String              @unique @db.VarChar(255)
+  phone_number      String?             @unique @db.VarChar(15)
+  password_hash     String
+  role              user_role
+  city_id           Int?
+  address           String?
+  latitude          Decimal?            @db.Decimal(10, 8)
+  longitude         Decimal?            @db.Decimal(11, 8)
+  profile_photo     String?
+  created_at        DateTime?           @default(now()) @db.Timestamp(6)
+  updated_at        DateTime?           @default(now()) @db.Timestamp(6)
+  is_active         Boolean?            @default(true)
+  is_verified       Boolean?            @default(false)
+  chats             chats[]
+  help_requests     help_requests[]
+  messages          messages[]
+  ngos              ngos?
+  reports           reports[]
+  request_responses request_responses[]
+  cities            cities?             @relation(fields: [city_id], references: [city_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum report_status {
+  PENDING
+  REVIEWED
+  RESOLVED
+}
+
+enum request_status {
+  PENDING
+  ACCEPTED
+  COMPLETED
+  CANCELLED
+}
+
+enum request_type {
+  FOOD
+  SHELTER
+  MEDICAL
+  EMPLOYMENT
+  GUIDANCE
+}
+
+enum response_status {
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+enum service_type {
+  FOOD
+  SHELTER
+  MEDICAL
+  EMPLOYMENT
+  EDUCATION
+  LEGAL
+  GUIDANCE
+  OTHER
+}
+
+enum user_role {
+  MIGRANT
+  VOLUNTEER
+  NGO
+  ADMIN
+}
+
+enum verification_status {
+  PENDING
+  GOVERNMENT_VERIFIED
+  CONTACT_VERIFIED
+  MANUALLY_VERIFIED
+}
