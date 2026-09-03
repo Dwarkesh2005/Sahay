@@ -1,0 +1,710 @@
+{
+  "info": {
+    "_postman_id": "sahay-e2e-workflow-2026",
+    "name": "Sahay Platform - End-to-End API Collection",
+    "description": "Complete Postman collection for Sahay NGO/Migrant support platform, covering Authentication, NGO Discovery, Help Request Lifecycle, Real-time Chat, and Admin Oversight Console.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "BASE_URL", "value": "http://localhost:5000/api", "type": "string" },
+    { "key": "OCR_SERVICE_URL", "value": "http://localhost:5001", "type": "string" },
+    { "key": "USER_TOKEN", "value": "", "type": "string" },
+    { "key": "NGO_TOKEN", "value": "", "type": "string" },
+    { "key": "ADMIN_TOKEN", "value": "", "type": "string" },
+    { "key": "REQUEST_ID", "value": "1", "type": "string" },
+    { "key": "NGO_ID", "value": "1", "type": "string" },
+    { "key": "VERIFICATION_ID", "value": "1", "type": "string" },
+    { "key": "DOCUMENT_ID", "value": "1", "type": "string" },
+    { "key": "CHAT_ID", "value": "1", "type": "string" },
+    { "key": "USER_ID", "value": "1", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "1.1 Register Migrant User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201 or 400', function () {",
+                  "    pm.expect([201, 400]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"MIGRANT\",\n  \"fullName\": \"Ramesh Patel\",\n  \"email\": \"ramesh.patel@example.com\",\n  \"phone\": \"9876543299\",\n  \"password\": \"User@12345\",\n  \"city\": \"Lucknow\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/auth/register", "host": ["{{BASE_URL}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "1.2 Login Migrant User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('USER_TOKEN', jsonData.token);",
+                  "    pm.collectionVariables.set('USER_TOKEN', jsonData.token);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"rajesh@example.com\",\n  \"password\": \"User@12345\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/auth/login", "host": ["{{BASE_URL}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "1.3 Login NGO User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('NGO_TOKEN', jsonData.token);",
+                  "    pm.collectionVariables.set('NGO_TOKEN', jsonData.token);",
+                  "    if (jsonData.user && jsonData.user.ngo) {",
+                  "        pm.collectionVariables.set('NGO_ID', jsonData.user.ngo.ngo_id);",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"asha@sahay.org\",\n  \"password\": \"Ngo@12345\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/auth/login", "host": ["{{BASE_URL}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "1.4 Admin Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set('ADMIN_TOKEN', jsonData.token);",
+                  "    pm.collectionVariables.set('ADMIN_TOKEN', jsonData.token);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@sahay.org\",\n  \"password\": \"Admin@12345\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/auth/login", "host": ["{{BASE_URL}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "1.5 Get Current User Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/auth/me", "host": ["{{BASE_URL}}"], "path": ["auth", "me"] }
+          }
+        },
+        {
+          "name": "1.6 Update User Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Rajesh Kumar Updated\",\n  \"address\": \"Sector 4, Gomti Nagar, Lucknow\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/auth/profile", "host": ["{{BASE_URL}}"], "path": ["auth", "profile"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. NGO Discovery & Details",
+      "item": [
+        {
+          "name": "2.1 Get All NGOs with Filters",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/ngos?service=FOOD&search=Asha",
+              "host": ["{{BASE_URL}}"],
+              "path": ["ngos"],
+              "query": [
+                { "key": "service", "value": "FOOD" },
+                { "key": "search", "value": "Asha" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "2.2 Get Single NGO Details",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{BASE_URL}}/ngos/{{NGO_ID}}", "host": ["{{BASE_URL}}"], "path": ["ngos", "{{NGO_ID}}"] }
+          }
+        },
+        {
+          "name": "2.3 Update Own NGO Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{NGO_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated description for Asha Foundation: Dedicated to food, healthcare, and shelter support across UP.\",\n  \"services\": [\"FOOD\", \"SHELTER\", \"MEDICAL\", \"GUIDANCE\"]\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/ngos/my/profile", "host": ["{{BASE_URL}}"], "path": ["ngos", "my", "profile"] }
+          }
+        },
+        {
+          "name": "2.4 Report NGO",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Incorrect address listed on profile. Please review.\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/ngos/{{NGO_ID}}/report", "host": ["{{BASE_URL}}"], "path": ["ngos", "{{NGO_ID}}", "report"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Help Requests Lifecycle",
+      "item": [
+        {
+          "name": "3.1 Create Help Request (User)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.request) {",
+                  "        pm.collectionVariables.set('REQUEST_ID', jsonData.request.request_id);",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_type\": \"MEDICAL\",\n  \"title\": \"Urgent medicine and health support required\",\n  \"description\": \"Elderly family member needs blood pressure medicine and basic medical checkup in Lucknow.\",\n  \"city_id\": 1\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/requests", "host": ["{{BASE_URL}}"], "path": ["requests"] }
+          }
+        },
+        {
+          "name": "3.2 Get User's Own Requests",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/requests?my=true", "host": ["{{BASE_URL}}"], "path": ["requests"], "query": [{ "key": "my", "value": "true" }] }
+          }
+        },
+        {
+          "name": "3.3 Get Request By ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/requests/{{REQUEST_ID}}", "host": ["{{BASE_URL}}"], "path": ["requests", "{{REQUEST_ID}}"] }
+          }
+        },
+        {
+          "name": "3.4 NGO Views Requests Feed",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{NGO_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/requests?status=PENDING", "host": ["{{BASE_URL}}"], "path": ["requests"], "query": [{ "key": "status", "value": "PENDING" }] }
+          }
+        },
+        {
+          "name": "3.5 NGO Responds & Accepts Request",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Response accepted', function () {",
+                  "    pm.expect([201, 400, 409]).to.include(pm.response.code);",
+                  "    var jsonData = pm.response.json();",
+                  "    if (jsonData.chat_id) {",
+                  "        pm.collectionVariables.set('CHAT_ID', jsonData.chat_id);",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{NGO_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"response_message\": \"Hello Rajesh, Asha Foundation can dispatch a medical team with medicine to your location within 2 hours.\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/requests/{{REQUEST_ID}}/respond", "host": ["{{BASE_URL}}"], "path": ["requests", "{{REQUEST_ID}}", "respond"] }
+          }
+        },
+        {
+          "name": "3.6 NGO Marks Request as Completed (Resolved)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{NGO_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"COMPLETED\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/requests/{{REQUEST_ID}}/status", "host": ["{{BASE_URL}}"], "path": ["requests", "{{REQUEST_ID}}", "status"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Chat & Messaging",
+      "item": [
+        {
+          "name": "4.1 Get User Chats",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/chats", "host": ["{{BASE_URL}}"], "path": ["chats"] }
+          }
+        },
+        {
+          "name": "4.2 Get Chat Messages",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/chats/{{CHAT_ID}}/messages", "host": ["{{BASE_URL}}"], "path": ["chats", "{{CHAT_ID}}", "messages"] }
+          }
+        },
+        {
+          "name": "4.3 Send Chat Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Thank you so much! Our exact landmark is near the primary school gate.\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/chats/{{CHAT_ID}}/messages", "host": ["{{BASE_URL}}"], "path": ["chats", "{{CHAT_ID}}", "messages"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Admin Console",
+      "item": [
+        {
+          "name": "5.1 Get Admin Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/admin/stats", "host": ["{{BASE_URL}}"], "path": ["admin", "stats"] }
+          }
+        },
+        {
+          "name": "5.2 Get All NGOs (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/admin/ngos", "host": ["{{BASE_URL}}"], "path": ["admin", "ngos"] }
+          }
+        },
+        {
+          "name": "5.3 Verify NGO",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"verification_status\": \"GOVERNMENT_VERIFIED\",\n  \"remarks\": \"Verified government registration documents successfully.\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/admin/ngos/{{NGO_ID}}/verify", "host": ["{{BASE_URL}}"], "path": ["admin", "ngos", "{{NGO_ID}}", "verify"] }
+          }
+        },
+        {
+          "name": "5.4 Get All Users (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/admin/users", "host": ["{{BASE_URL}}"], "path": ["admin", "users"] }
+          }
+        },
+        {
+          "name": "5.5 Get All Requests (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/admin/requests", "host": ["{{BASE_URL}}"], "path": ["admin", "requests"] }
+          }
+        },
+        {
+          "name": "5.6 Get Reports (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/admin/reports", "host": ["{{BASE_URL}}"], "path": ["admin", "reports"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Cities",
+      "item": [
+        {
+          "name": "6.1 Get Supported Cities",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{BASE_URL}}/cities", "host": ["{{BASE_URL}}"], "path": ["cities"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. NGO Document Verification & Admin Review",
+      "item": [
+        {
+          "name": "7.1 Get My Verification Status (NGO)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('verification');",
+                  "    if (json.verification && json.verification.verification_id) {",
+                  "        pm.collectionVariables.set('VERIFICATION_ID', json.verification.verification_id);",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{NGO_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/ngos/verification", "host": ["{{BASE_URL}}"], "path": ["ngos", "verification"] }
+          }
+        },
+        {
+          "name": "7.2 List My Uploaded Documents (NGO)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('documents');",
+                  "    if (json.documents && json.documents.length > 0) {",
+                  "        pm.collectionVariables.set('DOCUMENT_ID', json.documents[0].document_id);",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{NGO_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/ngos/verification/documents", "host": ["{{BASE_URL}}"], "path": ["ngos", "verification", "documents"] }
+          }
+        },
+        {
+          "name": "7.3 Run Document Screening (NGO)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 400', function () {",
+                  "    pm.expect([200, 400]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{NGO_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/ngos/verification/process", "host": ["{{BASE_URL}}"], "path": ["ngos", "verification", "process"] }
+          }
+        },
+        {
+          "name": "7.4 Get Verification Report (NGO)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 404', function () {",
+                  "    pm.expect([200, 404]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{NGO_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/ngos/verification/report", "host": ["{{BASE_URL}}"], "path": ["ngos", "verification", "report"] }
+          }
+        },
+        {
+          "name": "7.5 Get Verification Queue (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('verifications');",
+                  "    if (json.verifications && json.verifications.length > 0) {",
+                  "        pm.collectionVariables.set('VERIFICATION_ID', json.verifications[0].verification_id);",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/admin/verifications?page=1&limit=10", "host": ["{{BASE_URL}}"], "path": ["admin", "verifications"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "7.6 Get Verification Case Details (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('verification');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/admin/verifications/{{VERIFICATION_ID}}", "host": ["{{BASE_URL}}"], "path": ["admin", "verifications", "{{VERIFICATION_ID}}"] }
+          }
+        },
+        {
+          "name": "7.7 Get Document Signed View URL (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 404', function () {",
+                  "    pm.expect([200, 404]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/admin/verifications/{{VERIFICATION_ID}}/document/{{DOCUMENT_ID}}/view", "host": ["{{BASE_URL}}"], "path": ["admin", "verifications", "{{VERIFICATION_ID}}", "document", "{{DOCUMENT_ID}}", "view"] }
+          }
+        },
+        {
+          "name": "7.8 Request Document Correction (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 400', function () {",
+                  "    pm.expect([200, 400]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Please provide an updated copy of your Registration Certificate with clear official stamp and signature.\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/admin/verifications/{{VERIFICATION_ID}}/request-correction", "host": ["{{BASE_URL}}"], "path": ["admin", "verifications", "{{VERIFICATION_ID}}", "request-correction"] }
+          }
+        },
+        {
+          "name": "7.9 Approve NGO Verification (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 or 400', function () {",
+                  "    pm.expect([200, 400]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Verified registration certificate and PAN consistency against submitted details.\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/admin/verifications/{{VERIFICATION_ID}}/approve", "host": ["{{BASE_URL}}"], "path": ["admin", "verifications", "{{VERIFICATION_ID}}", "approve"] }
+          }
+        },
+        {
+          "name": "7.10 Security Test: Normal User Cannot Access Verification",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 403 Forbidden', function () {",
+                  "    pm.response.to.have.status(403);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }],
+            "url": { "raw": "{{BASE_URL}}/ngos/verification", "host": ["{{BASE_URL}}"], "path": ["ngos", "verification"] }
+          }
+        },
+        {
+          "name": "7.11 Security Test: NGO Cannot Approve Own Verification",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 403 Forbidden', function () {",
+                  "    pm.response.to.have.status(403);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{NGO_TOKEN}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Self approval attempt\"\n}"
+            },
+            "url": { "raw": "{{BASE_URL}}/admin/verifications/1/approve", "host": ["{{BASE_URL}}"], "path": ["admin", "verifications", "1", "approve"] }
+          }
+        }
+      ]
+    }
+  ]
+}

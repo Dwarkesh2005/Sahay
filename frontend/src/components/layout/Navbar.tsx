@@ -1,23 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, LogIn } from 'lucide-react';
+import { Menu, X, LogIn, LogOut, LayoutDashboard, Search, PlusCircle, Building2, Shield, User } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    setIsOpen(false);
+    navigate('/');
+  };
+
+  const roleBadgeColor = {
+    ADMIN: 'bg-amber-100 text-amber-800',
+    NGO: 'bg-blue-100 text-blue-800',
+    VOLUNTEER: 'bg-purple-100 text-purple-800',
+    MIGRANT: 'bg-emerald-100 text-emerald-800',
+  };
+
+  const roleLabel = {
+    ADMIN: 'Admin',
+    NGO: 'NGO',
+    VOLUNTEER: 'Volunteer',
+    MIGRANT: 'User',
+  };
 
   return (
     <nav
@@ -39,61 +57,103 @@ export const Navbar: React.FC = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-6">
           <Link
             to="/"
             className="font-medium text-forest-dark hover:text-primary transition-colors"
           >
             Home
           </Link>
-          <a
-            href="#features"
-            className="font-medium text-forest-dark hover:text-primary transition-colors"
-            onClick={(e) => {
-              e.preventDefault();
-              const section = document.getElementById('features');
-              if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                navigate('/');
-                setTimeout(() => {
-                  document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }
-            }}
-          >
-            Services
-          </a>
-          <a
-            href="#how-it-works"
-            className="font-medium text-forest-dark hover:text-primary transition-colors"
-            onClick={(e) => {
-              e.preventDefault();
-              const section = document.getElementById('how-it-works');
-              if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                navigate('/');
-                setTimeout(() => {
-                  document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }
-            }}
-          >
-            How it Works
-          </a>
           <Link
-            to="/login"
-            className="font-medium text-forest-dark hover:text-primary transition-colors flex items-center gap-1.5"
+            to="/ngos"
+            className="font-medium text-forest-dark hover:text-primary transition-colors flex items-center gap-1"
           >
-            <LogIn className="w-4 h-4" /> Login
+            <Search className="w-4 h-4" /> Find NGOs
           </Link>
-          <Link
-            to="/register"
-            className="bg-primary hover:bg-forest-dark text-white font-medium px-6 py-2.5 rounded-full shadow-md shadow-primary/25 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
-          >
-            Get Started
-          </Link>
+
+          {isAuthenticated && user ? (
+            <>
+              {(user.role === 'MIGRANT' || user.role === 'VOLUNTEER' || user.role === 'ADMIN') && (
+                <Link
+                  to="/request-help"
+                  className="font-medium text-forest-dark hover:text-primary transition-colors flex items-center gap-1"
+                >
+                  <PlusCircle className="w-4 h-4" /> Request Help
+                </Link>
+              )}
+              {(user.role === 'MIGRANT' || user.role === 'VOLUNTEER') && (
+                <Link
+                  to="/dashboard"
+                  className="font-medium text-forest-dark hover:text-primary transition-colors flex items-center gap-1"
+                >
+                  <LayoutDashboard className="w-4 h-4" /> Dashboard
+                </Link>
+              )}
+              {user.role === 'NGO' && (
+                <Link
+                  to="/ngo-portal"
+                  className="font-medium text-forest-dark hover:text-primary transition-colors flex items-center gap-1"
+                >
+                  <Building2 className="w-4 h-4" /> NGO Portal
+                </Link>
+              )}
+              {user.role === 'ADMIN' && (
+                <Link
+                  to="/admin"
+                  className="font-medium text-forest-dark hover:text-primary transition-colors flex items-center gap-1"
+                >
+                  <Shield className="w-4 h-4" /> Admin
+                </Link>
+              )}
+
+              {/* User Dropdown */}
+              <div className="relative group">
+                <button
+                  className="flex items-center gap-2 font-medium text-forest-dark hover:text-primary transition-colors"
+                  aria-label="User menu"
+                >
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                    <User className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="text-sm">{user.full_name.split(' ')[0]}</span>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${roleBadgeColor[user.role]}`}>
+                    {roleLabel[user.role]}
+                  </span>
+                </button>
+                <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 absolute right-0 top-full pt-2 w-48 transition-all duration-200">
+                  <div className="bg-white rounded-xl shadow-lg border border-forest-light/20 py-2 overflow-hidden">
+                    <Link
+                      to="/profile"
+                      className="block px-4 py-2 text-sm text-forest-dark hover:bg-bg-nature hover:text-primary transition-colors"
+                    >
+                      My Profile
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 text-sm text-rose-600 hover:bg-rose-50 transition-colors flex items-center gap-2"
+                    >
+                      <LogOut className="w-4 h-4" /> Logout
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="font-medium text-forest-dark hover:text-primary transition-colors flex items-center gap-1.5"
+              >
+                <LogIn className="w-4 h-4" /> Login
+              </Link>
+              <Link
+                to="/register"
+                className="bg-primary hover:bg-forest-dark text-white font-medium px-6 py-2.5 rounded-full shadow-md shadow-primary/25 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
+              >
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -111,66 +171,56 @@ export const Navbar: React.FC = () => {
       {/* Mobile Drawer */}
       {isOpen && (
         <div className="md:hidden glass-panel-dark mx-4 mt-2 rounded-2xl overflow-hidden shadow-lg border border-primary/10">
-          <div className="flex flex-col p-6 space-y-4">
-            <Link
-              to="/"
-              onClick={() => setIsOpen(false)}
-              className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20"
-            >
+          <div className="flex flex-col p-6 space-y-3">
+            <Link to="/" onClick={() => setIsOpen(false)} className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20">
               Home
             </Link>
-            <a
-              href="#features"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsOpen(false);
-                const section = document.getElementById('features');
-                if (section) {
-                  section.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  navigate('/');
-                  setTimeout(() => {
-                    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                }
-              }}
-              className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20"
-            >
-              Services
-            </a>
-            <a
-              href="#how-it-works"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsOpen(false);
-                const section = document.getElementById('how-it-works');
-                if (section) {
-                  section.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  navigate('/');
-                  setTimeout(() => {
-                    document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                }
-              }}
-              className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20"
-            >
-              How it Works
-            </a>
-            <Link
-              to="/login"
-              onClick={() => setIsOpen(false)}
-              className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20 flex items-center gap-2"
-            >
-              <LogIn className="w-5 h-5" /> Login
+            <Link to="/ngos" onClick={() => setIsOpen(false)} className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20 flex items-center gap-2">
+              <Search className="w-4 h-4" /> Find NGOs
             </Link>
-            <Link
-              to="/register"
-              onClick={() => setIsOpen(false)}
-              className="bg-primary hover:bg-forest-dark text-white text-center font-medium py-3 rounded-xl shadow-md transition-all duration-300"
-            >
-              Get Started
-            </Link>
+
+            {isAuthenticated && user ? (
+              <>
+                {(user.role === 'MIGRANT' || user.role === 'VOLUNTEER' || user.role === 'ADMIN') && (
+                  <Link to="/request-help" onClick={() => setIsOpen(false)} className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20 flex items-center gap-2">
+                    <PlusCircle className="w-4 h-4" /> Request Help
+                  </Link>
+                )}
+                {(user.role === 'MIGRANT' || user.role === 'VOLUNTEER') && (
+                  <Link to="/dashboard" onClick={() => setIsOpen(false)} className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20 flex items-center gap-2">
+                    <LayoutDashboard className="w-4 h-4" /> Dashboard
+                  </Link>
+                )}
+                {user.role === 'NGO' && (
+                  <Link to="/ngo-portal" onClick={() => setIsOpen(false)} className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20 flex items-center gap-2">
+                    <Building2 className="w-4 h-4" /> NGO Portal
+                  </Link>
+                )}
+                {user.role === 'ADMIN' && (
+                  <Link to="/admin" onClick={() => setIsOpen(false)} className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20 flex items-center gap-2">
+                    <Shield className="w-4 h-4" /> Admin Console
+                  </Link>
+                )}
+                <Link to="/profile" onClick={() => setIsOpen(false)} className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20 flex items-center gap-2">
+                  <User className="w-4 h-4" /> Profile
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-left font-medium text-rose-600 hover:text-rose-700 transition-colors py-2 flex items-center gap-2"
+                >
+                  <LogOut className="w-4 h-4" /> Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" onClick={() => setIsOpen(false)} className="font-medium text-forest-dark hover:text-primary transition-colors py-2 border-b border-forest-light/20 flex items-center gap-2">
+                  <LogIn className="w-5 h-5" /> Login
+                </Link>
+                <Link to="/register" onClick={() => setIsOpen(false)} className="bg-primary hover:bg-forest-dark text-white text-center font-medium py-3 rounded-xl shadow-md transition-all duration-300">
+                  Get Started
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

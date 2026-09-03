@@ -197,23 +197,25 @@ export const LandingPage: React.FC = () => {
             Find nearby NGOs and volunteers ready to support migrants with food, shelter, healthcare, jobs, and guidance.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <Link
+              to="/request-help"
+              className="bg-primary hover:bg-forest-dark text-white font-semibold text-center px-7 py-3.5 rounded-full shadow-lg shadow-primary/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 text-sm"
+            >
+              Request Help Now
+            </Link>
+            <Link
+              to="/ngos"
+              className="glass-panel text-forest-dark hover:bg-secondary/15 hover:text-primary font-semibold text-center px-7 py-3.5 rounded-full transition-all duration-300 text-sm border border-forest-light/40"
+            >
+              Find Nearby NGOs
+            </Link>
             <Link
               to="/register"
-              className="bg-primary hover:bg-forest-dark text-white font-semibold text-center px-8 py-4 rounded-full shadow-lg shadow-primary/20 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+              className="bg-white/80 hover:bg-white text-forest-dark hover:text-primary font-semibold text-center px-6 py-3.5 rounded-full transition-all duration-300 text-sm border border-forest-light/30"
             >
-              Get Started
+              Join as Helper
             </Link>
-            <a
-              href="#features"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="glass-panel text-forest-dark hover:bg-secondary/10 hover:text-primary font-semibold text-center px-8 py-4 rounded-full transition-all duration-300"
-            >
-              Explore Services
-            </a>
           </div>
         </motion.div>
 

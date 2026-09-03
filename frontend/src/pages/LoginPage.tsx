@@ -5,8 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Mail, Lock, LogIn, ShieldAlert } from 'lucide-react';
 import { motion } from 'framer-motion';
-import forestBg from '../assets/forest_background.png';
-import { authService } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -29,16 +28,24 @@ export const LoginPage: React.FC = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  const { login } = useAuth();
+
   const onSubmit = async (data: LoginFormValues) => {
     setIsSubmitting(true);
     setErrorMsg(null);
     try {
-      await authService.login({
-        email: data.email,
-        password: data.password,
-      });
+      await login(data.email, data.password);
       setIsSubmitting(false);
-      navigate('/');
+      // Get user from localStorage to determine redirect
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        const userData = JSON.parse(storedUser);
+        if (userData.role === 'ADMIN') navigate('/admin');
+        else if (userData.role === 'NGO') navigate('/ngo-portal');
+        else navigate('/dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (error: any) {
       setIsSubmitting(false);
       setErrorMsg(error.response?.data?.error || 'Invalid email or password.');
@@ -47,11 +54,10 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div
-      className="relative min-h-[calc(100vh-140px)] flex items-center justify-center bg-cover bg-center rounded-3xl overflow-hidden mx-4 my-2"
-      style={{ backgroundImage: `url(${forestBg})` }}
+      className="relative min-h-[calc(100vh-140px)] flex items-center justify-center rounded-3xl overflow-hidden mx-4 my-2 bg-gradient-to-br from-primary/5 via-bg-nature to-secondary/10"
     >
-      {/* Overlay to darken background and improve text readability */}
-      <div className="absolute inset-0 bg-forest-dark/30 backdrop-blur-[3px]" />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-forest-dark/5 to-primary/5" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}

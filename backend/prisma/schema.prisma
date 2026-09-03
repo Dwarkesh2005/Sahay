@@ -88,6 +88,7 @@ model ngos {
   phone_number        String?              @db.VarChar(15)
   email               String?              @db.VarChar(255)
   website             String?
+  pan                 String?              @db.VarChar(10)
   city_id             Int
   address             String
   latitude            Decimal?             @db.Decimal(10, 8)
@@ -98,6 +99,9 @@ model ngos {
   updated_at          DateTime?            @default(now()) @db.Timestamp(6)
   ngo_services        ngo_services[]
   ngo_verification    ngo_verification[]
+  ngo_doc_verification ngo_doc_verification?
+  ngo_verification_documents ngo_verification_documents[]
+  ngo_verification_audit_log ngo_verification_audit_log[]
   cities              cities               @relation(fields: [city_id], references: [city_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ngo_city")
   users               users                @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_ngo_user")
   reports             reports[]
@@ -149,6 +153,7 @@ model users {
   ngos              ngos?
   reports           reports[]
   request_responses request_responses[]
+  verification_audit_logs ngo_verification_audit_log[]
   cities            cities?             @relation(fields: [city_id], references: [city_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
@@ -203,3 +208,157 @@ enum verification_status {
   CONTACT_VERIFIED
   MANUALLY_VERIFIED
 }
+
+model ngo_doc_verification {
+  verification_id      Int                      @id @default(autoincrement())
+  ngo_id               Int                      @unique
+  status               doc_verification_status  @default(NOT_SUBMITTED)
+  screening_score      Decimal?                 @db.Decimal(5, 2)
+  total_matches        Int                      @default(0)
+  total_mismatches     Int                      @default(0)
+  total_not_found      Int                      @default(0)
+  ocr_confidence_avg   Decimal?                 @db.Decimal(5, 4)
+  admin_notes          String?
+  submitted_at         DateTime?                @db.Timestamp(6)
+  processed_at         DateTime?                @db.Timestamp(6)
+  reviewed_at          DateTime?                @db.Timestamp(6)
+  reviewed_by          Int?
+  created_at           DateTime?                @default(now()) @db.Timestamp(6)
+  updated_at           DateTime?                @default(now()) @db.Timestamp(6)
+
+  ngos                 ngos                     @relation(fields: [ngo_id], references: [ngo_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_doc_verif_ngo")
+  documents            ngo_verification_documents[]
+  fields               ngo_verification_fields[]
+  issues               ngo_verification_issues[]
+  audit_logs           ngo_verification_audit_log[]
+}
+
+model ngo_verification_documents {
+  document_id          Int                      @id @default(autoincrement())
+  verification_id      Int
+  ngo_id               Int
+  document_type        document_type
+  original_filename    String                   @db.VarChar(255)
+  stored_filename      String                   @db.VarChar(255)
+  file_path            String                   @db.VarChar(500)
+  file_size            Int
+  mime_type            String                   @db.VarChar(100)
+  file_hash            String                   @db.VarChar(64)
+  version              Int                      @default(1)
+  is_active            Boolean?                 @default(true)
+  status               document_status          @default(UPLOADED)
+  ocr_confidence       Decimal?                 @db.Decimal(5, 4)
+  ocr_raw_text         String?
+  quality_score        Decimal?                 @db.Decimal(5, 4)
+  quality_issues       String?
+  processing_error     String?
+  created_at           DateTime?                @default(now()) @db.Timestamp(6)
+  updated_at           DateTime?                @default(now()) @db.Timestamp(6)
+
+  verification         ngo_doc_verification    @relation(fields: [verification_id], references: [verification_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_doc_verif_id")
+  ngos                 ngos                     @relation(fields: [ngo_id], references: [ngo_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_doc_verif_doc_ngo")
+  fields               ngo_verification_fields[]
+  issues               ngo_verification_issues[]
+}
+
+model ngo_verification_fields {
+  field_id             Int                      @id @default(autoincrement())
+  verification_id      Int
+  document_id          Int?
+  field_name           String                   @db.VarChar(100)
+  submitted_value      String?
+  extracted_value      String?
+  normalized_submitted String?
+  normalized_extracted String?
+  match_result         match_result
+  confidence           Decimal?                 @db.Decimal(5, 4)
+  importance           field_importance         @default(MEDIUM)
+  source_page          Int?
+  extraction_notes     String?
+  created_at           DateTime?                @default(now()) @db.Timestamp(6)
+
+  verification         ngo_doc_verification    @relation(fields: [verification_id], references: [verification_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_field_verif_id")
+  document             ngo_verification_documents? @relation(fields: [document_id], references: [document_id], onDelete: SetNull, onUpdate: NoAction, map: "fk_field_doc_id")
+}
+
+model ngo_verification_issues {
+  issue_id             Int                      @id @default(autoincrement())
+  verification_id      Int
+  document_id          Int?
+  issue_type           String                   @db.VarChar(100)
+  severity             String                   @db.VarChar(50)
+  description          String
+  field_name           String?                  @db.VarChar(100)
+  created_at           DateTime?                @default(now()) @db.Timestamp(6)
+
+  verification         ngo_doc_verification    @relation(fields: [verification_id], references: [verification_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_issue_verif_id")
+  document             ngo_verification_documents? @relation(fields: [document_id], references: [document_id], onDelete: SetNull, onUpdate: NoAction, map: "fk_issue_doc_id")
+}
+
+model ngo_verification_audit_log {
+  log_id               Int                      @id @default(autoincrement())
+  verification_id      Int
+  ngo_id               Int
+  admin_id             Int?
+  action               String                   @db.VarChar(100)
+  previous_status      String?                  @db.VarChar(50)
+  new_status           String?                  @db.VarChar(50)
+  reason               String?
+  screening_score      Decimal?                 @db.Decimal(5, 2)
+  metadata             Json?
+  created_at           DateTime?                @default(now()) @db.Timestamp(6)
+
+  verification         ngo_doc_verification    @relation(fields: [verification_id], references: [verification_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_audit_verif_id")
+  ngos                 ngos                     @relation(fields: [ngo_id], references: [ngo_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_audit_ngo_id")
+  admin_user           users?                   @relation(fields: [admin_id], references: [user_id], onDelete: SetNull, onUpdate: NoAction, map: "fk_audit_admin_id")
+}
+
+enum doc_verification_status {
+  NOT_SUBMITTED
+  DOCUMENTS_REQUIRED
+  DOCUMENTS_UPLOADED
+  PROCESSING
+  PROCESSING_FAILED
+  AUTO_REVIEW_READY
+  NEEDS_ADMIN_REVIEW
+  NEEDS_CORRECTION
+  APPROVED
+  REJECTED
+}
+
+enum document_type {
+  REGISTRATION_CERTIFICATE
+  PAN_DOCUMENT
+  TRUST_REGISTRATION
+  SOCIETY_REGISTRATION
+  SECTION_8_CERTIFICATE
+  TWELVE_A_CERTIFICATE
+  EIGHTY_G_CERTIFICATE
+  ADDRESS_PROOF
+  AUTHORIZED_REPRESENTATIVE_PROOF
+  OTHER
+}
+
+enum document_status {
+  UPLOADED
+  VALIDATING
+  PROCESSING
+  PROCESSED
+  FAILED
+}
+
+enum match_result {
+  MATCH
+  PARTIAL_MATCH
+  MISMATCH
+  NOT_FOUND
+  NOT_APPLICABLE
+  LOW_CONFIDENCE
+}
+
+enum field_importance {
+  HIGH
+  MEDIUM
+  LOW
+}
+

@@ -1,6 +1,22 @@
-node_modules
-# Keep environment variables out of version control
-.env
+# Dependencies
+node_modules/
 
+# Build outputs
+dist/
+*.tsbuildinfo
+
+# Private uploaded documents (never commit sensitive documents)
+uploads/
+uploads/verification/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Prisma
 /generated/prisma
-node_modules
