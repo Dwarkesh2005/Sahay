@@ -8,7 +8,9 @@ export type VerificationStatus =
 
 export type RequestType = 'FOOD' | 'SHELTER' | 'MEDICAL' | 'EMPLOYMENT' | 'GUIDANCE';
 
-export type RequestStatus = 'PENDING' | 'ACCEPTED' | 'COMPLETED' | 'CANCELLED';
+export type RequestStatus = 'PENDING' | 'ACCEPTED' | 'COMPLETED' | 'CANCELLED' | 'EXPIRED';
+
+export type NgoRequestStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'CANCELLED' | 'EXPIRED';
 
 export type ResponseStatus = 'ACCEPTED' | 'REJECTED' | 'COMPLETED';
 
@@ -22,7 +24,16 @@ export type ServiceType =
   | 'EDUCATION'
   | 'LEGAL'
   | 'GUIDANCE'
-  | 'OTHER';
+  | 'OTHER'
+  | 'SKILL_DEVELOPMENT'
+  | 'FINANCIAL_ASSISTANCE'
+  | 'WOMEN_SUPPORT'
+  | 'CHILD_SUPPORT'
+  | 'ELDERLY_SUPPORT'
+  | 'DISABILITY_SUPPORT'
+  | 'MIGRANT_SUPPORT'
+  | 'DOCUMENTATION'
+  | 'EMERGENCY';
 
 export interface City {
   city_id: number;
@@ -201,6 +212,20 @@ export interface NGOService {
   service: ServiceType;
 }
 
+export interface NeedNGORequest {
+  id: number;
+  need_id: number;
+  ngo_id: number;
+  status: NgoRequestStatus;
+  sent_at: string;
+  responded_at?: string;
+  rejection_reason?: string;
+  last_reminder_at?: string;
+  reminder_count: number;
+  ngo?: NGO;
+  need?: HelpRequest;
+}
+
 export interface HelpRequest {
   request_id: number;
   user_id: number;
@@ -211,11 +236,43 @@ export interface HelpRequest {
   latitude?: number;
   longitude?: number;
   status: RequestStatus;
+  urgency?: string;
+  expires_at?: string;
+  completed_at?: string;
+  accepted_ngo_id?: number;
+  accepted_ngo?: NGO;
+  parent_request_id?: number;
+  parent_request?: {
+    request_id: number;
+    title: string;
+    renewal_number?: number;
+  };
+  renewal_number?: number;
+  last_reminder_at?: string;
+  reminder_count?: number;
   created_at: string;
   updated_at: string;
+  // Computed / UI helper fields
+  is_expired?: boolean;
+  can_remind?: boolean;
+  next_reminder_at?: string | null;
+  remaining_seconds?: number;
+  remaining_reminder_cooldown_seconds?: number;
+  stats?: {
+    contacted: number;
+    accepted: number;
+    rejected: number;
+    pending: number;
+    cancelled: number;
+    expired: number;
+  };
+  need_ngo_requests?: NeedNGORequest[];
   // Included relations for UI convenience
   user?: User;
+  users?: User;
   city?: City;
+  cities?: City;
+  chats?: Chat[];
   responses_count?: number;
 }
 

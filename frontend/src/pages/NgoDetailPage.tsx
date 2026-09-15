@@ -7,7 +7,12 @@ import { useAuth } from '../context/AuthContext';
 
 const SERVICE_LABELS: Record<string, string> = {
   FOOD: '🍲 Food', SHELTER: '🏠 Shelter', MEDICAL: '🏥 Medical', EMPLOYMENT: '💼 Employment',
-  EDUCATION: '📚 Education', LEGAL: '⚖️ Legal', GUIDANCE: '🧭 Guidance', OTHER: '📋 Other'
+  EDUCATION: '📚 Education', LEGAL: '⚖️ Legal', GUIDANCE: '🧭 Guidance', OTHER: '📋 Other',
+  SKILL_DEVELOPMENT: '🛠️ Skill Development', FINANCIAL_ASSISTANCE: '💰 Financial Assistance',
+  WOMEN_SUPPORT: '👩 Women Support', CHILD_SUPPORT: '👶 Child Support',
+  ELDERLY_SUPPORT: '👴 Elderly Support', DISABILITY_SUPPORT: '♿ Disability Support',
+  MIGRANT_SUPPORT: '🚶 Migrant Support', DOCUMENTATION: '📄 Documentation',
+  EMERGENCY: '🚨 Emergency'
 };
 
 const VERIFICATION_BADGE: Record<string, { label: string; color: string }> = {

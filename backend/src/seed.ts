@@ -16,7 +16,10 @@ async function seed() {
     { city_name: 'Bengaluru', district: 'Bengaluru', state: 'Karnataka' },
     { city_name: 'Kolkata', district: 'Kolkata', state: 'West Bengal' },
     { city_name: 'Jaipur', district: 'Jaipur', state: 'Rajasthan' },
-    { city_name: 'Hyderabad', district: 'Hyderabad', state: 'Telangana' }
+    { city_name: 'Hyderabad', district: 'Hyderabad', state: 'Telangana' },
+    // New cities for recommendation engine testing
+    { city_name: 'Ahmedabad', district: 'Ahmedabad', state: 'Gujarat' },
+    { city_name: 'Vadodara', district: 'Vadodara', state: 'Gujarat' }
   ];
 
   for (const city of citiesData) {
@@ -68,6 +71,8 @@ async function seed() {
       darpanId: 'UP/2024/001',
       description: 'Asha Foundation provides food, shelter, and medical assistance to migrant workers and underprivileged families in the Lucknow region. We operate community kitchens and emergency shelters.',
       address: '23 Hazratganj Road, Lucknow, UP 226001',
+      latitude: 26.8467,
+      longitude: 80.9462,
       services: [service_type.FOOD, service_type.SHELTER, service_type.MEDICAL],
       verified: verification_status.GOVERNMENT_VERIFIED
     },
@@ -81,6 +86,8 @@ async function seed() {
       darpanId: 'UP/2024/002',
       description: 'Hope Foundation focuses on employment training, skill development, and job placement for migrant communities. We also provide legal guidance for labor disputes.',
       address: '45 Gomti Nagar, Lucknow, UP 226010',
+      latitude: 26.8560,
+      longitude: 80.9920,
       services: [service_type.EMPLOYMENT, service_type.LEGAL, service_type.GUIDANCE],
       verified: verification_status.MANUALLY_VERIFIED
     },
@@ -94,6 +101,8 @@ async function seed() {
       darpanId: 'BR/2024/001',
       description: 'Sahara Health Trust runs free medical clinics, mental health counseling, and ambulance services for underserved migrant populations across Bihar.',
       address: '12 Gandhi Maidan, Patna, Bihar 800001',
+      latitude: 25.6120,
+      longitude: 85.1440,
       services: [service_type.MEDICAL, service_type.GUIDANCE],
       verified: verification_status.GOVERNMENT_VERIFIED
     },
@@ -107,6 +116,8 @@ async function seed() {
       darpanId: 'DL/2024/001',
       description: 'Navjeevan operates night shelters, dry ration distribution points, and emergency accommodation centers across Delhi NCR for homeless and migrant workers.',
       address: '78 Chandni Chowk, New Delhi 110006',
+      latitude: 28.6562,
+      longitude: 77.2310,
       services: [service_type.FOOD, service_type.SHELTER, service_type.EMPLOYMENT],
       verified: verification_status.GOVERNMENT_VERIFIED
     },
@@ -120,6 +131,8 @@ async function seed() {
       darpanId: 'MH/2024/001',
       description: 'Shakti Women Foundation provides education, legal aid, and shelter support for women and children in vulnerable situations. We operate safe houses and vocational training centers.',
       address: '34 Andheri East, Mumbai, MH 400069',
+      latitude: 19.1136,
+      longitude: 72.8697,
       services: [service_type.EDUCATION, service_type.LEGAL, service_type.SHELTER],
       verified: verification_status.CONTACT_VERIFIED
     },
@@ -133,6 +146,8 @@ async function seed() {
       darpanId: 'UP/2024/003',
       description: 'Kiran Education Trust provides free schooling, adult literacy programs, and digital skills training for migrant children and adults in Varanasi.',
       address: '56 Lanka, Varanasi, UP 221005',
+      latitude: 25.2677,
+      longitude: 82.9913,
       services: [service_type.EDUCATION, service_type.GUIDANCE],
       verified: verification_status.MANUALLY_VERIFIED
     },
@@ -146,6 +161,8 @@ async function seed() {
       darpanId: 'KA/2024/001',
       description: 'Disha focuses on providing employment opportunities, skills training, and daily wage work connections for inter-state migrant laborers in Bengaluru.',
       address: '22 Koramangala, Bengaluru, KA 560034',
+      latitude: 12.9352,
+      longitude: 77.6245,
       services: [service_type.EMPLOYMENT, service_type.FOOD, service_type.GUIDANCE],
       verified: verification_status.PENDING
     },
@@ -159,8 +176,71 @@ async function seed() {
       darpanId: 'WB/2024/001',
       description: 'Roti Bank collects surplus food from restaurants and hotels and distributes it to hungry and homeless people across Kolkata. We also run community kitchens.',
       address: '90 Park Street, Kolkata, WB 700016',
+      latitude: 22.5511,
+      longitude: 88.3517,
       services: [service_type.FOOD, service_type.OTHER],
       verified: verification_status.PENDING
+    },
+    // ─── New NGOs for recommendation engine testing ───
+    {
+      fullName: 'Saath Charitable Trust',
+      email: 'saath@sahay.org',
+      phone: '9100000009',
+      city: 'Ahmedabad',
+      ngoName: 'Saath Charitable Trust',
+      regNumber: 'REG-GJ-2024-001',
+      darpanId: 'GJ/2024/001',
+      description: 'Saath provides comprehensive healthcare services, migrant support, and financial assistance to underprivileged families in Ahmedabad. We run mobile medical camps and emergency medical aid programs.',
+      address: '12 CG Road, Navrangpura, Ahmedabad, Gujarat 380009',
+      latitude: 23.0350,
+      longitude: 72.5614,
+      services: [service_type.MEDICAL, service_type.MIGRANT_SUPPORT, service_type.FINANCIAL_ASSISTANCE],
+      verified: verification_status.GOVERNMENT_VERIFIED
+    },
+    {
+      fullName: 'Gujarat Vidya Sahayak Trust',
+      email: 'gvst@sahay.org',
+      phone: '9100000010',
+      city: 'Ahmedabad',
+      ngoName: 'Gujarat Vidya Sahayak Trust',
+      regNumber: 'REG-GJ-2024-002',
+      darpanId: 'GJ/2024/002',
+      description: 'Gujarat Vidya Sahayak Trust provides free education, skill development courses, and scholarship programs to children and adults from migrant and low-income families.',
+      address: '45 Satellite Road, Ahmedabad, Gujarat 380015',
+      latitude: 23.0190,
+      longitude: 72.5290,
+      services: [service_type.EDUCATION, service_type.SKILL_DEVELOPMENT],
+      verified: verification_status.MANUALLY_VERIFIED
+    },
+    {
+      fullName: 'Ahmedabad Care Foundation',
+      email: 'acare@sahay.org',
+      phone: '9100000011',
+      city: 'Ahmedabad',
+      ngoName: 'Ahmedabad Care Foundation',
+      regNumber: 'REG-GJ-2024-003',
+      darpanId: 'GJ/2024/003',
+      description: 'Ahmedabad Care Foundation offers medical treatment assistance, health checkup camps, and affordable medicine access to urban poor in Ahmedabad.',
+      address: '78 Maninagar, Ahmedabad, Gujarat 380008',
+      latitude: 23.0000,
+      longitude: 72.6000,
+      services: [service_type.MEDICAL, service_type.FOOD],
+      verified: verification_status.PENDING
+    },
+    {
+      fullName: 'Vadodara Livelihood Network',
+      email: 'vln@sahay.org',
+      phone: '9100000012',
+      city: 'Vadodara',
+      ngoName: 'Vadodara Livelihood Network',
+      regNumber: 'REG-GJ-2024-004',
+      darpanId: 'GJ/2024/004',
+      description: 'Vadodara Livelihood Network provides employment placement, vocational training, shelter, and documentation assistance for migrant workers relocating to Vadodara.',
+      address: '22 Alkapuri, Vadodara, Gujarat 390007',
+      latitude: 22.3072,
+      longitude: 73.1812,
+      services: [service_type.EMPLOYMENT, service_type.SHELTER, service_type.MIGRANT_SUPPORT, service_type.DOCUMENTATION],
+      verified: verification_status.CONTACT_VERIFIED
     }
   ];
 
@@ -195,6 +275,8 @@ async function seed() {
         email: ngoData.email,
         city_id: cityMap.get(ngoData.city)!,
         address: ngoData.address,
+        latitude: ngoData.latitude ?? null,
+        longitude: ngoData.longitude ?? null,
         description: ngoData.description,
         verification_status: ngoData.verified
       }
@@ -230,7 +312,10 @@ async function seed() {
     { name: 'Sunita Devi', email: 'sunita@example.com', phone: '9200000002', city: 'Patna' },
     { name: 'Amit Singh', email: 'amit@example.com', phone: '9200000003', city: 'New Delhi' },
     { name: 'Priya Sharma', email: 'priya@example.com', phone: '9200000004', city: 'Mumbai' },
-    { name: 'Ravi Yadav', email: 'ravi@example.com', phone: '9200000005', city: 'Varanasi' }
+    { name: 'Ravi Yadav', email: 'ravi@example.com', phone: '9200000005', city: 'Varanasi' },
+    // New test user for Ahmedabad recommendation testing
+    { name: 'Meera Patel', email: 'meera@example.com', phone: '9200000006', city: 'Ahmedabad' },
+    { name: 'Karan Joshi', email: 'karan@example.com', phone: '9200000007', city: 'Vadodara' }
   ];
 
   for (const migrant of migrantsData) {
@@ -322,6 +407,8 @@ async function seed() {
   console.log('  Admin:   admin@sahay.org / Admin@12345');
   console.log('  NGO:     asha@sahay.org / Ngo@12345');
   console.log('  Migrant: rajesh@example.com / User@12345');
+  console.log('  Migrant (Ahmedabad): meera@example.com / User@12345');
+  console.log('  Migrant (Vadodara): karan@example.com / User@12345');
 }
 
 seed()
@@ -332,3 +419,4 @@ seed()
   .finally(async () => {
     await prisma.$disconnect();
   });
+

@@ -121,6 +121,7 @@ export const requestService = {
     city_id: number;
     latitude?: number;
     longitude?: number;
+    urgency?: string;
   }) => {
     const response = await apiClient.post('/requests', data);
     return response.data;
@@ -149,8 +150,47 @@ export const requestService = {
     return response.data;
   },
 
+  getNgoIncomingRequests: async (params?: { status?: string }) => {
+    const response = await apiClient.get('/requests/ngo/incoming', { params });
+    return response.data;
+  },
+
+  acceptNgoIncomingRequest: async (id: number, response_message?: string) => {
+    const response = await apiClient.post(`/requests/ngo/incoming/${id}/accept`, {
+      response_message,
+    });
+    return response.data;
+  },
+
+  rejectNgoIncomingRequest: async (id: number, reason?: string) => {
+    const response = await apiClient.post(`/requests/ngo/incoming/${id}/reject`, {
+      reason,
+    });
+    return response.data;
+  },
+
   getRequestById: async (id: number) => {
     const response = await apiClient.get(`/requests/${id}`);
+    return response.data;
+  },
+
+  sendRequests: async (id: number, data: { mode: 'SINGLE' | 'ALL'; ngo_id?: number }) => {
+    const response = await apiClient.post(`/requests/${id}/send-requests`, data);
+    return response.data;
+  },
+
+  remindNgos: async (id: number) => {
+    const response = await apiClient.post(`/requests/${id}/remind`);
+    return response.data;
+  },
+
+  getReminderStatus: async (id: number) => {
+    const response = await apiClient.get(`/requests/${id}/reminder-status`);
+    return response.data;
+  },
+
+  renewRequest: async (id: number) => {
+    const response = await apiClient.post(`/requests/${id}/renew`);
     return response.data;
   },
 
@@ -163,6 +203,11 @@ export const requestService = {
 
   updateRequestStatus: async (id: number, status: string) => {
     const response = await apiClient.patch(`/requests/${id}/status`, { status });
+    return response.data;
+  },
+
+  getRecommendations: async (id: number) => {
+    const response = await apiClient.get(`/requests/${id}/recommendations`);
     return response.data;
   },
 };
