@@ -1,0 +1,7 @@
+Task,Model,Accuracy,Macro_F1,Weighted_F1
+Task 1 - Purpose,Dummy Baseline,0.4336,0.0864,0.2623
+Task 1 - Purpose,Logistic Regression,0.4496,0.3147,0.5026
+Task 1 - Purpose,Random Forest,0.5797,0.3832,0.6069
+Task 2 - Flow,Dummy Baseline,0.2983,0.1149,0.1371
+Task 2 - Flow,Logistic Regression,0.3185,0.3151,0.3129
+Task 2 - Flow,Random Forest,0.4448,0.4186,0.4232

@@ -1,0 +1,2321 @@
+Area_Name,Actual_Purpose,Predicted_Purpose,Correct
+Patan,Marriage,Marriage,True
+Patan,Moved after birth,Moved after birth,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Moved after birth,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Moved with household,True
+Patan,Others,Others,True
+Patan,Work/employment,Others,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Moved with household,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Moved with household,True
+Patan,Work/employment,Work/employment,True
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Education,False
+Patan,Moved with household,Others,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Others,False
+Patan,Work/employment,Work/employment,True
+Patan,Moved with household,Others,False
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Moved after birth,False
+Patan,Moved after birth,Moved after birth,True
+Patan,Moved with household,Education,False
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Others,False
+Patan,Moved with household,Moved after birth,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Business,False
+Patan,Moved with household,Business,False
+Patan,Moved with household,Moved with household,True
+Patan,Work/employment,Work/employment,True
+Patan,Moved with household,Moved with household,True
+Patan,Work/employment,Work/employment,True
+Patan,Others,Moved after birth,False
+Patan,Marriage,Moved after birth,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Marriage,True
+Patan,Others,Moved with household,False
+Patan,Others,Moved with household,False
+Patan,Others,Moved after birth,False
+Patan,Others,Business,False
+Patan,Others,Moved after birth,False
+Patan,Work/employment,Business,False
+Patan,Others,Moved with household,False
+Patan,Marriage,Marriage,True
+Patan,Moved after birth,Moved after birth,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Marriage,False
+Patan,Marriage,Education,False
+Patan,Moved after birth,Others,False
+Patan,Work/employment,Work/employment,True
+Patan,Others,Others,True
+Patan,Education,Marriage,False
+Patan,Education,Work/employment,False
+Patan,Moved with household,Marriage,False
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Moved with household,True
+Patan,Work/employment,Work/employment,True
+Patan,Work/employment,Work/employment,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Others,Others,True
+Patan,Work/employment,Work/employment,True
+Patan,Moved with household,Marriage,False
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Work/employment,False
+Patan,Work/employment,Marriage,False
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Marriage,False
+Patan,Marriage,Business,False
+Patan,Moved with household,Marriage,False
+Patan,Business,Education,False
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Marriage,False
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Education,False
+Patan,Marriage,Education,False
+Patan,Marriage,Education,False
+Patan,Work/employment,Others,False
+Patan,Work/employment,Education,False
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Marriage,True
+Patan,Work/employment,Work/employment,True
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Work/employment,False
+Patan,Marriage,Moved with household,False
+Patan,Work/employment,Business,False
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Education,False
+Patan,Work/employment,Business,False
+Patan,Work/employment,Moved after birth,False
+Patan,Work/employment,Work/employment,True
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Marriage,False
+Patan,Work/employment,Moved with household,False
+Patan,Moved after birth,Others,False
+Patan,Work/employment,Moved with household,False
+Patan,Marriage,Marriage,True
+Patan,Moved after birth,Moved after birth,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Marriage,False
+Patan,Moved with household,Marriage,False
+Patan,Moved after birth,Marriage,False
+Patan,Others,Others,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Marriage,False
+Patan,Work/employment,Moved with household,False
+Patan,Moved with household,Business,False
+Patan,Moved with household,Work/employment,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Marriage,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Work/employment,Others,False
+Patan,Work/employment,Work/employment,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Others,False
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Marriage,False
+Patan,Work/employment,Business,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Work/employment,Business,False
+Patan,Marriage,Others,False
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Marriage,True
+Patan,Others,Business,False
+Patan,Marriage,Marriage,True
+Patan,Moved after birth,Business,False
+Patan,Others,Moved with household,False
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Moved with household,True
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Moved with household,True
+Patan,Business,Business,True
+Patan,Moved with household,Moved with household,True
+Patan,Work/employment,Others,False
+Patan,Marriage,Moved with household,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Moved after birth,Marriage,False
+Patan,Business,Marriage,False
+Patan,Work/employment,Business,False
+Patan,Moved with household,Business,False
+Patan,Work/employment,Marriage,False
+Patan,Work/employment,Marriage,False
+Patan,Moved after birth,Marriage,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Others,Others,True
+Patan,Others,Others,True
+Patan,Work/employment,Others,False
+Patan,Work/employment,Business,False
+Patan,Business,Business,True
+Patan,Work/employment,Education,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Work/employment,Marriage,False
+Patan,Work/employment,Work/employment,True
+Patan,Work/employment,Work/employment,True
+Patan,Work/employment,Others,False
+Patan,Marriage,Marriage,True
+Patan,Business,Business,True
+Patan,Marriage,Business,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Work/employment,Business,False
+Patan,Marriage,Marriage,True
+Patan,Business,Business,True
+Patan,Work/employment,Business,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Work/employment,Business,False
+Patan,Marriage,Marriage,True
+Patan,Business,Business,True
+Patan,Marriage,Business,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Business,False
+Patan,Moved with household,Moved with household,True
+Patan,Work/employment,Business,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Moved with household,Moved with household,True
+Patan,Marriage,Moved with household,False
+Patan,Moved with household,Work/employment,False
+Patan,Moved with household,Moved with household,True
+Patan,Work/employment,Business,False
+Patan,Work/employment,Work/employment,True
+Patan,Work/employment,Moved with household,False
+Patan,Marriage,Marriage,True
+Patan,Business,Marriage,False
+Patan,Work/employment,Business,False
+Patan,Work/employment,Business,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Business,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Marriage,Moved with household,False
+Patan,Marriage,Marriage,True
+Patan,Marriage,Marriage,True
+Patan,Work/employment,Marriage,False
+Patan,Work/employment,Business,False
+Patan,Others,Business,False
+Patan,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved after birth,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved after birth,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Moved after birth,False
+Ahmadabad,Work/employment,Others,False
+Ahmadabad,Others,Business,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Others,Others,True
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Moved with household,Others,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Work/employment,Moved after birth,False
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Moved with household,Others,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Others,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Moved after birth,False
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Marriage,Education,False
+Ahmadabad,Moved after birth,Moved after birth,True
+Ahmadabad,Business,Others,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Moved after birth,Moved after birth,True
+Ahmadabad,Moved with household,Education,False
+Ahmadabad,Work/employment,Others,False
+Ahmadabad,Others,Moved with household,False
+Ahmadabad,Moved with household,Others,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved after birth,False
+Ahmadabad,Work/employment,Moved after birth,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Others,Others,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Work/employment,Others,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Others,Others,True
+Ahmadabad,Work/employment,Others,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Others,Business,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Education,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Marriage,False
+Ahmadabad,Business,Others,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Moved after birth,Business,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Education,Moved with household,False
+Ahmadabad,Education,Marriage,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Education,False
+Ahmadabad,Others,Moved with household,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Education,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Others,Others,True
+Ahmadabad,Others,Work/employment,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Others,Others,True
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved after birth,Moved with household,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Others,False
+Ahmadabad,Work/employment,Education,False
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Others,False
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Others,Others,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Marriage,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Others,Business,False
+Ahmadabad,Work/employment,Others,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Marriage,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Marriage,False
+Ahmadabad,Work/employment,Marriage,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Education,Marriage,False
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Others,Marriage,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved after birth,Moved after birth,True
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved after birth,False
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Others,Others,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved after birth,Marriage,False
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Work/employment,Others,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Marriage,False
+Ahmadabad,Others,Others,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Others,Others,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved after birth,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Work/employment,Others,False
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved after birth,Business,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Others,Work/employment,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Others,Moved with household,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Moved with household,Business,False
+Ahmadabad,Business,Business,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Others,Business,False
+Ahmadabad,Others,Business,False
+Ahmadabad,Moved with household,Others,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Others,Business,False
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Business,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Moved with household,Moved with household,True
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Work/employment,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Marriage,Marriage,True
+Ahmadabad,Moved with household,Marriage,False
+Ahmadabad,Others,Business,False
+Ahmadabad,Work/employment,Work/employment,True
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Work/employment,Moved with household,False
+Ahmadabad,Marriage,Moved with household,False
+Ahmadabad,Others,Marriage,False
+Ahmadabad,Work/employment,Business,False
+Jamnagar,Moved with household,Others,False
+Jamnagar,Moved after birth,Moved after birth,True
+Jamnagar,Moved with household,Education,False
+Jamnagar,Moved with household,Moved after birth,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Moved with household,Others,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Others,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Others,False
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Education,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Others,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Marriage,Moved with household,False
+Jamnagar,Work/employment,Others,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Others,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Business,False
+Jamnagar,Work/employment,Education,False
+Jamnagar,Work/employment,Others,False
+Jamnagar,Others,Moved after birth,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Moved with household,Others,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Education,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Others,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved after birth,Moved after birth,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Moved after birth,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Education,Others,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Others,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Business,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Education,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Work/employment,Education,False
+Jamnagar,Work/employment,Education,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Marriage,Others,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Business,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Marriage,Others,False
+Jamnagar,Moved with household,Education,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Business,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved after birth,Moved after birth,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Business,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Others,Others,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Business,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Work/employment,Marriage,False
+Jamnagar,Others,Business,False
+Jamnagar,Education,Business,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Others,False
+Jamnagar,Work/employment,Others,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Marriage,False
+Jamnagar,Work/employment,Others,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Business,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Work/employment,Others,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Moved with household,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Work/employment,Marriage,False
+Jamnagar,Moved after birth,Moved with household,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Others,Marriage,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Business,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Business,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Others,False
+Jamnagar,Moved with household,Others,False
+Jamnagar,Moved after birth,Moved after birth,True
+Jamnagar,Work/employment,Others,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved after birth,False
+Jamnagar,Moved after birth,Moved after birth,True
+Jamnagar,Work/employment,Business,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Business,Moved after birth,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Others,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Business,False
+Jamnagar,Moved with household,Others,False
+Jamnagar,Moved after birth,Others,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Others,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Work/employment,Others,False
+Jamnagar,Moved after birth,Business,False
+Jamnagar,Marriage,Business,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Business,Others,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Business,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Work/employment,Marriage,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Work/employment,Marriage,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Moved with household,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Business,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Moved with household,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Others,Business,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Business,False
+Jamnagar,Work/employment,Others,False
+Jamnagar,Work/employment,Business,False
+Jamnagar,Moved with household,Others,False
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Marriage,Moved with household,False
+Jamnagar,Moved with household,Work/employment,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Moved with household,Marriage,False
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Business,False
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Marriage,Marriage,True
+Jamnagar,Moved with household,Business,False
+Jamnagar,Marriage,Moved with household,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Work/employment,Moved with household,False
+Jamnagar,Work/employment,Work/employment,True
+Jamnagar,Moved with household,Moved with household,True
+Jamnagar,Others,Business,False
+Jamnagar,Moved with household,Business,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved after birth,Moved after birth,True
+Junagadh,Moved with household,Education,False
+Junagadh,Moved with household,Moved after birth,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Others,Others,True
+Junagadh,Moved with household,Business,False
+Junagadh,Others,Work/employment,False
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Moved with household,Others,False
+Junagadh,Education,Work/employment,False
+Junagadh,Others,Others,True
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Marriage,Moved after birth,False
+Junagadh,Moved with household,Business,False
+Junagadh,Others,Others,True
+Junagadh,Work/employment,Others,False
+Junagadh,Work/employment,Others,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Education,Education,True
+Junagadh,Moved with household,Business,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Marriage,Moved with household,False
+Junagadh,Moved after birth,Moved with household,False
+Junagadh,Education,Moved with household,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Marriage,Moved with household,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Moved with household,False
+Junagadh,Moved with household,Others,False
+Junagadh,Moved with household,Others,False
+Junagadh,Moved with household,Others,False
+Junagadh,Moved with household,Business,False
+Junagadh,Others,Others,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Others,Moved with household,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Moved after birth,False
+Junagadh,Others,Business,False
+Junagadh,Others,Moved after birth,False
+Junagadh,Moved with household,Business,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Others,False
+Junagadh,Work/employment,Others,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Others,Moved with household,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Moved after birth,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Marriage,Moved after birth,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Others,False
+Junagadh,Moved after birth,Business,False
+Junagadh,Marriage,Education,False
+Junagadh,Work/employment,Business,False
+Junagadh,Moved after birth,Business,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Others,Moved with household,False
+Junagadh,Moved after birth,Moved with household,False
+Junagadh,Others,Moved after birth,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Business,False
+Junagadh,Marriage,Moved with household,False
+Junagadh,Education,Business,False
+Junagadh,Others,Moved with household,False
+Junagadh,Others,Moved after birth,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved after birth,Moved after birth,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Moved after birth,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Work/employment,False
+Junagadh,Others,Others,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Others,Work/employment,False
+Junagadh,Work/employment,Others,False
+Junagadh,Education,Work/employment,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Others,Education,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Business,False
+Junagadh,Marriage,Moved with household,False
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Moved after birth,False
+Junagadh,Moved after birth,Education,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved after birth,Others,False
+Junagadh,Others,Work/employment,False
+Junagadh,Marriage,Others,False
+Junagadh,Marriage,Education,False
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Education,Marriage,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Others,False
+Junagadh,Moved after birth,Work/employment,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Education,Moved after birth,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Education,Moved after birth,False
+Junagadh,Moved with household,Business,False
+Junagadh,Marriage,Education,False
+Junagadh,Others,Others,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Marriage,Moved with household,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Moved with household,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Education,Education,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Business,Business,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved after birth,Moved after birth,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Business,False
+Junagadh,Work/employment,Business,False
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Others,False
+Junagadh,Moved with household,Business,False
+Junagadh,Others,Others,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved after birth,Marriage,False
+Junagadh,Work/employment,Business,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Business,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Others,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Moved with household,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Business,False
+Junagadh,Marriage,Business,False
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Business,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Business,False
+Junagadh,Others,Marriage,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved after birth,Others,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Business,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Moved with household,Business,False
+Junagadh,Others,Marriage,False
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Moved with household,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved after birth,Moved after birth,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved after birth,Others,False
+Junagadh,Others,Others,True
+Junagadh,Work/employment,Business,False
+Junagadh,Others,Others,True
+Junagadh,Moved with household,Business,False
+Junagadh,Moved with household,Business,False
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Others,Others,True
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Business,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Work/employment,Marriage,False
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Marriage,Others,False
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Work/employment,Others,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Business,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Marriage,False
+Junagadh,Work/employment,Others,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Moved after birth,Marriage,False
+Junagadh,Work/employment,Business,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Moved after birth,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Business,False
+Junagadh,Work/employment,Business,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Moved with household,False
+Junagadh,Moved with household,Business,False
+Junagadh,Moved with household,Business,False
+Junagadh,Others,Moved with household,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Business,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Marriage,Moved with household,False
+Junagadh,Moved with household,Work/employment,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Moved with household,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Business,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Moved with household,False
+Junagadh,Moved with household,Marriage,False
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Marriage,Marriage,True
+Junagadh,Moved with household,Marriage,False
+Junagadh,Work/employment,Work/employment,True
+Junagadh,Moved with household,Moved with household,True
+Junagadh,Work/employment,Moved with household,False
+Junagadh,Work/employment,Marriage,False
+Junagadh,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved after birth,Moved after birth,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Moved after birth,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Marriage,Others,False
+Kheda,Others,Others,True
+Kheda,Others,Others,True
+Kheda,Others,Moved after birth,False
+Kheda,Work/employment,Moved with household,False
+Kheda,Others,Marriage,False
+Kheda,Moved with household,Work/employment,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Moved with household,Education,False
+Kheda,Others,Others,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Marriage,Others,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Moved after birth,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Marriage,Marriage,True
+Kheda,Others,Moved with household,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Moved after birth,False
+Kheda,Others,Moved after birth,False
+Kheda,Work/employment,Others,False
+Kheda,Marriage,Education,False
+Kheda,Moved with household,Business,False
+Kheda,Moved with household,Education,False
+Kheda,Others,Moved with household,False
+Kheda,Marriage,Moved with household,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Others,False
+Kheda,Work/employment,Moved after birth,False
+Kheda,Others,Business,False
+Kheda,Work/employment,Business,False
+Kheda,Marriage,Moved after birth,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Education,Moved after birth,False
+Kheda,Marriage,Moved after birth,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Moved with household,Business,False
+Kheda,Moved with household,Business,False
+Kheda,Others,Moved after birth,False
+Kheda,Work/employment,Others,False
+Kheda,Business,Business,True
+Kheda,Work/employment,Moved after birth,False
+Kheda,Marriage,Moved with household,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Education,False
+Kheda,Others,Moved with household,False
+Kheda,Others,Marriage,False
+Kheda,Work/employment,Business,False
+Kheda,Moved with household,Work/employment,False
+Kheda,Others,Moved after birth,False
+Kheda,Business,Work/employment,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Business,False
+Kheda,Work/employment,Moved with household,False
+Kheda,Marriage,Marriage,True
+Kheda,Moved after birth,Moved after birth,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Business,False
+Kheda,Business,Business,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Moved with household,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Work/employment,Marriage,False
+Kheda,Moved with household,Business,False
+Kheda,Moved with household,Education,False
+Kheda,Moved with household,Business,False
+Kheda,Marriage,Moved with household,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Work/employment,Marriage,False
+Kheda,Others,Education,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Moved with household,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Work/employment,False
+Kheda,Moved with household,Education,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Work/employment,Business,False
+Kheda,Business,Business,True
+Kheda,Moved with household,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Moved after birth,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Moved with household,False
+Kheda,Others,Work/employment,False
+Kheda,Others,Moved with household,False
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Moved with household,False
+Kheda,Marriage,Moved with household,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Marriage,Education,False
+Kheda,Work/employment,Others,False
+Kheda,Marriage,Education,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Business,Work/employment,False
+Kheda,Work/employment,Business,False
+Kheda,Others,Moved with household,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Others,Moved with household,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Others,Moved after birth,False
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Moved after birth,Moved with household,False
+Kheda,Work/employment,Business,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved after birth,Moved after birth,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Others,False
+Kheda,Marriage,Business,False
+Kheda,Others,Marriage,False
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Others,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Marriage,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Marriage,Marriage,True
+Kheda,Business,Others,False
+Kheda,Moved with household,Work/employment,False
+Kheda,Moved with household,Business,False
+Kheda,Work/employment,Others,False
+Kheda,Moved with household,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Marriage,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Others,Others,True
+Kheda,Work/employment,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Others,False
+Kheda,Moved with household,Business,False
+Kheda,Marriage,Moved with household,False
+Kheda,Marriage,Moved with household,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Business,False
+Kheda,Moved with household,Business,False
+Kheda,Marriage,Business,False
+Kheda,Work/employment,Business,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Moved with household,Work/employment,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Marriage,Marriage,True
+Kheda,Education,Marriage,False
+Kheda,Moved with household,Work/employment,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Business,False
+Kheda,Moved with household,Business,False
+Kheda,Others,Business,False
+Kheda,Moved with household,Business,False
+Kheda,Others,Marriage,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Moved with household,False
+Kheda,Others,Marriage,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Work/employment,False
+Kheda,Others,Moved with household,False
+Kheda,Work/employment,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Moved after birth,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Others,Moved with household,False
+Kheda,Work/employment,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Moved after birth,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Business,False
+Kheda,Work/employment,Others,False
+Kheda,Work/employment,Others,False
+Kheda,Others,Marriage,False
+Kheda,Moved with household,Marriage,False
+Kheda,Others,Business,False
+Kheda,Moved with household,Others,False
+Kheda,Marriage,Education,False
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Work/employment,False
+Kheda,Marriage,Moved with household,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Moved with household,Others,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Marriage,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Others,False
+Kheda,Others,Moved with household,False
+Kheda,Marriage,Marriage,True
+Kheda,Moved after birth,Marriage,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Others,Others,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Marriage,Others,False
+Kheda,Moved with household,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Others,Marriage,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Moved with household,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Moved with household,False
+Kheda,Marriage,Marriage,True
+Kheda,Others,Marriage,False
+Kheda,Others,Business,False
+Kheda,Business,Business,True
+Kheda,Work/employment,Business,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Work/employment,Moved with household,False
+Kheda,Moved after birth,Business,False
+Kheda,Others,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Moved with household,False
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Work/employment,True
+Kheda,Marriage,Moved with household,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Marriage,Moved with household,False
+Kheda,Moved with household,Business,False
+Kheda,Work/employment,Business,False
+Kheda,Moved after birth,Others,False
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Business,False
+Kheda,Moved after birth,Business,False
+Kheda,Work/employment,Work/employment,True
+Kheda,Moved with household,Moved with household,True
+Kheda,Others,Business,False
+Kheda,Work/employment,Marriage,False
+Kheda,Moved with household,Marriage,False
+Kheda,Others,Moved with household,False
+Kheda,Marriage,Business,False
+Kheda,Marriage,Business,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Others,Marriage,False
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Moved with household,Work/employment,False
+Kheda,Moved with household,Moved with household,True
+Kheda,Marriage,Marriage,True
+Kheda,Marriage,Marriage,True
+Kheda,Work/employment,Marriage,False
+Kheda,Others,Marriage,False
+Kheda,Moved with household,Work/employment,False
+Kheda,Work/employment,Moved with household,False
+Kheda,Moved with household,Work/employment,False
+Kheda,Marriage,Moved with household,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved after birth,Moved after birth,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Moved after birth,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Others,Moved after birth,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Others,Others,True
+Vadodara,Work/employment,Others,False
+Vadodara,Business,Others,False
+Vadodara,Business,Business,True
+Vadodara,Others,Others,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved after birth,Others,False
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved after birth,Education,False
+Vadodara,Moved after birth,Others,False
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Others,Moved with household,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved after birth,False
+Vadodara,Marriage,Others,False
+Vadodara,Business,Others,False
+Vadodara,Work/employment,Others,False
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Business,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved after birth,Others,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Education,Others,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Education,Moved after birth,False
+Vadodara,Work/employment,Education,False
+Vadodara,Moved with household,Business,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved after birth,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Others,False
+Vadodara,Moved with household,Business,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved after birth,Moved after birth,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Business,False
+Vadodara,Others,Others,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Others,Others,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Others,Marriage,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Others,Work/employment,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Others,Marriage,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Education,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Others,Others,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Business,False
+Vadodara,Moved after birth,Education,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Others,False
+Vadodara,Moved with household,Business,False
+Vadodara,Work/employment,Marriage,False
+Vadodara,Education,Work/employment,False
+Vadodara,Moved with household,Marriage,False
+Vadodara,Work/employment,Education,False
+Vadodara,Education,Moved with household,False
+Vadodara,Others,Others,True
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Others,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Education,Education,True
+Vadodara,Moved with household,Education,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved after birth,Moved after birth,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Work/employment,Others,False
+Vadodara,Work/employment,Business,False
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Business,False
+Vadodara,Work/employment,Business,False
+Vadodara,Others,Others,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved after birth,Marriage,False
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Marriage,False
+Vadodara,Marriage,Others,False
+Vadodara,Others,Others,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Others,Others,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Work/employment,Others,False
+Vadodara,Work/employment,Others,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Moved after birth,False
+Vadodara,Moved after birth,Marriage,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Business,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Others,Others,True
+Vadodara,Work/employment,Moved after birth,False
+Vadodara,Work/employment,Business,False
+Vadodara,Work/employment,Others,False
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Business,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Business,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Others,Business,False
+Vadodara,Work/employment,Moved after birth,False
+Vadodara,Work/employment,Business,False
+Vadodara,Work/employment,Others,False
+Vadodara,Education,Others,False
+Vadodara,Moved with household,Business,False
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Business,False
+Vadodara,Moved with household,Others,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Moved after birth,False
+Vadodara,Marriage,Moved with household,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Business,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved after birth,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Marriage,False
+Vadodara,Work/employment,Moved after birth,False
+Vadodara,Moved with household,Marriage,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Moved after birth,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Business,False
+Vadodara,Others,Business,False
+Vadodara,Work/employment,Business,False
+Vadodara,Others,Others,True
+Vadodara,Others,Work/employment,False
+Vadodara,Others,Business,False
+Vadodara,Others,Others,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Business,False
+Vadodara,Marriage,Business,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Others,Work/employment,False
+Vadodara,Work/employment,Others,False
+Vadodara,Others,Others,True
+Vadodara,Others,Work/employment,False
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Work/employment,Marriage,False
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Others,Others,True
+Vadodara,Marriage,Business,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Moved after birth,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Others,Others,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Others,Marriage,False
+Vadodara,Others,Business,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Work/employment,Business,False
+Vadodara,Business,Business,True
+Vadodara,Moved with household,Business,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Moved with household,False
+Vadodara,Marriage,Moved with household,False
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Work/employment,Business,False
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Business,False
+Vadodara,Others,Business,False
+Vadodara,Moved with household,Marriage,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Work/employment,Marriage,False
+Vadodara,Work/employment,Business,False
+Vadodara,Work/employment,Business,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Work/employment,Business,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Marriage,Moved with household,False
+Vadodara,Marriage,Marriage,True
+Vadodara,Moved with household,Work/employment,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Marriage,False
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Work/employment,Moved with household,False
+Vadodara,Work/employment,Work/employment,True
+Vadodara,Moved with household,Moved with household,True
+Vadodara,Moved with household,Marriage,False
+Vadodara,Moved with household,Marriage,False
+Vadodara,Work/employment,Business,False
