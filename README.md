@@ -122,8 +122,14 @@ USER / MIGRANT
 - `GET /api/ngos/verification/report` — Detailed consistency report.
 - `GET /api/verification/document/download?token=...` — Secure, authenticated document preview with signed JWT token.
 
+### Notifications (`/api/notifications`)
+- `GET /api/notifications` — Fetch user's notifications (supports pagination and `unread=true` filter).
+- `GET /api/notifications/unread-count` — Quick count of unread notifications for badge display.
+- `PATCH /api/notifications/:id/read` — Mark an individual notification as read.
+- `PATCH /api/notifications/read-all` — Mark all user notifications as read.
+
 ### Cities (`/api/cities`)
-- `GET /api/cities` — Get list of supported cities.
+- `GET /api/cities` — Get list of supported cities across India.
 
 ---
 
@@ -239,9 +245,10 @@ python app.py
 cd backend
 npm install
 
-# Ensure database is in sync
+# Ensure database is in sync & seed demo data
 npx prisma generate
 npx prisma db push
+npm run seed
 
 # Run backend development server on port 5000
 npm run dev
@@ -260,18 +267,30 @@ npm run dev
 
 ## 🧪 Testing & Verification
 
-### Run Automated Unit & Workflow Tests
+### Run Complete Test Suite
+```bash
+cd backend
+npm test
+```
+
+### Or Run Individual Test Suites
 ```bash
 cd backend
 
 # 1. Verification System Test Suite (Normalization, Matching, State Machine, DB Workflow)
 npx ts-node src/__tests__/test_verification_system.ts
 
-# 2. End-to-End API & Security Test Suite (RBAC, Uploads, Screening, Signed URLs, Admin Decision)
-npx ts-node src/__tests__/test_e2e_verification_api.ts
+# 2. Recommendation Engine Test Suite (Keyword extraction, Haversine distance, Ranking)
+npx ts-node src/__tests__/test_recommendation.ts
 
-# 3. Existing Sahay Platform Regression Suite
+# 3. Need Request Management Test Suite (7-day validity, Multi-NGO routing, Atomic accept, Expiration)
+npx ts-node src/__tests__/test_need_management.ts
+
+# 4. End-to-End Workflow Regression Suite (Auth, Request, Response, Chat, Admin)
 npx ts-node src/__tests__/test_workflow.ts
+
+# 5. Live E2E API & Security Test Suite (RBAC, Uploads, Screening, Signed URLs, Admin Decision)
+npx ts-node src/__tests__/test_e2e_verification_api.ts
 ```
 
 ### Python OCR Service Tests
@@ -279,6 +298,31 @@ npx ts-node src/__tests__/test_workflow.ts
 cd ocr-service
 python -m unittest discover -s tests -p "test_*.py"
 ```
+
+---
+
+## 🌐 Multilingual Language Support (i18n)
+
+SAHAY provides production-ready, centralized internationalization (i18n) built with `i18next` and `react-i18next`:
+
+### Supported Languages
+1. **🇬🇧 English (`en`)**
+2. **🇮🇳 ગુજરાતી (`gu` - Gujarati)**
+3. **🇮🇳 हिंदी (`hi` - Hindi)**
+
+### Architecture & Key Features
+- **Centralized Translations**: Translations are strictly modularized under `src/i18n/locales/{en,gu,hi}/translation.json` with semantic namespaces (`common`, `navbar`, `footer`, `auth`, `landing`, `request`, `categories`, `urgency`, `ngo`, `verification`, `dashboard`, `admin`, `profile`, `roles`, `status`, `notifications`, `time`, `errors`).
+- **No Page Reload**: Instantaneous re-rendering across all visible components when language is changed.
+- **Language Switcher**: Accessible dropdown with native script labels and country indicators in the navigation bar (desktop and mobile drawer), equipped with click-outside auto-close and ARIA semantics.
+- **Persistent Preference**: Language selection is saved to `localStorage` under key `sahay_language` and synced to `document.documentElement.lang`.
+- **Detection Priority**:
+  1. Saved `sahay_language` in `localStorage`
+  2. User browser language (`gu-*` → `gu`, `hi-*` → `hi`, `en-*` → `en`)
+  3. Default fallback to English (`en`)
+- **Localized Dates & Times**: Locale-aware formatting via `Intl.DateTimeFormat` and `formatLocalizedTimeAgo`.
+- **Localized Form Validations**: Zod validation schemas output translation keys, allowing real-time localized error messaging without re-triggering form validation cycles.
+- **Proper Nouns Preserved**: User-generated names, addresses, and chat contents remain intact without distortion.
+
 
 ### Postman Collection
 Import the collection located at:
