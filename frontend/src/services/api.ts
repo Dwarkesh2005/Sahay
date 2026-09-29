@@ -385,5 +385,29 @@ export const verificationService = {
   },
 };
 
-export default apiClient;
+// ========================
+// Notification Service
+// ========================
+export const notificationService = {
+  getNotifications: async (params?: { page?: number; limit?: number; unread?: boolean }) => {
+    const response = await apiClient.get('/notifications', { params });
+    return response.data;
+  },
 
+  getUnreadCount: async () => {
+    const response = await apiClient.get('/notifications/unread-count');
+    return response.data;
+  },
+
+  markAsRead: async (id: number) => {
+    const response = await apiClient.patch(`/notifications/${id}/read`);
+    return response.data;
+  },
+
+  markAllAsRead: async () => {
+    const response = await apiClient.patch('/notifications/read-all');
+    return response.data;
+  },
+};
+
+export default apiClient;

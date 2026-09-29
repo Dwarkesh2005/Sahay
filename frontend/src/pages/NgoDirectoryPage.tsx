@@ -1,37 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Search, MapPin, Filter, ShieldCheck, ChevronDown, Briefcase, Heart, Building2, AlertCircle, Loader2 } from 'lucide-react';
+import { Search, MapPin, Filter, ShieldCheck, ChevronDown, Building2, AlertCircle, Loader2 } from 'lucide-react';
 import { ngoService, citiesService } from '../services/api';
 
-const SERVICE_LABELS: Record<string, string> = {
-  FOOD: '🍲 Food',
-  SHELTER: '🏠 Shelter',
-  MEDICAL: '🏥 Medical',
-  EMPLOYMENT: '💼 Employment',
-  EDUCATION: '📚 Education',
-  LEGAL: '⚖️ Legal',
-  GUIDANCE: '🧭 Guidance',
-  OTHER: '📋 Other',
-  SKILL_DEVELOPMENT: '🛠️ Skill Development',
-  FINANCIAL_ASSISTANCE: '💰 Financial Assistance',
-  WOMEN_SUPPORT: '👩 Women Support',
-  CHILD_SUPPORT: '👶 Child Support',
-  ELDERLY_SUPPORT: '👴 Elderly Support',
-  DISABILITY_SUPPORT: '♿ Disability Support',
-  MIGRANT_SUPPORT: '🚶 Migrant Support',
-  DOCUMENTATION: '📄 Documentation',
-  EMERGENCY: '🚨 Emergency'
-};
-
-const VERIFICATION_BADGE: Record<string, { label: string; color: string }> = {
-  GOVERNMENT_VERIFIED: { label: 'Govt Verified', color: 'bg-emerald-100 text-emerald-800' },
-  CONTACT_VERIFIED: { label: 'Contact Verified', color: 'bg-blue-100 text-blue-800' },
-  MANUALLY_VERIFIED: { label: 'Verified', color: 'bg-teal-100 text-teal-800' },
-  PENDING: { label: 'Pending Review', color: 'bg-amber-100 text-amber-800' }
-};
+const SERVICE_KEYS = [
+  'FOOD', 'SHELTER', 'MEDICAL', 'EMPLOYMENT', 'EDUCATION', 'LEGAL',
+  'GUIDANCE', 'OTHER', 'SKILL_DEVELOPMENT', 'FINANCIAL_ASSISTANCE',
+  'WOMEN_SUPPORT', 'CHILD_SUPPORT', 'ELDERLY_SUPPORT', 'DISABILITY_SUPPORT',
+  'MIGRANT_SUPPORT', 'DOCUMENTATION', 'EMERGENCY'
+];
 
 export const NgoDirectoryPage: React.FC = () => {
+  const { t } = useTranslation();
   const [ngos, setNgos] = useState<any[]>([]);
   const [cities, setCities] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -54,7 +36,7 @@ export const NgoDirectoryPage: React.FC = () => {
       const data = await ngoService.getNgos(params);
       setNgos(data.ngos || []);
     } catch (err: any) {
-      setError('Failed to load NGOs. Please try again.');
+      setError(t('errors.failedToLoad', 'Failed to load NGOs. Please try again.'));
       console.error(err);
     } finally {
       setLoading(false);
@@ -80,10 +62,13 @@ export const NgoDirectoryPage: React.FC = () => {
       {/* Header */}
       <div className="text-center space-y-4 pt-4">
         <h1 className="font-display font-extrabold text-4xl md:text-5xl text-forest-dark">
-          Find <span className="text-primary">Trusted NGOs</span>
+          {t('ngo.findNgoTitle', 'Directory of Verified NGOs')}
         </h1>
         <p className="text-emerald-950/70 text-lg max-w-2xl mx-auto">
-          Discover verified organizations near you providing food, shelter, medical, employment, and other vital services.
+          {t(
+            'ngo.findNgoSubtitle',
+            'Discover verified organizations near you providing food, shelter, medical, employment, and other vital services.'
+          )}
         </p>
       </div>
 
@@ -96,21 +81,21 @@ export const NgoDirectoryPage: React.FC = () => {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search NGOs by name, description, or location..."
-              className="w-full pl-11 pr-4 py-3 bg-white/70 rounded-xl border border-forest-light/40 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+              placeholder={t('ngo.searchPlaceholder', 'Search NGOs by name, description, or location...')}
+              className="w-full pl-11 pr-4 py-3 bg-white/70 rounded-xl border border-forest-light/40 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm"
               aria-label="Search NGOs"
             />
           </div>
           <button
             type="submit"
-            className="bg-primary hover:bg-forest-dark text-white font-medium px-6 py-3 rounded-xl shadow-sm transition-all duration-300"
+            className="bg-primary hover:bg-forest-dark text-white font-medium px-6 py-3 rounded-xl shadow-sm transition-all duration-300 text-sm cursor-pointer"
           >
-            Search
+            {t('common.search', 'Search')}
           </button>
           <button
             type="button"
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-4 py-3 rounded-xl border border-forest-light/40 hover:bg-white/60 transition-all text-forest-dark font-medium"
+            className="flex items-center gap-2 px-4 py-3 rounded-xl border border-forest-light/40 hover:bg-white/60 transition-all text-forest-dark font-medium text-sm cursor-pointer"
             aria-label="Toggle filters"
           >
             <Filter className="w-4 h-4" />
@@ -125,35 +110,43 @@ export const NgoDirectoryPage: React.FC = () => {
             className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2"
           >
             <div>
-              <label className="text-xs font-semibold text-forest-dark/70 block mb-1">Service Category</label>
+              <label className="text-xs font-semibold text-forest-dark/70 block mb-1">
+                {t('ngo.filterByService', 'Service Category')}
+              </label>
               <select
                 value={serviceFilter}
                 onChange={(e) => setServiceFilter(e.target.value)}
                 className="w-full py-2.5 px-3 rounded-xl border border-forest-light/40 bg-white/70 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm"
                 aria-label="Filter by service"
               >
-                <option value="">All Categories</option>
-                {Object.entries(SERVICE_LABELS).map(([key, label]) => (
-                  <option key={key} value={key}>{label}</option>
+                <option value="">{t('ngo.allServices', 'All Categories')}</option>
+                {SERVICE_KEYS.map((key) => (
+                  <option key={key} value={key}>
+                    {t(`categories.${key}`, key)}
+                  </option>
                 ))}
               </select>
             </div>
             <div>
-              <label className="text-xs font-semibold text-forest-dark/70 block mb-1">City</label>
+              <label className="text-xs font-semibold text-forest-dark/70 block mb-1">
+                {t('ngo.filterByCity', 'City')}
+              </label>
               <select
                 value={cityFilter}
                 onChange={(e) => setCityFilter(e.target.value)}
                 className="w-full py-2.5 px-3 rounded-xl border border-forest-light/40 bg-white/70 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm"
                 aria-label="Filter by city"
               >
-                <option value="">All Cities</option>
+                <option value="">{t('ngo.allCities', 'All Cities')}</option>
                 {cities.map((city: any) => (
-                  <option key={city.city_id} value={city.city_id}>{city.city_name}, {city.state}</option>
+                  <option key={city.city_id} value={city.city_id}>
+                    {city.city_name}
+                  </option>
                 ))}
               </select>
             </div>
             <div className="flex items-end">
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="flex items-center gap-2 cursor-pointer pb-2">
                 <input
                   type="checkbox"
                   checked={verifiedOnly}
@@ -161,7 +154,7 @@ export const NgoDirectoryPage: React.FC = () => {
                   className="accent-primary w-4 h-4"
                 />
                 <span className="text-sm font-medium text-forest-dark/80 flex items-center gap-1">
-                  <ShieldCheck className="w-4 h-4 text-primary" /> Verified Only
+                  <ShieldCheck className="w-4 h-4 text-primary" /> {t('ngo.verifiedOnly', 'Verified NGOs Only')}
                 </span>
               </label>
             </div>
@@ -173,80 +166,103 @@ export const NgoDirectoryPage: React.FC = () => {
       {loading ? (
         <div className="text-center py-16">
           <Loader2 className="w-8 h-8 text-primary animate-spin mx-auto" />
-          <p className="text-emerald-950/60 mt-3">Loading NGOs...</p>
+          <p className="text-emerald-950/60 mt-3">{t('common.loading', 'Loading NGOs...')}</p>
         </div>
       ) : error ? (
         <div className="text-center py-16 space-y-3">
           <AlertCircle className="w-10 h-10 text-rose-400 mx-auto" />
           <p className="text-rose-600 font-medium">{error}</p>
-          <button onClick={fetchNgos} className="text-primary hover:underline font-medium text-sm">Try Again</button>
+          <button
+            onClick={fetchNgos}
+            className="text-primary hover:underline text-sm font-semibold"
+          >
+            {t('common.retry', 'Retry')}
+          </button>
         </div>
       ) : ngos.length === 0 ? (
         <div className="text-center py-16 space-y-3">
-          <Building2 className="w-12 h-12 text-forest-dark/20 mx-auto" />
-          <h3 className="font-display font-semibold text-xl text-forest-dark/60">No NGOs Found</h3>
-          <p className="text-emerald-950/50 text-sm">Try adjusting your search or filters.</p>
+          <Building2 className="w-12 h-12 text-forest-dark/30 mx-auto" />
+          <h3 className="font-display font-semibold text-lg text-forest-dark">
+            {t('ngo.noFeedRequests', 'No NGOs found matching your criteria.')}
+          </h3>
+          <p className="text-emerald-950/60 text-sm">
+            Try adjusting your search terms or filters.
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {ngos.map((ngo: any) => {
-            const vBadge = VERIFICATION_BADGE[ngo.verification_status] || VERIFICATION_BADGE.PENDING;
+          {ngos.map((ngo) => {
+            const isVerified = ngo.verification_status && ngo.verification_status !== 'PENDING';
             return (
               <motion.div
                 key={ngo.ngo_id}
                 whileHover={{ y: -4 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                transition={{ duration: 0.2 }}
+                className="bg-white rounded-2xl p-6 border border-forest-light/20 shadow-sm hover:shadow-md transition-all flex flex-col justify-between text-left"
               >
-                <Link
-                  to={`/ngos/${ngo.ngo_id}`}
-                  className="block bg-white rounded-2xl p-6 border border-forest-light/20 shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300 h-full"
-                >
-                  <div className="space-y-4">
-                    {/* Header */}
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-display font-bold text-lg text-forest-dark truncate">{ngo.ngo_name}</h3>
-                        <div className="flex items-center gap-1.5 mt-1 text-emerald-950/60 text-xs">
-                          <MapPin className="w-3.5 h-3.5 shrink-0" />
-                          <span className="truncate">
-                            {ngo.cities?.city_name || 'Unknown'}, {ngo.cities?.state || ''}
-                          </span>
-                        </div>
-                      </div>
-                      <span className={`text-[10px] px-2.5 py-1 rounded-full font-semibold whitespace-nowrap ${vBadge.color}`}>
-                        {vBadge.label}
-                      </span>
+                <div className="space-y-4">
+                  {/* Top info */}
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="font-display font-bold text-lg text-forest-dark line-clamp-1">
+                        {ngo.ngo_name}
+                      </h3>
+                      {ngo.city && (
+                        <p className="text-xs text-forest-dark/60 flex items-center gap-1 mt-0.5">
+                          <MapPin className="w-3.5 h-3.5 text-primary shrink-0" />
+                          <span>{ngo.city.city_name}, {ngo.city.state}</span>
+                        </p>
+                      )}
                     </div>
+                    {isVerified ? (
+                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full border shrink-0 bg-emerald-100 text-emerald-800 border-emerald-200 flex items-center gap-1">
+                        <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                        {t('ngo.verifiedBadge', 'Govt Verified')}
+                      </span>
+                    ) : (
+                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full border shrink-0 bg-amber-100 text-amber-800 border-amber-200">
+                        {t('ngo.unverified', 'Pending Review')}
+                      </span>
+                    )}
+                  </div>
 
-                    {/* Description */}
-                    <p className="text-sm text-emerald-950/70 line-clamp-2 leading-relaxed">
-                      {ngo.description || 'No description available.'}
-                    </p>
+                  {/* Description */}
+                  <p className="text-xs text-emerald-950/75 leading-relaxed line-clamp-3">
+                    {ngo.description || t('common.notSpecified', 'Dedicated community organization serving vulnerable populations.')}
+                  </p>
 
-                    {/* Services */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {ngo.ngo_services?.map((s: any) => (
-                        <span key={s.service_id} className="text-[11px] px-2 py-0.5 rounded-full bg-bg-nature border border-forest-light/20 text-forest-dark/80 font-medium">
-                          {SERVICE_LABELS[s.service] || s.service}
+                  {/* Service tags */}
+                  {ngo.services && ngo.services.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {ngo.services.slice(0, 4).map((s: string) => (
+                        <span
+                          key={s}
+                          className="text-[11px] px-2.5 py-1 rounded-full bg-secondary/15 text-forest-dark font-medium"
+                        >
+                          {t(`categories.${s}`, s)}
                         </span>
                       ))}
+                      {ngo.services.length > 4 && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-forest-light/20 text-forest-dark/60 font-medium">
+                          +{ngo.services.length - 4}
+                        </span>
+                      )}
                     </div>
+                  )}
+                </div>
 
-                    {/* Contact */}
-                    <div className="flex items-center gap-4 text-xs text-emerald-950/50 pt-1 border-t border-forest-light/10">
-                      {ngo.contact_person && (
-                        <span className="flex items-center gap-1">
-                          <Heart className="w-3 h-3" /> {ngo.contact_person}
-                        </span>
-                      )}
-                      {ngo.phone_number && (
-                        <span className="flex items-center gap-1">
-                          <Briefcase className="w-3 h-3" /> {ngo.phone_number}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </Link>
+                {/* Card footer */}
+                <div className="pt-5 mt-5 border-t border-forest-light/15 flex items-center justify-between">
+                  <span className="text-xs text-forest-dark/50">
+                    {ngo.contact_person ? `${t('ngo.contactPerson', 'Contact')}: ${ngo.contact_person}` : ''}
+                  </span>
+                  <Link
+                    to={`/ngos/${ngo.ngo_id}`}
+                    className="text-xs font-semibold text-primary hover:text-forest-dark transition-colors flex items-center gap-1"
+                  >
+                    {t('ngo.viewProfile', 'View Profile')} →
+                  </Link>
+                </div>
               </motion.div>
             );
           })}

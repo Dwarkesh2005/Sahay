@@ -53,7 +53,7 @@ const register = async (req, res) => {
                 data: {
                     city_name: city,
                     district: city,
-                    state: 'Uttar Pradesh'
+                    state: 'Gujarat'
                 }
             });
         }

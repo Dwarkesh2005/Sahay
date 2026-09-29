@@ -58,6 +58,12 @@ model help_requests {
   renewed_requests  help_requests[]     @relation("RequestRenewals")
   request_responses request_responses[]
   need_ngo_requests need_ngo_requests[]
+
+  @@index([user_id])
+  @@index([status])
+  @@index([city_id])
+  @@index([expires_at])
+  @@index([status, expires_at])
 }
 
 model messages {
@@ -167,8 +173,11 @@ model users {
   ngos              ngos?
   reports           reports[]
   request_responses request_responses[]
+  notifications     notifications[]
   verification_audit_logs ngo_verification_audit_log[]
   cities            cities?             @relation(fields: [city_id], references: [city_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([role])
 }
 
 enum report_status {
@@ -409,5 +418,23 @@ model need_ngo_requests {
   ngo               ngos               @relation(fields: [ngo_id], references: [ngo_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_need_ngo_req_ngo")
 
   @@unique([need_id, ngo_id], map: "unique_need_ngo_request")
+  @@index([ngo_id, status])
+  @@index([need_id])
 }
 
+model notifications {
+  notification_id   Int       @id @default(autoincrement())
+  user_id           Int
+  title             String    @db.VarChar(200)
+  message           String
+  type              String    @db.VarChar(50)
+  reference_id      Int?
+  reference_type    String?   @db.VarChar(50)
+  is_read           Boolean   @default(false)
+  created_at        DateTime? @default(now()) @db.Timestamp(6)
+
+  users             users     @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_notification_user")
+
+  @@index([user_id, is_read])
+  @@index([user_id, created_at(sort: Desc)])
+}

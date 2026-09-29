@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   FileText,
   Upload,
@@ -39,6 +40,7 @@ const DOCUMENT_TYPE_LABELS: Record<DocumentType, string> = {
 };
 
 export const NgoVerificationPage: React.FC = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState<{ ngo: NGO; verification: NGODocVerification } | null>(null);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -243,10 +245,10 @@ export const NgoVerificationPage: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="font-display font-extrabold text-2xl md:text-3xl text-forest-dark">
-              NGO Document Verification
+              {t('verification.verificationPortal', 'NGO Document Verification')}
             </h1>
             <p className="text-emerald-950/70 text-sm mt-1">
-              Upload organization registration and tax certificates for automated screening and administrator review.
+              {t('verification.uploadDesc', 'Upload organization registration and tax certificates for automated screening and administrator review.')}
             </p>
           </div>
           <div>{getStatusBadge(verif?.status)}</div>
@@ -257,9 +259,9 @@ export const NgoVerificationPage: React.FC = () => {
           <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-sm text-emerald-900 flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold">Verified Organization</p>
+              <p className="font-bold">{t('status.VERIFIED', 'Verified Organization')}</p>
               <p className="text-xs text-emerald-800 mt-0.5">
-                Your submitted documents were reviewed and approved by an authorized administrator. Your profile now features the Verified NGO badge.
+                {t('verification.approvedNote', 'Your submitted documents were reviewed and approved by an authorized administrator. Your profile now features the Verified NGO badge.')}
               </p>
             </div>
           </div>
@@ -268,13 +270,13 @@ export const NgoVerificationPage: React.FC = () => {
         {verif?.status === 'NEEDS_CORRECTION' && (
           <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4 text-sm text-rose-900 space-y-2">
             <div className="flex items-center gap-2 font-bold text-rose-800">
-              <AlertTriangle className="w-5 h-5 text-rose-600" /> Action Required: Admin Feedback
+              <AlertTriangle className="w-5 h-5 text-rose-600" /> {t('verification.statusNeedsCorrection', 'Correction Requested')}
             </div>
             <p className="text-xs bg-white/70 p-3 rounded-xl border border-rose-100 font-mono text-rose-900">
-              {verif.admin_notes || 'Please correct mismatched details or upload clearer documents.'}
+              {verif.admin_notes || t('verification.correctionRequestedNote', 'Please correct mismatched details or upload clearer documents.')}
             </p>
             <p className="text-xs text-rose-700">
-              Review the mismatch details below, update your information or upload a corrected document, and re-submit.
+              {t('verification.correctionRequestedNote', 'Review the mismatch details below, update your information or upload a corrected document, and re-submit.')}
             </p>
           </div>
         )}
@@ -283,9 +285,9 @@ export const NgoVerificationPage: React.FC = () => {
           <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-sm text-blue-900 flex items-start gap-3">
             <Clock className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold">Document Information Under Review</p>
+              <p className="font-bold">{t('verification.statusNeedsAdminReview', 'Document Information Under Review')}</p>
               <p className="text-xs text-blue-800 mt-0.5">
-                Automated document consistency screening completed. An administrator is reviewing the evidence before granting final verification.
+                {t('verification.adminReviewNote', 'Automated document consistency screening completed. An administrator is reviewing the evidence before granting final verification.')}
               </p>
             </div>
           </div>
@@ -300,7 +302,7 @@ export const NgoVerificationPage: React.FC = () => {
               1
             </div>
             <div>
-              <h2 className="font-display font-bold text-lg text-forest-dark">Organization Profile Data</h2>
+              <h2 className="font-display font-bold text-lg text-forest-dark">{t('ngo.organizationDetails', 'Organization Profile Data')}</h2>
               <p className="text-xs text-emerald-950/60">This information will be compared against uploaded documents.</p>
             </div>
           </div>
@@ -311,15 +313,15 @@ export const NgoVerificationPage: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm pt-2">
           <div className="bg-bg-nature p-3.5 rounded-2xl border border-forest-light/20">
-            <p className="text-xs text-emerald-950/50 font-medium">Organization Name</p>
+            <p className="text-xs text-emerald-950/50 font-medium">{t('ngo.ngoName', 'Organization Name')}</p>
             <p className="font-semibold text-forest-dark mt-0.5">{ngo?.ngo_name || 'Not provided'}</p>
           </div>
           <div className="bg-bg-nature p-3.5 rounded-2xl border border-forest-light/20">
-            <p className="text-xs text-emerald-950/50 font-medium">Registration Number</p>
+            <p className="text-xs text-emerald-950/50 font-medium">{t('ngo.regNo', 'Registration Number')}</p>
             <p className="font-semibold text-forest-dark mt-0.5">{ngo?.registration_number || 'Not provided'}</p>
           </div>
           <div className="bg-bg-nature p-3.5 rounded-2xl border border-forest-light/20">
-            <p className="text-xs text-emerald-950/50 font-medium">Permanent Account Number (PAN)</p>
+            <p className="text-xs text-emerald-950/50 font-medium">{t('ngo.pan', 'PAN')}</p>
             {ngo?.pan ? (
               <p className="font-semibold text-forest-dark mt-0.5">{ngo.pan}</p>
             ) : (
@@ -337,19 +339,19 @@ export const NgoVerificationPage: React.FC = () => {
                   disabled={savingPan}
                   className="px-2 py-1 bg-primary text-white rounded-lg text-xs font-semibold hover:bg-forest-dark transition-all"
                 >
-                  {savingPan ? '...' : 'Save'}
+                  {savingPan ? '...' : t('common.save', 'Save')}
                 </button>
               </div>
             )}
           </div>
           <div className="bg-bg-nature p-3.5 rounded-2xl border border-forest-light/20 md:col-span-2">
-            <p className="text-xs text-emerald-950/50 font-medium">Registered Address</p>
+            <p className="text-xs text-emerald-950/50 font-medium">{t('ngo.address', 'Registered Address')}</p>
             <p className="font-semibold text-forest-dark mt-0.5">
               {ngo?.address}, {ngo?.cities?.city_name || ''}
             </p>
           </div>
           <div className="bg-bg-nature p-3.5 rounded-2xl border border-forest-light/20">
-            <p className="text-xs text-emerald-950/50 font-medium">Contact Person & Phone</p>
+            <p className="text-xs text-emerald-950/50 font-medium">{t('ngo.contactPerson', 'Contact Person & Phone')}</p>
             <p className="font-semibold text-forest-dark mt-0.5">
               {ngo?.contact_person} ({ngo?.phone_number || 'N/A'})
             </p>
@@ -364,9 +366,9 @@ export const NgoVerificationPage: React.FC = () => {
             2
           </div>
           <div>
-            <h2 className="font-display font-bold text-lg text-forest-dark">Upload Official Verification Documents</h2>
+            <h2 className="font-display font-bold text-lg text-forest-dark">{t('verification.uploadTitle', 'Upload Official Verification Documents')}</h2>
             <p className="text-xs text-emerald-950/60">
-              Documents are stored securely in private storage and analyzed locally. Supported: PDF, JPG, PNG (Max 10MB).
+              {t('verification.uploadDesc', 'Documents are stored securely in private storage and analyzed locally. Supported: PDF, JPG, PNG (Max 10MB).')}
             </p>
           </div>
         </div>
@@ -374,7 +376,7 @@ export const NgoVerificationPage: React.FC = () => {
         {/* Upload Form */}
         <form onSubmit={handleUpload} className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end bg-bg-nature p-4 md:p-6 rounded-2xl border border-forest-light/30">
           <div className="md:col-span-4 space-y-1.5">
-            <label className="text-xs font-bold text-forest-dark block">Document Type</label>
+            <label className="text-xs font-bold text-forest-dark block">{t('verification.documentType', 'Document Type')}</label>
             <select
               value={selectedDocType}
               onChange={(e) => setSelectedDocType(e.target.value as DocumentType)}
@@ -382,14 +384,14 @@ export const NgoVerificationPage: React.FC = () => {
             >
               {Object.entries(DOCUMENT_TYPE_LABELS).map(([val, label]) => (
                 <option key={val} value={val}>
-                  {label}
+                  {t('verification.' + val, label)}
                 </option>
               ))}
             </select>
           </div>
 
           <div className="md:col-span-5 space-y-1.5">
-            <label className="text-xs font-bold text-forest-dark block">Select File (PDF, PNG, JPG)</label>
+            <label className="text-xs font-bold text-forest-dark block">{t('verification.chooseFile', 'Select File (PDF, PNG, JPG)')}</label>
             <input
               ref={fileInputRef}
               type="file"
@@ -405,7 +407,7 @@ export const NgoVerificationPage: React.FC = () => {
               disabled={uploading || !selectedFile}
               className="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-primary hover:bg-forest-dark text-white text-sm font-semibold rounded-xl transition-all disabled:opacity-50"
             >
-              {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />} Upload Document
+              {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />} {uploading ? t('verification.uploading', 'Uploading...') : t('verification.uploadButton', 'Upload Document')}
             </button>
           </div>
         </form>
@@ -494,11 +496,11 @@ export const NgoVerificationPage: React.FC = () => {
             >
               {processing || verif?.status === 'PROCESSING' ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" /> Processing Documents...
+                  <Loader2 className="w-4 h-4 animate-spin" /> {t('verification.screeningInProgress', 'Processing Documents...')}
                 </>
               ) : (
                 <>
-                  <RefreshCw className="w-4 h-4" /> Start Automated Screening
+                  <RefreshCw className="w-4 h-4" /> {t('verification.startScreening', 'Run Automated Screening')}
                 </>
               )}
             </button>
@@ -515,13 +517,13 @@ export const NgoVerificationPage: React.FC = () => {
                 3
               </div>
               <div>
-                <h2 className="font-display font-bold text-lg text-forest-dark">Document Consistency Report</h2>
+                <h2 className="font-display font-bold text-lg text-forest-dark">{t('verification.statusAutoReviewReady', 'Document Consistency Report')}</h2>
                 <p className="text-xs text-emerald-950/60">Field-level comparison between submitted profile and uploaded documents.</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <div className="text-right">
-                <p className="text-[10px] text-emerald-950/50 uppercase tracking-wider font-semibold">Consistency Score</p>
+                <p className="text-[10px] text-emerald-950/50 uppercase tracking-wider font-semibold">{t('verification.screeningScore', 'Consistency Score')}</p>
                 <p className="font-display font-bold text-xl text-primary">{verif?.screening_score ?? 0}%</p>
               </div>
               <div className="w-12 h-12 rounded-full border-4 border-primary/20 flex items-center justify-center text-xs font-bold text-forest-dark">

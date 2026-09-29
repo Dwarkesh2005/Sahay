@@ -201,6 +201,9 @@ async function runVerificationTests() {
     },
   });
 
+  const testCity = await prisma.cities.findFirst();
+  if (!testCity) throw new Error('No cities found in database');
+
   const testNgo = await prisma.ngos.create({
     data: {
       user_id: testUser.user_id,
@@ -209,7 +212,7 @@ async function runVerificationTests() {
       pan: 'ABCDE1234F',
       contact_person: 'Test Director',
       email: uniqueEmail,
-      city_id: 1,
+      city_id: testCity.city_id,
       address: '101 Civil Lines, Lucknow',
       verification_status: 'PENDING',
     },

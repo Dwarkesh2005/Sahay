@@ -8,7 +8,9 @@ import requestRoutes from './routes/requestRoutes';
 import chatRoutes from './routes/chatRoutes';
 import adminRoutes from './routes/adminRoutes';
 import verificationRoutes from './routes/verificationRoutes';
+import notificationRoutes from './routes/notificationRoutes';
 import { VerificationController } from './controllers/verificationController';
+import { autoExpirePendingRequests } from './controllers/requestController';
 
 // Load environment variables
 dotenv.config();
@@ -33,6 +35,7 @@ app.use('/api/ngos', ngoRoutes);
 app.use('/api/requests', requestRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/notifications', notificationRoutes);
 
 // Secure Signed Document Download Endpoint (token required)
 app.get('/api/verification/document/download', VerificationController.downloadSignedDocument);
@@ -45,4 +48,16 @@ app.get('/health', (_req, res) => {
 // Start Server
 app.listen(PORT, () => {
   console.log(`[SAHAY Backend] Server is running on port ${PORT}`);
+
+  // Background job: auto-expire pending requests every 5 minutes
+  setInterval(async () => {
+    try {
+      const expiredCount = await autoExpirePendingRequests();
+      if (expiredCount > 0) {
+        console.log(`[Auto-Expire] Expired ${expiredCount} overdue request(s).`);
+      }
+    } catch (error) {
+      console.error('[Auto-Expire] Error:', error);
+    }
+  }, 5 * 60 * 1000); // Every 5 minutes
 });

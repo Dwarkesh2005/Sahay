@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { formatLocalizedDate } from '../i18n';
 import {
   Clock, CheckCircle, XCircle, AlertCircle, Loader2, PlusCircle,
   MessageSquare, Filter, Bell, RefreshCw, ChevronDown, ChevronUp,
@@ -10,14 +12,6 @@ import { requestService, chatService } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import type { HelpRequest } from '../types';
 
-const STATUS_CONFIG: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
-  PENDING: { label: 'Waiting for NGO', color: 'bg-amber-100 text-amber-800 border-amber-200', icon: <Clock className="w-3.5 h-3.5" /> },
-  ACCEPTED: { label: 'Accepted', color: 'bg-emerald-100 text-emerald-800 border-emerald-200', icon: <CheckCircle className="w-3.5 h-3.5" /> },
-  COMPLETED: { label: 'Completed', color: 'bg-emerald-100 text-emerald-800 border-emerald-200', icon: <CheckCircle className="w-3.5 h-3.5" /> },
-  EXPIRED: { label: 'Expired', color: 'bg-gray-200 text-gray-700 border-gray-300', icon: <Clock className="w-3.5 h-3.5" /> },
-  CANCELLED: { label: 'Cancelled', color: 'bg-rose-100 text-rose-800 border-rose-200', icon: <XCircle className="w-3.5 h-3.5" /> }
-};
-
 const TYPE_ICONS: Record<string, string> = {
   FOOD: '🍲',
   SHELTER: '🏠',
@@ -26,17 +20,41 @@ const TYPE_ICONS: Record<string, string> = {
   GUIDANCE: '🧭'
 };
 
-const NGO_STATUS_BADGES: Record<string, { label: string; color: string }> = {
-  PENDING: { label: 'Pending', color: 'bg-amber-50 text-amber-700 border-amber-200' },
-  ACCEPTED: { label: 'Accepted', color: 'bg-emerald-50 text-emerald-700 border-emerald-200 font-bold' },
-  REJECTED: { label: 'Rejected', color: 'bg-rose-50 text-rose-700 border-rose-200' },
-  CANCELLED: { label: 'Cancelled', color: 'bg-gray-100 text-gray-500 border-gray-200' },
-  EXPIRED: { label: 'Expired', color: 'bg-gray-100 text-gray-500 border-gray-200' }
-};
-
 export const UserDashboardPage: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  const getStatusConfig = (status: string) => {
+    switch (status) {
+      case 'ACCEPTED':
+      case 'COMPLETED':
+        return { label: t('status.' + status, status), color: 'bg-emerald-100 text-emerald-800 border-emerald-200', icon: <CheckCircle className="w-3.5 h-3.5" /> };
+      case 'EXPIRED':
+        return { label: t('status.EXPIRED', 'Expired'), color: 'bg-gray-200 text-gray-700 border-gray-300', icon: <Clock className="w-3.5 h-3.5" /> };
+      case 'CANCELLED':
+        return { label: t('status.CANCELLED', 'Cancelled'), color: 'bg-rose-100 text-rose-800 border-rose-200', icon: <XCircle className="w-3.5 h-3.5" /> };
+      case 'PENDING':
+      default:
+        return { label: t('dashboard.waitingForNgo', 'Waiting for NGO'), color: 'bg-amber-100 text-amber-800 border-amber-200', icon: <Clock className="w-3.5 h-3.5" /> };
+    }
+  };
+
+  const getNgoStatusBadge = (status: string) => {
+    switch (status) {
+      case 'ACCEPTED':
+        return { label: t('status.ACCEPTED', 'Accepted'), color: 'bg-emerald-50 text-emerald-700 border-emerald-200 font-bold' };
+      case 'REJECTED':
+        return { label: t('status.REJECTED', 'Rejected'), color: 'bg-rose-50 text-rose-700 border-rose-200' };
+      case 'CANCELLED':
+        return { label: t('status.CANCELLED', 'Cancelled'), color: 'bg-gray-100 text-gray-500 border-gray-200' };
+      case 'EXPIRED':
+        return { label: t('status.EXPIRED', 'Expired'), color: 'bg-gray-100 text-gray-500 border-gray-200' };
+      case 'PENDING':
+      default:
+        return { label: t('status.PENDING', 'Pending'), color: 'bg-amber-50 text-amber-700 border-amber-200' };
+    }
+  };
 
   const [requests, setRequests] = useState<HelpRequest[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,7 +84,7 @@ export const UserDashboardPage: React.FC = () => {
       const data = await requestService.getUserRequests(params);
       setRequests(data.requests || []);
     } catch {
-      setError('Failed to load your requests. Please try again.');
+      setError(t('errors.failedToLoad', 'Failed to load your requests. Please try again.'));
     } finally {
       setLoading(false);
     }
@@ -78,13 +96,13 @@ export const UserDashboardPage: React.FC = () => {
 
   // Handle Cancel
   const handleCancel = async (requestId: number) => {
-    if (!confirm('Are you sure you want to cancel this request?')) return;
+    if (!confirm(t('dashboard.confirmCancel', 'Are you sure you want to cancel this request?'))) return;
     setCancelling(requestId);
     try {
       await requestService.updateRequestStatus(requestId, 'CANCELLED');
       fetchRequests();
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to cancel request.');
+      alert(err.response?.data?.error || t('dashboard.cancelFailed', 'Failed to cancel request.'));
     } finally {
       setCancelling(null);
     }
@@ -97,11 +115,11 @@ export const UserDashboardPage: React.FC = () => {
       const res = await requestService.remindNgos(requestId);
       setReminderNotices((prev) => ({
         ...prev,
-        [requestId]: `Reminder sent to ${res.remindedCount} NGO(s)! ✓`
+        [requestId]: t('dashboard.reminderSentSuccess', { count: res.remindedCount })
       }));
       fetchRequests();
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to send reminder.');
+      alert(err.response?.data?.error || t('dashboard.reminderFailed', 'Failed to send reminder.'));
     } finally {
       setReminding(null);
     }
@@ -117,7 +135,7 @@ export const UserDashboardPage: React.FC = () => {
         state: { renewedRequest: res.request }
       });
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to renew request.');
+      alert(err.response?.data?.error || t('dashboard.renewFailed', 'Failed to renew request.'));
       setRenewing(null);
     }
   };
@@ -160,8 +178,8 @@ export const UserDashboardPage: React.FC = () => {
   const formatDaysRemaining = (remainingSeconds: number) => {
     const days = Math.floor(remainingSeconds / 86400);
     const hours = Math.floor((remainingSeconds % 86400) / 3600);
-    if (days > 0) return `${days}d ${hours}h left`;
-    return `${hours}h left`;
+    if (days > 0) return `${days}d ${hours}h`;
+    return `${hours}h`;
   };
 
   const stats = {
@@ -176,26 +194,28 @@ export const UserDashboardPage: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-4">
         <div>
-          <h1 className="font-display font-extrabold text-3xl text-forest-dark">My Requests</h1>
+          <h1 className="font-display font-extrabold text-3xl text-forest-dark">
+            {t('dashboard.myRequestsTitle', 'My Requests')}
+          </h1>
           <p className="text-emerald-950/60 text-sm mt-1">
-            Welcome back, {user?.full_name || 'User'} — Track your active needs and NGO responses
+            {t('dashboard.userWelcomeSubtitle', { name: user?.full_name || 'User' })}
           </p>
         </div>
         <Link
           to="/request-help"
           className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-forest-dark text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-all duration-300 text-sm"
         >
-          <PlusCircle className="w-4 h-4" /> Post New Need
+          <PlusCircle className="w-4 h-4" /> {t('dashboard.postNewNeed', 'Post New Need')}
         </Link>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: 'Total Requests', value: stats.total, color: 'text-forest-dark', bg: 'bg-white' },
-          { label: 'Waiting for NGO', value: stats.pending, color: 'text-amber-600', bg: 'bg-amber-50/50' },
-          { label: 'Accepted / Done', value: stats.completed, color: 'text-emerald-600', bg: 'bg-emerald-50/50' },
-          { label: 'Expired', value: stats.expired, color: 'text-gray-600', bg: 'bg-gray-50' }
+          { label: t('dashboard.totalRequests', 'Total Requests'), value: stats.total, color: 'text-forest-dark', bg: 'bg-white' },
+          { label: t('dashboard.waitingForNgo', 'Waiting for NGO'), value: stats.pending, color: 'text-amber-600', bg: 'bg-amber-50/50' },
+          { label: t('dashboard.acceptedDone', 'Accepted / Done'), value: stats.completed, color: 'text-emerald-600', bg: 'bg-emerald-50/50' },
+          { label: t('dashboard.expired', 'Expired'), value: stats.expired, color: 'text-gray-600', bg: 'bg-gray-50' }
         ].map((s) => (
           <div key={s.label} className={`rounded-2xl p-4 border border-forest-light/20 shadow-sm text-center ${s.bg}`}>
             <p className={`font-display font-bold text-2xl ${s.color}`}>{s.value}</p>
@@ -208,11 +228,11 @@ export const UserDashboardPage: React.FC = () => {
       <div className="flex items-center gap-2 overflow-x-auto pb-1">
         <Filter className="w-4 h-4 text-forest-dark/50 shrink-0" />
         {[
-          { key: '', label: 'All Requests' },
-          { key: 'PENDING', label: 'Pending' },
-          { key: 'COMPLETED', label: 'Completed' },
-          { key: 'EXPIRED', label: 'Expired' },
-          { key: 'CANCELLED', label: 'Cancelled' }
+          { key: '', label: t('dashboard.allRequests', 'All Requests') },
+          { key: 'PENDING', label: t('dashboard.pending', 'Pending') },
+          { key: 'COMPLETED', label: t('dashboard.completed', 'Completed') },
+          { key: 'EXPIRED', label: t('dashboard.expired', 'Expired') },
+          { key: 'CANCELLED', label: t('dashboard.cancelled', 'Cancelled') }
         ].map((tab) => (
           <button
             key={tab.key}
@@ -232,7 +252,7 @@ export const UserDashboardPage: React.FC = () => {
       {loading ? (
         <div className="text-center py-16">
           <Loader2 className="w-8 h-8 text-primary animate-spin mx-auto" />
-          <p className="text-xs text-emerald-950/60 mt-2">Loading your requests...</p>
+          <p className="text-xs text-emerald-950/60 mt-2">{t('dashboard.loadingRequests', 'Loading your requests...')}</p>
         </div>
       ) : error ? (
         <div className="text-center py-16 space-y-3 bg-white rounded-2xl border border-forest-light/20 p-8">
@@ -242,7 +262,7 @@ export const UserDashboardPage: React.FC = () => {
             onClick={fetchRequests}
             className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-forest-dark transition-all"
           >
-            Retry
+            {t('common.retry', 'Retry')}
           </button>
         </div>
       ) : requests.length === 0 ? (
@@ -250,21 +270,23 @@ export const UserDashboardPage: React.FC = () => {
           <div className="w-16 h-16 rounded-full bg-forest-light/20 flex items-center justify-center mx-auto">
             <PlusCircle className="w-8 h-8 text-forest-dark/30" />
           </div>
-          <h3 className="font-display font-semibold text-xl text-forest-dark/70">No Requests Found</h3>
+          <h3 className="font-display font-semibold text-xl text-forest-dark/70">
+            {t('dashboard.noRequestsTitle', 'No Requests Found')}
+          </h3>
           <p className="text-emerald-950/50 text-sm max-w-sm mx-auto">
-            You don't have any requests in this category. Post your need to receive assistance from verified NGOs.
+            {t('dashboard.noRequestsCategory', 'You don\'t have any requests in this category. Post your need to receive assistance from verified NGOs.')}
           </p>
           <Link
             to="/request-help"
             className="inline-flex items-center gap-1.5 text-primary hover:underline font-semibold text-sm"
           >
-            Post a need now →
+            {t('dashboard.postNeedNow', 'Post a need now →')}
           </Link>
         </div>
       ) : (
         <div className="space-y-4">
           {requests.map((req) => {
-            const sc = STATUS_CONFIG[req.status] || STATUS_CONFIG.PENDING;
+            const sc = getStatusConfig(req.status);
             const isCompleted = req.status === 'COMPLETED' || req.status === 'ACCEPTED';
             const isExpired = req.status === 'EXPIRED' || req.is_expired;
             const isPending = req.status === 'PENDING' && !isExpired;
@@ -291,14 +313,14 @@ export const UserDashboardPage: React.FC = () => {
                       </span>
                       {req.renewal_number && req.renewal_number > 0 ? (
                         <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold border border-indigo-200">
-                          <RefreshCw className="w-3 h-3" /> Renewed {req.renewal_number} time{req.renewal_number > 1 ? 's' : ''}
+                          <RefreshCw className="w-3 h-3" /> {t('dashboard.renewedCount', { count: req.renewal_number })}
                         </span>
                       ) : null}
                       {req.urgency && req.urgency !== 'MEDIUM' ? (
                         <span className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-semibold border ${
                           req.urgency === 'EMERGENCY' ? 'bg-rose-100 text-rose-800 border-rose-200' : 'bg-amber-100 text-amber-800 border-amber-200'
                         }`}>
-                          <Flame className="w-3 h-3" /> {req.urgency}
+                          <Flame className="w-3 h-3" /> {t('urgency.' + req.urgency, req.urgency)}
                         </span>
                       ) : null}
                     </div>
@@ -311,12 +333,12 @@ export const UserDashboardPage: React.FC = () => {
                       <span className="flex items-center gap-1">
                         <MapPin className="w-3 h-3" /> {req.cities?.city_name || 'City'}
                       </span>
-                      <span>Sent: {new Date(req.created_at).toLocaleDateString()}</span>
+                      <span>{t('dashboard.sent', 'Sent')}: {formatLocalizedDate(req.created_at, i18n.language)}</span>
                       {req.expires_at && (
                         <span className={isExpired ? 'text-rose-600 font-semibold' : 'text-emerald-800 font-medium'}>
                           {isExpired
-                            ? `Expired: ${new Date(req.expires_at).toLocaleDateString()}`
-                            : `Expires: ${new Date(req.expires_at).toLocaleDateString()} (${formatDaysRemaining(req.remaining_seconds || 0)})`}
+                            ? `${t('dashboard.expiredOn', 'Expired')}: ${formatLocalizedDate(req.expires_at, i18n.language)}`
+                            : `${t('dashboard.expires', 'Expires')}: ${formatLocalizedDate(req.expires_at, i18n.language)} (${formatDaysRemaining(req.remaining_seconds || 0)})`}
                         </span>
                       )}
                     </div>
@@ -329,7 +351,7 @@ export const UserDashboardPage: React.FC = () => {
                         onClick={() => openChat(req.chats!)}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 text-xs font-semibold transition-all"
                       >
-                        <MessageSquare className="w-3.5 h-3.5" /> Chat
+                        <MessageSquare className="w-3.5 h-3.5" /> {t('dashboard.chat', 'Chat')}
                       </button>
                     )}
                     {isPending && (
@@ -338,7 +360,7 @@ export const UserDashboardPage: React.FC = () => {
                         disabled={cancelling === req.request_id}
                         className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 text-xs font-semibold transition-all"
                       >
-                        {cancelling === req.request_id ? <Loader2 className="w-3 h-3 animate-spin" /> : <XCircle className="w-3 h-3" />} Cancel
+                        {cancelling === req.request_id ? <Loader2 className="w-3 h-3 animate-spin" /> : <XCircle className="w-3 h-3" />} {t('common.cancel', 'Cancel')}
                       </button>
                     )}
                   </div>
@@ -349,11 +371,11 @@ export const UserDashboardPage: React.FC = () => {
                   <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 text-emerald-900 font-bold text-sm">
-                        <CheckCircle className="w-4 h-4 text-emerald-600" /> Request Accepted
+                        <CheckCircle className="w-4 h-4 text-emerald-600" /> {t('dashboard.requestAccepted', 'Request Accepted')}
                       </div>
                       <p className="text-xs text-emerald-800">
-                        Handled by: <strong>{req.accepted_ngo.ngo_name}</strong>
-                        {req.completed_at ? ` • Accepted on ${new Date(req.completed_at).toLocaleDateString()}` : ''}
+                        {t('dashboard.handledBy', 'Handled by')}: <strong>{req.accepted_ngo.ngo_name}</strong>
+                        {req.completed_at ? ` • ${t('dashboard.acceptedOn', 'Accepted on')} ${formatLocalizedDate(req.completed_at, i18n.language)}` : ''}
                       </p>
                     </div>
 
@@ -362,14 +384,14 @@ export const UserDashboardPage: React.FC = () => {
                         to={`/ngos/${req.accepted_ngo.ngo_id}`}
                         className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-all shadow-sm"
                       >
-                        <ExternalLink className="w-3 h-3" /> View NGO
+                        <ExternalLink className="w-3 h-3" /> {t('dashboard.viewNgo', 'View NGO')}
                       </Link>
                       {req.chats && req.chats.length > 0 && (
                         <button
                           onClick={() => openChat(req.chats!)}
                           className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-emerald-300 text-emerald-900 hover:bg-emerald-50 transition-all"
                         >
-                          <MessageSquare className="w-3 h-3" /> Contact NGO
+                          <MessageSquare className="w-3 h-3" /> {t('dashboard.contactNgo', 'Contact NGO')}
                         </button>
                       )}
                     </div>
@@ -381,10 +403,10 @@ export const UserDashboardPage: React.FC = () => {
                   <div className="bg-gray-100 border border-gray-300 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 text-gray-800 font-bold text-sm">
-                        <Clock className="w-4 h-4 text-gray-500" /> Request Expired
+                        <Clock className="w-4 h-4 text-gray-500" /> {t('dashboard.requestExpired', 'Request Expired')}
                       </div>
                       <p className="text-xs text-gray-600">
-                        This request reached its 7-day validity limit. You can renew it to recalculate recommendations and start a new cycle.
+                        {t('dashboard.expiredDesc', 'This request reached its 7-day validity limit. You can renew it to recalculate recommendations and start a new cycle.')}
                       </p>
                     </div>
 
@@ -394,7 +416,7 @@ export const UserDashboardPage: React.FC = () => {
                       className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-forest-dark disabled:bg-primary/40 text-white text-xs font-bold transition-all shadow-sm"
                     >
                       {renewing === req.request_id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5" />}
-                      Renew Request
+                      {t('dashboard.renewRequest', 'Renew Request')}
                     </button>
                   </div>
                 )}
@@ -405,13 +427,13 @@ export const UserDashboardPage: React.FC = () => {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       {/* NGOs contacted stats */}
                       <div className="flex items-center gap-3 text-xs font-medium text-forest-dark flex-wrap">
-                        <span>NGOs Contacted: <strong>{req.stats?.contacted || contactedNgos.length}</strong></span>
+                        <span>{t('dashboard.ngosContacted', 'NGOs Contacted')}: <strong>{req.stats?.contacted || contactedNgos.length}</strong></span>
                         <span>•</span>
-                        <span className="text-emerald-700">Accepted: <strong>{req.stats?.accepted || 0}</strong></span>
+                        <span className="text-emerald-700">{t('dashboard.accepted', 'Accepted')}: <strong>{req.stats?.accepted || 0}</strong></span>
                         <span>•</span>
-                        <span className="text-rose-700">Rejected: <strong>{req.stats?.rejected || 0}</strong></span>
+                        <span className="text-rose-700">{t('dashboard.rejected', 'Rejected')}: <strong>{req.stats?.rejected || 0}</strong></span>
                         <span>•</span>
-                        <span className="text-amber-700">Pending: <strong>{req.stats?.pending || 0}</strong></span>
+                        <span className="text-amber-700">{t('dashboard.pending', 'Pending')}: <strong>{req.stats?.pending || 0}</strong></span>
                       </div>
 
                       {/* Remind Button */}
@@ -423,11 +445,11 @@ export const UserDashboardPage: React.FC = () => {
                             className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-primary hover:bg-forest-dark disabled:bg-primary/40 text-white text-xs font-semibold transition-all shadow-sm"
                           >
                             {reminding === req.request_id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Bell className="w-3.5 h-3.5" />}
-                            Remind NGOs
+                            {t('dashboard.remindNgos', 'Remind NGOs')}
                           </button>
                         ) : req.remaining_reminder_cooldown_seconds && req.remaining_reminder_cooldown_seconds > 0 ? (
                           <span className="text-xs text-emerald-900/60 font-medium bg-white px-3 py-1.5 rounded-lg border border-forest-light/20">
-                            Reminder sent ✓ (Next in {formatCountdown(req.remaining_reminder_cooldown_seconds)})
+                            {t('dashboard.reminderSentCooldown', { time: formatCountdown(req.remaining_reminder_cooldown_seconds) })}
                           </span>
                         ) : null}
                       </div>
@@ -450,7 +472,7 @@ export const UserDashboardPage: React.FC = () => {
                     >
                       <span className="flex items-center gap-1.5">
                         <Building className="w-3.5 h-3.5" />
-                        View NGO Responses ({contactedNgos.length})
+                        {t('dashboard.viewNgoResponses', 'View NGO Responses')} ({contactedNgos.length})
                       </span>
                       {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
@@ -464,7 +486,7 @@ export const UserDashboardPage: React.FC = () => {
                           className="pt-3 space-y-2"
                         >
                           {contactedNgos.map((ngoReq) => {
-                            const badge = NGO_STATUS_BADGES[ngoReq.status] || NGO_STATUS_BADGES.PENDING;
+                            const badge = getNgoStatusBadge(ngoReq.status);
                             return (
                               <div
                                 key={ngoReq.id}
@@ -475,12 +497,12 @@ export const UserDashboardPage: React.FC = () => {
                                     {ngoReq.ngo?.ngo_name || 'NGO Partner'}
                                   </div>
                                   <div className="text-emerald-950/50 text-[11px]">
-                                    Sent: {new Date(ngoReq.sent_at).toLocaleDateString()}
-                                    {ngoReq.reminder_count > 0 && ` • Reminded ${ngoReq.reminder_count}x`}
+                                    {t('dashboard.sent', 'Sent')}: {formatLocalizedDate(ngoReq.sent_at, i18n.language)}
+                                    {ngoReq.reminder_count > 0 && ` • ${t('dashboard.remindedTimes', { count: ngoReq.reminder_count })}`}
                                   </div>
                                   {ngoReq.rejection_reason && (
                                     <div className="text-rose-700 text-[11px] pt-1">
-                                      <strong>Reason:</strong> "{ngoReq.rejection_reason}"
+                                      <strong>{t('dashboard.reason', 'Reason')}:</strong> "{ngoReq.rejection_reason}"
                                     </div>
                                   )}
                                 </div>
@@ -494,7 +516,7 @@ export const UserDashboardPage: React.FC = () => {
                                       href={`tel:${ngoReq.ngo.phone_number}`}
                                       className="text-primary hover:underline font-medium text-[11px]"
                                     >
-                                      Contact
+                                      {t('dashboard.contact', 'Contact')}
                                     </a>
                                   )}
                                 </div>
@@ -527,7 +549,7 @@ export const UserDashboardPage: React.FC = () => {
             <div className="p-4 bg-primary text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <MessageSquare className="w-5 h-5" />
-                <h3 className="font-display font-bold text-base">Conversation with NGO</h3>
+                <h3 className="font-display font-bold text-base">{t('dashboard.chatModalTitle', 'Conversation with NGO')}</h3>
               </div>
               <button
                 onClick={() => setChatOpen(false)}
@@ -544,7 +566,7 @@ export const UserDashboardPage: React.FC = () => {
                 </div>
               ) : chatMessages.length === 0 ? (
                 <p className="text-center text-xs text-emerald-950/50 py-10">
-                  No messages yet. Send a message to communicate with the NGO.
+                  {t('dashboard.noMessagesYet', 'No messages yet. Send a message to communicate with the NGO.')}
                 </p>
               ) : (
                 chatMessages.map((m: any) => (
@@ -573,7 +595,7 @@ export const UserDashboardPage: React.FC = () => {
                 value={chatMsg}
                 onChange={(e) => setChatMsg(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && sendChatMessage()}
-                placeholder="Type your message..."
+                placeholder={t('dashboard.typeMessagePlaceholder', 'Type your message...')}
                 className="flex-1 px-4 py-2.5 rounded-xl bg-bg-nature border border-forest-light/40 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-xs"
               />
               <button
@@ -581,7 +603,7 @@ export const UserDashboardPage: React.FC = () => {
                 disabled={!chatMsg.trim()}
                 className="bg-primary hover:bg-forest-dark disabled:bg-primary/40 text-white px-5 py-2.5 rounded-xl font-semibold text-xs transition-colors"
               >
-                Send
+                {t('dashboard.sendMessage', 'Send')}
               </button>
             </div>
           </motion.div>

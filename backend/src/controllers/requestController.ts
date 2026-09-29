@@ -2,6 +2,13 @@ import { Response } from 'express';
 import { prisma } from '../db';
 import { AuthRequest } from '../middleware/authMiddleware';
 import { getRecommendations } from '../services/recommendationService';
+import {
+  notifyNgoNewRequest,
+  notifyMigrantAccepted,
+  notifyMigrantRejected,
+  notifyNgoReminder,
+  notifyMigrantExpired
+} from '../services/notificationService';
 
 /**
  * Auto-expires pending requests that have passed their 7-day expires_at.
@@ -580,6 +587,19 @@ export const sendNeedRequests = async (req: AuthRequest, res: Response): Promise
       createdRequests.push(reqRecord);
     }
 
+    // Send notifications to NGOs
+    for (const reqRecord of createdRequests) {
+      try {
+        const ngoData = await prisma.ngos.findUnique({
+          where: { ngo_id: reqRecord.ngo_id },
+          select: { user_id: true }
+        });
+        if (ngoData) {
+          await notifyNgoNewRequest(ngoData.user_id, helpRequest.title || 'Help Request', requestId);
+        }
+      } catch { /* notifications should not fail the main flow */ }
+    }
+
     res.status(200).json({
       message: `Request successfully sent to ${createdRequests.length} NGO(s)`,
       count: createdRequests.length,
@@ -782,6 +802,19 @@ export const remindNgos = async (req: AuthRequest, res: Response): Promise<void>
     ]);
 
     const nextReminderAt = new Date(now.getTime() + REMINDER_COOLDOWN_MS).toISOString();
+
+    // Send reminder notifications to pending NGOs
+    for (const pr of pendingRequests) {
+      try {
+        const ngoData = await prisma.ngos.findUnique({
+          where: { ngo_id: pr.ngo_id },
+          select: { user_id: true }
+        });
+        if (ngoData) {
+          await notifyNgoReminder(ngoData.user_id, helpRequest.title || 'Help Request', requestId);
+        }
+      } catch { /* notifications should not fail the main flow */ }
+    }
 
     res.status(200).json({
       success: true,
@@ -1179,6 +1212,12 @@ export const acceptNgoIncomingRequest = async (req: AuthRequest, res: Response):
       responseMessage: response_message
     });
 
+    // Notify migrant that request was accepted
+    try {
+      const ngoName = ngo?.ngo_name || 'An NGO';
+      await notifyMigrantAccepted(result.updatedRequest.user_id, ngoName, needId);
+    } catch { /* notifications should not fail the main flow */ }
+
     res.status(200).json({
       message: 'Request accepted successfully. Request is now COMPLETED.',
       request: enrichRequestMetadata(result.updatedRequest),
@@ -1263,6 +1302,18 @@ export const rejectNgoIncomingRequest = async (req: AuthRequest, res: Response):
         rejection_reason: reason?.trim() || null
       }
     });
+
+    // Notify migrant about rejection
+    try {
+      const helpReq = await prisma.help_requests.findUnique({
+        where: { request_id: ngoReq.need_id },
+        select: { user_id: true }
+      });
+      const ngoName = ngo?.ngo_name || 'An NGO';
+      if (helpReq) {
+        await notifyMigrantRejected(helpReq.user_id, ngoName, ngoReq.need_id);
+      }
+    } catch { /* notifications should not fail the main flow */ }
 
     res.status(200).json({
       message: 'Request rejected',

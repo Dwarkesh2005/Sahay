@@ -13,7 +13,9 @@ const requestRoutes_1 = __importDefault(require("./routes/requestRoutes"));
 const chatRoutes_1 = __importDefault(require("./routes/chatRoutes"));
 const adminRoutes_1 = __importDefault(require("./routes/adminRoutes"));
 const verificationRoutes_1 = __importDefault(require("./routes/verificationRoutes"));
+const notificationRoutes_1 = __importDefault(require("./routes/notificationRoutes"));
 const verificationController_1 = require("./controllers/verificationController");
+const requestController_1 = require("./controllers/requestController");
 // Load environment variables
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -33,6 +35,7 @@ app.use('/api/ngos', ngoRoutes_1.default);
 app.use('/api/requests', requestRoutes_1.default);
 app.use('/api/chats', chatRoutes_1.default);
 app.use('/api/admin', adminRoutes_1.default);
+app.use('/api/notifications', notificationRoutes_1.default);
 // Secure Signed Document Download Endpoint (token required)
 app.get('/api/verification/document/download', verificationController_1.VerificationController.downloadSignedDocument);
 // Health Check
@@ -42,4 +45,16 @@ app.get('/health', (_req, res) => {
 // Start Server
 app.listen(PORT, () => {
     console.log(`[SAHAY Backend] Server is running on port ${PORT}`);
+    // Background job: auto-expire pending requests every 5 minutes
+    setInterval(async () => {
+        try {
+            const expiredCount = await (0, requestController_1.autoExpirePendingRequests)();
+            if (expiredCount > 0) {
+                console.log(`[Auto-Expire] Expired ${expiredCount} overdue request(s).`);
+            }
+        }
+        catch (error) {
+            console.error('[Auto-Expire] Error:', error);
+        }
+    }, 5 * 60 * 1000); // Every 5 minutes
 });

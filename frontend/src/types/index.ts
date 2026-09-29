@@ -303,3 +303,15 @@ export interface Message {
   sent_at: string;
   is_read: boolean;
 }
+
+export interface Notification {
+  notification_id: number;
+  user_id: number;
+  title: string;
+  message: string;
+  type: string;
+  reference_id?: number;
+  reference_type?: string;
+  is_read: boolean;
+  created_at: string;
+}

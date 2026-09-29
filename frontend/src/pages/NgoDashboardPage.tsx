@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { formatLocalizedDate } from '../i18n';
 import {
   Clock, CheckCircle, XCircle, Loader2, MessageSquare, ShieldCheck,
   Settings, FileCheck2, Inbox, MapPin, Flame, Bell
@@ -7,15 +9,6 @@ import {
 import { requestService, ngoService, chatService } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { NgoVerificationPage } from './NgoVerificationPage';
-
-const STATUS_CONFIG: Record<string, { label: string; color: string; border: string }> = {
-  PENDING: { label: 'Pending Action', color: 'bg-amber-100 text-amber-800', border: 'border-amber-200' },
-  ACCEPTED: { label: 'Accepted', color: 'bg-blue-100 text-blue-800', border: 'border-blue-200' },
-  COMPLETED: { label: 'Completed', color: 'bg-emerald-100 text-emerald-800', border: 'border-emerald-200' },
-  REJECTED: { label: 'Rejected', color: 'bg-rose-100 text-rose-800', border: 'border-rose-200' },
-  CANCELLED: { label: 'Cancelled', color: 'bg-gray-100 text-gray-700', border: 'border-gray-200' },
-  EXPIRED: { label: 'Expired', color: 'bg-gray-100 text-gray-700', border: 'border-gray-200' }
-};
 
 const TYPE_ICONS: Record<string, string> = {
   FOOD: '🍲',
@@ -33,8 +26,27 @@ const SERVICE_OPTIONS = [
 ];
 
 export const NgoDashboardPage: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const [tab, setTab] = useState<'incoming' | 'feed' | 'profile' | 'verification'>('incoming');
+
+  const getStatusConfig = (status: string) => {
+    switch (status) {
+      case 'PENDING':
+        return { label: t('status.PENDING', 'Pending'), color: 'bg-amber-100 text-amber-800', border: 'border-amber-200' };
+      case 'ACCEPTED':
+        return { label: t('status.ACCEPTED', 'Accepted'), color: 'bg-blue-100 text-blue-800', border: 'border-blue-200' };
+      case 'COMPLETED':
+        return { label: t('status.COMPLETED', 'Completed'), color: 'bg-emerald-100 text-emerald-800', border: 'border-emerald-200' };
+      case 'REJECTED':
+        return { label: t('status.REJECTED', 'Rejected'), color: 'bg-rose-100 text-rose-800', border: 'border-rose-200' };
+      case 'CANCELLED':
+        return { label: t('status.CANCELLED', 'Cancelled'), color: 'bg-gray-100 text-gray-700', border: 'border-gray-200' };
+      case 'EXPIRED':
+      default:
+        return { label: t('status.EXPIRED', 'Expired'), color: 'bg-gray-100 text-gray-700', border: 'border-gray-200' };
+    }
+  };
 
   // Incoming Requests state
   const [incomingRequests, setIncomingRequests] = useState<any[]>([]);
@@ -126,9 +138,9 @@ export const NgoDashboardPage: React.FC = () => {
       setAcceptingId(null);
       setAcceptMessage('');
       fetchIncomingRequests();
-      alert('Request accepted successfully! Request is now completed and other NGOs cannot accept.');
+      alert(t('ngo.acceptSuccessAlert', 'Request accepted successfully! Request is now completed and other NGOs cannot accept.'));
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to accept request.');
+      alert(err.response?.data?.error || t('errors.failedToSubmit', 'Failed to accept request.'));
     } finally {
       setAcceptLoading(false);
     }
@@ -144,7 +156,7 @@ export const NgoDashboardPage: React.FC = () => {
       setRejectionReason('');
       fetchIncomingRequests();
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to reject request.');
+      alert(err.response?.data?.error || t('errors.failedToSubmit', 'Failed to reject request.'));
     } finally {
       setRejectLoading(false);
     }
@@ -156,7 +168,7 @@ export const NgoDashboardPage: React.FC = () => {
       await requestService.updateRequestStatus(requestId, 'COMPLETED');
       fetchIncomingRequests();
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Failed to complete request.');
+      alert(err.response?.data?.error || t('errors.failedToSubmit', 'Failed to complete request.'));
     } finally {
       setCompletingId(null);
     }
@@ -167,10 +179,10 @@ export const NgoDashboardPage: React.FC = () => {
     setProfileMsg('');
     try {
       await ngoService.updateMyProfile({ description: editDesc, services: editServices });
-      setProfileMsg('Profile updated successfully!');
+      setProfileMsg(t('ngo.profileUpdatedSuccess', 'Profile updated successfully!'));
       loadProfile();
     } catch {
-      setProfileMsg('Failed to update profile.');
+      setProfileMsg(t('errors.failedToSubmit', 'Failed to update profile.'));
     } finally {
       setProfileLoading(false);
     }
@@ -214,19 +226,21 @@ export const NgoDashboardPage: React.FC = () => {
       <div className="pt-4 space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="font-display font-extrabold text-3xl text-forest-dark">NGO Portal</h1>
+            <h1 className="font-display font-extrabold text-3xl text-forest-dark">
+              {t('ngo.portalTitle', 'NGO Portal')}
+            </h1>
             <p className="text-emerald-950/60 text-sm mt-1">
-              {user?.ngo?.ngo_name || user?.full_name} — Help Request Operations Center
+              {user?.ngo?.ngo_name || user?.full_name} — {t('ngo.portalSubtitle', 'Help Request Operations Center')}
             </p>
           </div>
           <div className="flex items-center gap-2">
             {isVerified ? (
               <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold border border-emerald-200">
-                <ShieldCheck className="w-3.5 h-3.5" /> Verified NGO
+                <ShieldCheck className="w-3.5 h-3.5" /> {t('ngo.verifiedBadge', 'Verified NGO')}
               </span>
             ) : (
               <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-amber-100 text-amber-800 font-semibold border border-amber-200">
-                <Clock className="w-3.5 h-3.5" /> Verification Pending
+                <Clock className="w-3.5 h-3.5" /> {t('ngo.verificationPending', 'Verification Pending')}
               </span>
             )}
           </div>
@@ -242,7 +256,7 @@ export const NgoDashboardPage: React.FC = () => {
                 : 'bg-bg-nature text-forest-dark/70 hover:bg-forest-light/30'
             }`}
           >
-            <Inbox className="w-4 h-4" /> Incoming Requests
+            <Inbox className="w-4 h-4" /> {t('ngo.incomingRequests', 'Incoming Requests')}
           </button>
           <button
             onClick={() => setTab('feed')}
@@ -252,7 +266,7 @@ export const NgoDashboardPage: React.FC = () => {
                 : 'bg-bg-nature text-forest-dark/70 hover:bg-forest-light/30'
             }`}
           >
-            City Public Feed
+            {t('ngo.cityFeed', 'City Public Feed')}
           </button>
           <button
             onClick={() => setTab('profile')}
@@ -262,7 +276,7 @@ export const NgoDashboardPage: React.FC = () => {
                 : 'bg-bg-nature text-forest-dark/70 hover:bg-forest-light/30'
             }`}
           >
-            <Settings className="w-3.5 h-3.5" /> Profile & Services
+            <Settings className="w-3.5 h-3.5" /> {t('ngo.profileAndServices', 'Profile & Services')}
           </button>
           <button
             onClick={() => setTab('verification')}
@@ -272,7 +286,7 @@ export const NgoDashboardPage: React.FC = () => {
                 : 'bg-bg-nature text-forest-dark/70 hover:bg-forest-light/30'
             }`}
           >
-            <FileCheck2 className="w-3.5 h-3.5" /> Document Verification
+            <FileCheck2 className="w-3.5 h-3.5" /> {t('ngo.docVerification', 'Document Verification')}
           </button>
         </div>
       </div>
@@ -283,13 +297,13 @@ export const NgoDashboardPage: React.FC = () => {
           {/* Filter Sub-Tabs */}
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-semibold text-forest-dark/50 mr-1">Filter:</span>
+              <span className="text-xs font-semibold text-forest-dark/50 mr-1">{t('common.filter', 'Filter')}:</span>
               {[
-                { key: 'PENDING', label: 'Pending' },
-                { key: 'ACCEPTED', label: 'Accepted' },
-                { key: 'REJECTED', label: 'Rejected' },
-                { key: 'COMPLETED', label: 'Completed' },
-                { key: 'ALL', label: 'All' }
+                { key: 'PENDING', label: t('status.PENDING', 'Pending') },
+                { key: 'ACCEPTED', label: t('status.ACCEPTED', 'Accepted') },
+                { key: 'REJECTED', label: t('status.REJECTED', 'Rejected') },
+                { key: 'COMPLETED', label: t('status.COMPLETED', 'Completed') },
+                { key: 'ALL', label: t('common.all', 'All') }
               ].map((f) => (
                 <button
                   key={f.key}
@@ -309,7 +323,7 @@ export const NgoDashboardPage: React.FC = () => {
               onClick={fetchIncomingRequests}
               className="text-xs text-forest-dark/60 hover:text-primary font-medium"
             >
-              Refresh
+              {t('common.refresh', 'Refresh')}
             </button>
           </div>
 
@@ -317,21 +331,23 @@ export const NgoDashboardPage: React.FC = () => {
           {incomingLoading ? (
             <div className="text-center py-16">
               <Loader2 className="w-8 h-8 text-primary animate-spin mx-auto" />
-              <p className="text-xs text-emerald-950/60 mt-2">Loading incoming requests...</p>
+              <p className="text-xs text-emerald-950/60 mt-2">{t('ngo.loadingIncoming', 'Loading incoming requests...')}</p>
             </div>
           ) : incomingRequests.length === 0 ? (
             <div className="text-center py-16 space-y-3 bg-white rounded-3xl border border-forest-light/20 p-8">
               <Inbox className="w-12 h-12 text-forest-dark/20 mx-auto" />
-              <h3 className="font-display font-semibold text-lg text-forest-dark/60">No Incoming Requests</h3>
+              <h3 className="font-display font-semibold text-lg text-forest-dark/60">
+                {t('ngo.noIncomingRequests', 'No Incoming Requests')}
+              </h3>
               <p className="text-xs text-emerald-950/50 max-w-sm mx-auto">
-                No requests found with status "{incomingFilter}". Requests routed to your NGO by migrants will appear here.
+                {t('ngo.noIncomingWithStatus', { status: incomingFilter })}
               </p>
             </div>
           ) : (
             <div className="space-y-4">
               {incomingRequests.map((item: any) => {
                 const need = item.need;
-                const statusCfg = STATUS_CONFIG[item.status] || STATUS_CONFIG.PENDING;
+                const statusCfg = getStatusConfig(item.status);
                 const isItemPending = item.status === 'PENDING';
                 const isItemAccepted = item.status === 'ACCEPTED' || need?.status === 'COMPLETED';
                 const isItemRejected = item.status === 'REJECTED';
@@ -358,12 +374,12 @@ export const NgoDashboardPage: React.FC = () => {
                             <span className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-semibold border ${
                               need.urgency === 'EMERGENCY' ? 'bg-rose-100 text-rose-800 border-rose-200' : 'bg-amber-100 text-amber-800 border-amber-200'
                             }`}>
-                              <Flame className="w-3 h-3" /> Urgency: {need.urgency}
+                              <Flame className="w-3 h-3" /> {t('request.urgency', 'Urgency Level')}: {String(t('urgency.' + need.urgency, need.urgency))}
                             </span>
                           )}
                           {item.reminder_count > 0 && (
                             <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 font-bold border border-amber-200 animate-pulse">
-                              <Bell className="w-3 h-3" /> Reminded {item.reminder_count}x
+                              <Bell className="w-3 h-3" /> {t('ngo.remindedCount', { count: item.reminder_count })}
                             </span>
                           )}
                         </div>
@@ -371,14 +387,14 @@ export const NgoDashboardPage: React.FC = () => {
                         <p className="text-sm text-emerald-950/75 leading-relaxed">{need?.description}</p>
 
                         <div className="flex items-center gap-4 text-xs text-emerald-950/50 flex-wrap pt-1">
-                          <span>User: <strong>{need?.users?.full_name || 'Anonymous'}</strong></span>
+                          <span>{t('ngo.userLabel', 'User')}: <strong>{need?.users?.full_name || 'Anonymous'}</strong></span>
                           <span className="flex items-center gap-1">
                             <MapPin className="w-3 h-3" /> {need?.cities?.city_name || 'City'}
                           </span>
-                          <span>Sent: {new Date(item.sent_at).toLocaleDateString()}</span>
+                          <span>{t('ngo.sentLabel', 'Sent')}: {formatLocalizedDate(item.sent_at, i18n.language)}</span>
                           {need?.expires_at && (
                             <span className={need.is_expired ? 'text-rose-600 font-medium' : 'text-emerald-800 font-medium'}>
-                              {need.is_expired ? 'Expired' : `Expires: ${new Date(need.expires_at).toLocaleDateString()}`}
+                              {need.is_expired ? t('status.EXPIRED', 'Expired') : `${t('ngo.expiresLabel', 'Expires')}: ${formatLocalizedDate(need.expires_at, i18n.language)}`}
                             </span>
                           )}
                         </div>
@@ -386,14 +402,14 @@ export const NgoDashboardPage: React.FC = () => {
                         {/* Rejection reason banner */}
                         {isItemRejected && item.rejection_reason && (
                           <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-800">
-                            <strong>Rejection reason recorded:</strong> "{item.rejection_reason}"
+                            <strong>{t('ngo.rejectionReasonRecorded', 'Rejection reason recorded')}:</strong> "{item.rejection_reason}"
                           </div>
                         )}
 
                         {/* Other NGO accepted notice */}
                         {isItemCancelled && (
                           <div className="p-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-600">
-                            Another NGO has already accepted this request. It is no longer actionable.
+                            {t('ngo.otherAcceptedNotice', 'Another NGO has already accepted this request. It is no longer actionable.')}
                           </div>
                         )}
                       </div>
@@ -409,7 +425,7 @@ export const NgoDashboardPage: React.FC = () => {
                               }}
                               className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-primary hover:bg-forest-dark text-white text-xs font-bold transition-all shadow-sm"
                             >
-                              <CheckCircle className="w-3.5 h-3.5" /> Accept Request
+                              <CheckCircle className="w-3.5 h-3.5" /> {t('ngo.acceptHelp', 'Accept Request')}
                             </button>
 
                             <button
@@ -419,7 +435,7 @@ export const NgoDashboardPage: React.FC = () => {
                               }}
                               className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl border border-rose-200 text-rose-700 hover:bg-rose-50 text-xs font-semibold transition-all"
                             >
-                              <XCircle className="w-3.5 h-3.5" /> Reject Request
+                              <XCircle className="w-3.5 h-3.5" /> {t('ngo.rejectHelp', 'Reject Request')}
                             </button>
                           </>
                         )}
@@ -431,7 +447,7 @@ export const NgoDashboardPage: React.FC = () => {
                                 onClick={() => openChat(need.chats)}
                                 className="w-full flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 text-xs font-bold transition-all"
                               >
-                                <MessageSquare className="w-3.5 h-3.5" /> Open Chat
+                                <MessageSquare className="w-3.5 h-3.5" /> {t('ngo.openChat', 'Open Chat')}
                               </button>
                             )}
                             {need?.status !== 'COMPLETED' && (
@@ -441,7 +457,7 @@ export const NgoDashboardPage: React.FC = () => {
                                 className="w-full flex items-center justify-center gap-1 px-4 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 text-xs font-semibold transition-all"
                               >
                                 {completingId === need.request_id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle className="w-3.5 h-3.5" />}
-                                Mark Resolved
+                                {t('ngo.markResolved', 'Mark Resolved')}
                               </button>
                             )}
                           </div>
@@ -460,14 +476,14 @@ export const NgoDashboardPage: React.FC = () => {
       {tab === 'feed' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-display font-bold text-lg text-forest-dark">Open Community Needs</h3>
-            <span className="text-xs text-emerald-950/60">Feed of pending requests in your region</span>
+            <h3 className="font-display font-bold text-lg text-forest-dark">{t('ngo.openCommunityNeeds', 'Open Community Needs')}</h3>
+            <span className="text-xs text-emerald-950/60">{t('ngo.communityFeedSubtitle', 'Feed of pending requests in your region')}</span>
           </div>
 
           {feedLoading ? (
             <div className="text-center py-16"><Loader2 className="w-8 h-8 text-primary animate-spin mx-auto" /></div>
           ) : feedRequests.length === 0 ? (
-            <div className="text-center py-16 text-sm text-emerald-950/50">No open requests currently in your area.</div>
+            <div className="text-center py-16 text-sm text-emerald-950/50">{t('ngo.noFeedRequests', 'No open requests currently in your area.')}</div>
           ) : (
             <div className="space-y-3">
               {feedRequests.map((req) => (
@@ -479,9 +495,9 @@ export const NgoDashboardPage: React.FC = () => {
                     </div>
                     <p className="text-xs text-emerald-950/70">{req.description}</p>
                     <div className="text-[11px] text-emerald-950/50 flex gap-3 pt-1">
-                      <span>By: {req.users?.full_name}</span>
-                      <span>City: {req.cities?.city_name}</span>
-                      <span>{new Date(req.created_at).toLocaleDateString()}</span>
+                      <span>{t('ngo.userLabel', 'User')}: {req.users?.full_name}</span>
+                      <span>{t('ngo.city', 'City')}: {req.cities?.city_name}</span>
+                      <span>{formatLocalizedDate(req.created_at, i18n.language)}</span>
                     </div>
                   </div>
 
@@ -492,7 +508,7 @@ export const NgoDashboardPage: React.FC = () => {
                     }}
                     className="px-4 py-2 rounded-xl bg-primary hover:bg-forest-dark text-white text-xs font-bold shrink-0"
                   >
-                    Accept Need
+                    {t('ngo.acceptNeed', 'Accept Need')}
                   </button>
                 </div>
               ))}
@@ -504,20 +520,20 @@ export const NgoDashboardPage: React.FC = () => {
       {/* ─── TAB 3: PROFILE ─── */}
       {tab === 'profile' && (
         <div className="bg-white rounded-3xl p-8 border border-forest-light/20 shadow-sm space-y-6">
-          <h2 className="font-display font-bold text-xl text-forest-dark">NGO Profile & Services</h2>
+          <h2 className="font-display font-bold text-xl text-forest-dark">{t('ngo.ngoProfileServices', 'NGO Profile & Services')}</h2>
           {ngoProfile && (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div><strong>NGO Name:</strong> {ngoProfile.ngo_name}</div>
-                <div><strong>Contact Person:</strong> {ngoProfile.contact_person}</div>
-                <div><strong>Email:</strong> {ngoProfile.email}</div>
-                <div><strong>Phone:</strong> {ngoProfile.phone_number}</div>
-                <div><strong>City:</strong> {ngoProfile.cities?.city_name}, {ngoProfile.cities?.state}</div>
-                <div><strong>Address:</strong> {ngoProfile.address}</div>
+                <div><strong>{t('ngo.ngoName', 'NGO Name')}:</strong> {ngoProfile.ngo_name}</div>
+                <div><strong>{t('ngo.contactPerson', 'Contact Person')}:</strong> {ngoProfile.contact_person}</div>
+                <div><strong>{t('ngo.email', 'Email')}:</strong> {ngoProfile.email}</div>
+                <div><strong>{t('ngo.phone', 'Phone')}:</strong> {ngoProfile.phone_number}</div>
+                <div><strong>{t('ngo.city', 'City')}:</strong> {ngoProfile.cities?.city_name}, {ngoProfile.cities?.state}</div>
+                <div><strong>{t('ngo.address', 'Address')}:</strong> {ngoProfile.address}</div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-forest-dark/80">Organization Description</label>
+                <label className="text-xs font-semibold text-forest-dark/80">{t('ngo.orgDescription', 'Organization Description')}</label>
                 <textarea
                   value={editDesc}
                   onChange={(e) => setEditDesc(e.target.value)}
@@ -527,7 +543,7 @@ export const NgoDashboardPage: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-forest-dark/80">Services Offered</label>
+                <label className="text-xs font-semibold text-forest-dark/80">{t('ngo.servicesOffered', 'Services Offered')}</label>
                 <div className="flex flex-wrap gap-2">
                   {SERVICE_OPTIONS.map((srv) => {
                     const active = editServices.includes(srv);
@@ -546,7 +562,7 @@ export const NgoDashboardPage: React.FC = () => {
                             : 'bg-bg-nature text-forest-dark/70 hover:bg-forest-light/30'
                         }`}
                       >
-                        {srv.replace('_', ' ')}
+                        {t('categories.' + srv, srv.replace('_', ' '))}
                       </button>
                     );
                   })}
@@ -562,7 +578,7 @@ export const NgoDashboardPage: React.FC = () => {
                 disabled={profileLoading}
                 className="px-6 py-2.5 rounded-xl bg-primary text-white font-semibold text-sm hover:bg-forest-dark"
               >
-                {profileLoading ? 'Saving...' : 'Save Profile'}
+                {profileLoading ? t('common.saving', 'Saving...') : t('ngo.saveProfile', 'Save Profile')}
               </button>
             </>
           )}
@@ -587,17 +603,17 @@ export const NgoDashboardPage: React.FC = () => {
                   <CheckCircle className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-display font-bold text-lg text-forest-dark">Accept Request</h3>
-                  <p className="text-xs text-emerald-950/60">Confirm your acceptance and notify the migrant.</p>
+                  <h3 className="font-display font-bold text-lg text-forest-dark">{t('ngo.acceptModalTitle', 'Accept Request')}</h3>
+                  <p className="text-xs text-emerald-950/60">{t('ngo.acceptModalSubtitle', 'Confirm your acceptance and notify the migrant.')}</p>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-forest-dark/80">Response Message to Migrant</label>
+                <label className="text-xs font-semibold text-forest-dark/80">{t('ngo.responseMessageLabel', 'Response Message to Migrant')}</label>
                 <textarea
                   value={acceptMessage}
                   onChange={(e) => setAcceptMessage(e.target.value)}
-                  placeholder="Introduce your NGO and explain how you will assist..."
+                  placeholder={t('ngo.acceptMessagePlaceholder', 'Introduce your NGO and explain how you will assist...')}
                   rows={3}
                   className="w-full px-3.5 py-2.5 bg-bg-nature rounded-xl border border-forest-light/40 focus:border-primary outline-none text-xs"
                 />
@@ -609,7 +625,7 @@ export const NgoDashboardPage: React.FC = () => {
                   disabled={acceptLoading}
                   className="px-4 py-2 rounded-xl border border-forest-light/30 hover:bg-bg-nature text-forest-dark text-xs font-medium"
                 >
-                  Cancel
+                  {t('common.cancel', 'Cancel')}
                 </button>
                 <button
                   onClick={() => handleAcceptSubmit(acceptingId)}
@@ -617,7 +633,7 @@ export const NgoDashboardPage: React.FC = () => {
                   className="px-5 py-2 rounded-xl bg-primary hover:bg-forest-dark disabled:bg-primary/40 text-white text-xs font-bold flex items-center gap-1.5"
                 >
                   {acceptLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle className="w-3.5 h-3.5" />}
-                  Confirm Acceptance
+                  {t('ngo.confirmAccept', 'Confirm Acceptance')}
                 </button>
               </div>
             </motion.div>
@@ -640,24 +656,24 @@ export const NgoDashboardPage: React.FC = () => {
                   <XCircle className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-display font-bold text-lg text-forest-dark">Reject Request</h3>
-                  <p className="text-xs text-emerald-950/60">The migrant will see your response.</p>
+                  <h3 className="font-display font-bold text-lg text-forest-dark">{t('ngo.rejectModalTitle', 'Reject Request')}</h3>
+                  <p className="text-xs text-emerald-950/60">{t('ngo.rejectModalSubtitle', 'The migrant will see your response.')}</p>
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-forest-dark/80">Reason (optional)</label>
+                <label className="text-xs font-semibold text-forest-dark/80">{t('ngo.rejectionReason', 'Reason (optional)')}</label>
                 <textarea
                   value={rejectionReason}
                   onChange={(e) => setRejectionReason(e.target.value)}
-                  placeholder="e.g. Capacity full this week, Outside service sector, etc."
+                  placeholder={t('ngo.rejectionPlaceholder', 'e.g. Capacity full this week, Outside service sector, etc.')}
                   rows={3}
                   className="w-full px-3.5 py-2.5 bg-bg-nature rounded-xl border border-forest-light/40 focus:border-rose-400 outline-none text-xs"
                 />
               </div>
 
               <p className="text-[11px] text-emerald-950/50">
-                Note: After rejecting, your NGO will not be able to accept this request afterward.
+                {t('ngo.rejectNote', 'Note: After rejecting, your NGO will not be able to accept this request afterward.')}
               </p>
 
               <div className="flex gap-2 justify-end pt-2">
@@ -666,7 +682,7 @@ export const NgoDashboardPage: React.FC = () => {
                   disabled={rejectLoading}
                   className="px-4 py-2 rounded-xl border border-forest-light/30 hover:bg-bg-nature text-forest-dark text-xs font-medium"
                 >
-                  Cancel
+                  {t('common.cancel', 'Cancel')}
                 </button>
                 <button
                   onClick={handleRejectSubmit}
@@ -674,7 +690,7 @@ export const NgoDashboardPage: React.FC = () => {
                   className="px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 disabled:bg-rose-400 text-white text-xs font-bold flex items-center gap-1.5"
                 >
                   {rejectLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
-                  Reject
+                  {t('ngo.confirmReject', 'Reject')}
                 </button>
               </div>
             </motion.div>
@@ -697,7 +713,7 @@ export const NgoDashboardPage: React.FC = () => {
             <div className="p-4 bg-primary text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <MessageSquare className="w-5 h-5" />
-                <h3 className="font-display font-bold text-base">Chat with Migrant</h3>
+                <h3 className="font-display font-bold text-base">{t('ngo.chatWithMigrant', 'Chat with Migrant')}</h3>
               </div>
               <button
                 onClick={() => setChatOpen(false)}
@@ -711,7 +727,7 @@ export const NgoDashboardPage: React.FC = () => {
               {chatLoading ? (
                 <div className="text-center py-10"><Loader2 className="w-6 h-6 text-primary animate-spin mx-auto" /></div>
               ) : chatMessages.length === 0 ? (
-                <p className="text-center text-xs text-emerald-950/50 py-10">No messages yet.</p>
+                <p className="text-center text-xs text-emerald-950/50 py-10">{t('ngo.noChatMessages', 'No messages yet.')}</p>
               ) : (
                 chatMessages.map((m: any) => (
                   <div
@@ -739,7 +755,7 @@ export const NgoDashboardPage: React.FC = () => {
                 value={chatMsg}
                 onChange={(e) => setChatMsg(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && sendChatMessage()}
-                placeholder="Type a message..."
+                placeholder={t('ngo.typeAMessage', 'Type a message...')}
                 className="flex-1 px-4 py-2.5 rounded-xl bg-bg-nature border border-forest-light/40 focus:border-primary outline-none text-xs"
               />
               <button
@@ -747,7 +763,7 @@ export const NgoDashboardPage: React.FC = () => {
                 disabled={!chatMsg.trim()}
                 className="bg-primary hover:bg-forest-dark disabled:bg-primary/40 text-white px-5 py-2.5 rounded-xl font-semibold text-xs transition-colors"
               >
-                Send
+                {t('ngo.send', 'Send')}
               </button>
             </div>
           </motion.div>

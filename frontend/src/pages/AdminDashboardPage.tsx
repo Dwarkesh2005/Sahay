@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Users, Building2, FileText, ShieldCheck, ShieldAlert, Loader2, ToggleLeft, ToggleRight, Search, AlertCircle, BarChart3, FileCheck2, Eye } from 'lucide-react';
 import { adminService } from '../services/api';
 import { AnimatedCounter } from '../components/common/AnimatedCounter';
 
 export const AdminDashboardPage: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [tab, setTab] = useState<'overview' | 'verifications' | 'ngos' | 'users' | 'requests'>('overview');
   const [stats, setStats] = useState<any>(null);
@@ -101,7 +103,7 @@ export const AdminDashboardPage: React.FC = () => {
       await adminService.verifyNgo(ngoId, 'GOVERNMENT_VERIFIED');
       loadNgos();
       adminService.getStats().then(d => setStats(d.stats));
-    } catch (err: any) { alert(err.response?.data?.error || 'Failed to verify NGO.'); }
+    } catch (err: any) { alert(err.response?.data?.error || t('errors.failedToSubmit', 'Failed to verify NGO.')); }
     finally { setVerifying(null); }
   };
 
@@ -109,7 +111,7 @@ export const AdminDashboardPage: React.FC = () => {
     try {
       await adminService.rejectNgo(ngoId, 'Rejected by admin');
       loadNgos();
-    } catch (err: any) { alert(err.response?.data?.error || 'Failed to reject NGO.'); }
+    } catch (err: any) { alert(err.response?.data?.error || t('errors.failedToSubmit', 'Failed to reject NGO.')); }
   };
 
   const handleToggleUser = async (userId: number) => {
@@ -117,25 +119,25 @@ export const AdminDashboardPage: React.FC = () => {
     try {
       await adminService.toggleUserStatus(userId);
       loadUsers();
-    } catch (err: any) { alert(err.response?.data?.error || 'Failed to toggle user status.'); }
+    } catch (err: any) { alert(err.response?.data?.error || t('errors.failedToSubmit', 'Failed to toggle user status.')); }
     finally { setTogglingUser(null); }
   };
 
   return (
     <div className="max-w-7xl mx-auto px-6 space-y-8">
       <div className="pt-4">
-        <h1 className="font-display font-extrabold text-3xl text-forest-dark">Admin Console</h1>
-        <p className="text-emerald-950/60 text-sm mt-1">Oversee the entire Sahay ecosystem</p>
+        <h1 className="font-display font-extrabold text-3xl text-forest-dark">{t('admin.adminConsole', 'Admin Console')}</h1>
+        <p className="text-emerald-950/60 text-sm mt-1">{t('admin.adminSubtitle', 'Oversee the entire Sahay ecosystem')}</p>
       </div>
 
       {/* Tabs */}
       <div className="flex gap-2 flex-wrap">
         {[
-          { key: 'overview', label: 'Overview', icon: <BarChart3 className="w-3.5 h-3.5" /> },
-          { key: 'verifications', label: 'Verifications Queue', icon: <FileCheck2 className="w-3.5 h-3.5" /> },
-          { key: 'ngos', label: 'NGOs', icon: <Building2 className="w-3.5 h-3.5" /> },
-          { key: 'users', label: 'Users', icon: <Users className="w-3.5 h-3.5" /> },
-          { key: 'requests', label: 'Requests', icon: <FileText className="w-3.5 h-3.5" /> }
+          { key: 'overview', label: t('admin.overview', 'Overview'), icon: <BarChart3 className="w-3.5 h-3.5" /> },
+          { key: 'verifications', label: t('admin.verificationsQueue', 'Verifications Queue'), icon: <FileCheck2 className="w-3.5 h-3.5" /> },
+          { key: 'ngos', label: t('admin.ngos', 'NGOs'), icon: <Building2 className="w-3.5 h-3.5" /> },
+          { key: 'users', label: t('admin.users', 'Users'), icon: <Users className="w-3.5 h-3.5" /> },
+          { key: 'requests', label: t('admin.requests', 'Requests'), icon: <FileText className="w-3.5 h-3.5" /> }
         ].map(t => (
           <button key={t.key} onClick={() => setTab(t.key as any)}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-xl font-medium text-sm transition-all ${tab === t.key ? 'bg-primary text-white shadow-sm' : 'bg-bg-nature text-forest-dark/70 hover:bg-forest-light/30'}`}>
@@ -153,14 +155,14 @@ export const AdminDashboardPage: React.FC = () => {
             <>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: 'Total Users', value: stats.totalUsers, color: 'text-forest-dark' },
-                  { label: 'Total NGOs', value: stats.totalNgos, color: 'text-blue-600' },
-                  { label: 'Verified NGOs', value: stats.verifiedNgos, color: 'text-emerald-600' },
-                  { label: 'Total Requests', value: stats.totalRequests, color: 'text-primary' },
-                  { label: 'Pending', value: stats.pendingRequests, color: 'text-amber-600' },
-                  { label: 'Active', value: stats.acceptedRequests, color: 'text-blue-600' },
-                  { label: 'Completed', value: stats.completedRequests, color: 'text-emerald-600' },
-                  { label: 'Cancelled', value: stats.cancelledRequests, color: 'text-rose-600' }
+                  { label: t('admin.totalUsers', 'Total Users'), value: stats.totalUsers, color: 'text-forest-dark' },
+                  { label: t('admin.totalNgos', 'Total NGOs'), value: stats.totalNgos, color: 'text-blue-600' },
+                  { label: t('status.VERIFIED', 'Verified NGOs'), value: stats.verifiedNgos, color: 'text-emerald-600' },
+                  { label: t('admin.totalRequests', 'Total Requests'), value: stats.totalRequests, color: 'text-primary' },
+                  { label: t('status.PENDING', 'Pending'), value: stats.pendingRequests, color: 'text-amber-600' },
+                  { label: t('common.active', 'Active'), value: stats.acceptedRequests, color: 'text-blue-600' },
+                  { label: t('status.COMPLETED', 'Completed'), value: stats.completedRequests, color: 'text-emerald-600' },
+                  { label: t('status.CANCELLED', 'Cancelled'), value: stats.cancelledRequests, color: 'text-rose-600' }
                 ].map(s => (
                   <div key={s.label} className="bg-white rounded-2xl p-5 border border-forest-light/20 shadow-sm text-center">
                     <div className={`font-display font-bold text-2xl ${s.color}`}><AnimatedCounter value={s.value} /></div>

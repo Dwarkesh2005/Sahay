@@ -17,9 +17,17 @@ async function seed() {
     { city_name: 'Kolkata', district: 'Kolkata', state: 'West Bengal' },
     { city_name: 'Jaipur', district: 'Jaipur', state: 'Rajasthan' },
     { city_name: 'Hyderabad', district: 'Hyderabad', state: 'Telangana' },
-    // New cities for recommendation engine testing
+    // Gujarat cities
     { city_name: 'Ahmedabad', district: 'Ahmedabad', state: 'Gujarat' },
-    { city_name: 'Vadodara', district: 'Vadodara', state: 'Gujarat' }
+    { city_name: 'Surat', district: 'Surat', state: 'Gujarat' },
+    { city_name: 'Vadodara', district: 'Vadodara', state: 'Gujarat' },
+    { city_name: 'Rajkot', district: 'Rajkot', state: 'Gujarat' },
+    { city_name: 'Bhavnagar', district: 'Bhavnagar', state: 'Gujarat' },
+    { city_name: 'Jamnagar', district: 'Jamnagar', state: 'Gujarat' },
+    { city_name: 'Gandhinagar', district: 'Gandhinagar', state: 'Gujarat' },
+    { city_name: 'Anand', district: 'Anand', state: 'Gujarat' },
+    { city_name: 'Bharuch', district: 'Bharuch', state: 'Gujarat' },
+    { city_name: 'Vapi', district: 'Valsad', state: 'Gujarat' }
   ];
 
   for (const city of citiesData) {
@@ -341,74 +349,90 @@ async function seed() {
   }
 
   // 5. Seed sample Help Requests
+  const now = new Date();
+  const sevenDaysFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+
   const rajesh = await prisma.users.findUnique({ where: { email: 'rajesh@example.com' } });
   const sunita = await prisma.users.findUnique({ where: { email: 'sunita@example.com' } });
   const amit = await prisma.users.findUnique({ where: { email: 'amit@example.com' } });
+  const meera = await prisma.users.findUnique({ where: { email: 'meera@example.com' } });
+  const karan = await prisma.users.findUnique({ where: { email: 'karan@example.com' } });
 
-  if (rajesh) {
-    const existing = await prisma.help_requests.findFirst({
-      where: { user_id: rajesh.user_id, title: 'Need urgent medical help' }
-    });
-    if (!existing) {
-      await prisma.help_requests.create({
-        data: {
-          user_id: rajesh.user_id,
-          request_type: request_type.MEDICAL,
-          title: 'Need urgent medical help',
-          description: 'I am a construction worker who recently arrived in Lucknow. I am experiencing severe chest pain and need immediate medical assistance. I do not have any medical insurance or funds for hospital treatment.',
-          city_id: cityMap.get('Lucknow')!,
-          status: 'PENDING'
-        }
-      });
-      console.log('  ✅ Help request seeded: Medical (Rajesh, Lucknow)');
+  const seedRequests = [
+    {
+      user: rajesh,
+      title: 'Need urgent medical help',
+      description: 'I am a construction worker who recently arrived in Lucknow. I am experiencing severe chest pain and need immediate medical assistance. I do not have any medical insurance or funds for hospital treatment.',
+      type: request_type.MEDICAL,
+      city: 'Lucknow',
+      urgency: 'EMERGENCY'
+    },
+    {
+      user: sunita,
+      title: 'Food and ration needed for family',
+      description: 'I am a migrant worker from rural Bihar. My family of 5 has not had proper food for 2 days. We need dry rations and access to a community kitchen nearby.',
+      type: request_type.FOOD,
+      city: 'Patna',
+      urgency: 'HIGH'
+    },
+    {
+      user: amit,
+      title: 'Need shelter for the night',
+      description: 'I just arrived in Delhi from UP looking for work. I need a safe place to stay for a few nights while I find employment. Any nearby night shelter information would help.',
+      type: request_type.SHELTER,
+      city: 'New Delhi',
+      urgency: 'HIGH'
+    },
+    {
+      user: meera,
+      title: 'Medical treatment for child',
+      description: 'My 4-year-old child has a high fever and needs medical attention. We recently migrated to Ahmedabad from a rural area and cannot afford hospital fees. Looking for free or subsidized medical treatment.',
+      type: request_type.MEDICAL,
+      city: 'Ahmedabad',
+      urgency: 'EMERGENCY'
+    },
+    {
+      user: karan,
+      title: 'Employment and temporary accommodation',
+      description: 'I am a migrant worker looking for employment and temporary shelter in Vadodara. I have experience in construction and factory work. I need a job placement and a safe place to stay while I settle.',
+      type: request_type.EMPLOYMENT,
+      city: 'Vadodara',
+      urgency: 'MEDIUM'
     }
-  }
+  ];
 
-  if (sunita) {
+  for (const sr of seedRequests) {
+    if (!sr.user) continue;
     const existing = await prisma.help_requests.findFirst({
-      where: { user_id: sunita.user_id, title: 'Food and ration needed for family' }
+      where: { user_id: sr.user.user_id, title: sr.title }
     });
     if (!existing) {
       await prisma.help_requests.create({
         data: {
-          user_id: sunita.user_id,
-          request_type: request_type.FOOD,
-          title: 'Food and ration needed for family',
-          description: 'I am a migrant worker from rural Bihar. My family of 5 has not had proper food for 2 days. We need dry rations and access to a community kitchen nearby.',
-          city_id: cityMap.get('Patna')!,
-          status: 'PENDING'
+          user_id: sr.user.user_id,
+          request_type: sr.type,
+          title: sr.title,
+          description: sr.description,
+          city_id: cityMap.get(sr.city)!,
+          status: 'PENDING',
+          urgency: sr.urgency,
+          created_at: now,
+          expires_at: sevenDaysFromNow
         }
       });
-      console.log('  ✅ Help request seeded: Food (Sunita, Patna)');
-    }
-  }
-
-  if (amit) {
-    const existing = await prisma.help_requests.findFirst({
-      where: { user_id: amit.user_id, title: 'Need shelter for the night' }
-    });
-    if (!existing) {
-      await prisma.help_requests.create({
-        data: {
-          user_id: amit.user_id,
-          request_type: request_type.SHELTER,
-          title: 'Need shelter for the night',
-          description: 'I just arrived in Delhi from UP looking for work. I need a safe place to stay for a few nights while I find employment. Any nearby night shelter information would help.',
-          city_id: cityMap.get('New Delhi')!,
-          status: 'PENDING'
-        }
-      });
-      console.log('  ✅ Help request seeded: Shelter (Amit, Delhi)');
+      console.log(`  ✅ Help request seeded: ${sr.type} (${sr.user.full_name}, ${sr.city})`);
     }
   }
 
   console.log('\n🎉 Sahay database seeding complete!');
-  console.log('\n📋 Test Accounts:');
+  console.log('\n📋 Demo Accounts (development only):');
   console.log('  Admin:   admin@sahay.org / Admin@12345');
   console.log('  NGO:     asha@sahay.org / Ngo@12345');
+  console.log('  NGO:     saath@sahay.org / Ngo@12345 (Ahmedabad)');
+  console.log('  NGO:     vln@sahay.org / Ngo@12345 (Vadodara)');
   console.log('  Migrant: rajesh@example.com / User@12345');
-  console.log('  Migrant (Ahmedabad): meera@example.com / User@12345');
-  console.log('  Migrant (Vadodara): karan@example.com / User@12345');
+  console.log('  Migrant: meera@example.com / User@12345 (Ahmedabad)');
+  console.log('  Migrant: karan@example.com / User@12345 (Vadodara)');
 }
 
 seed()

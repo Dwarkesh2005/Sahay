@@ -72,7 +72,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         data: {
           city_name: city,
           district: city,
-          state: 'Uttar Pradesh'
+          state: 'Gujarat'
         }
       });
     }
