@@ -218,7 +218,7 @@ def interactive_cli():
 
         again = input("Would you like to make another prediction? (y/n) [default: y]: ").strip().lower()
         if again in ['n', 'no']:
-            print("\nExiting Gujarat Migration Predictor. Good luck with your professor presentation!")
+            print("\nExiting Gujarat Migration Predictor")
             break
 
 def run_preset_demo():
