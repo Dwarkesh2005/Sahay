@@ -153,16 +153,18 @@ export const AdminDashboardPage: React.FC = () => {
             <div className="text-center py-16"><Loader2 className="w-8 h-8 text-primary animate-spin mx-auto" /></div>
           ) : stats ? (
             <>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {[
-                  { label: t('admin.totalUsers', 'Total Users'), value: stats.totalUsers, color: 'text-forest-dark' },
-                  { label: t('admin.totalNgos', 'Total NGOs'), value: stats.totalNgos, color: 'text-blue-600' },
-                  { label: t('status.VERIFIED', 'Verified NGOs'), value: stats.verifiedNgos, color: 'text-emerald-600' },
-                  { label: t('admin.totalRequests', 'Total Requests'), value: stats.totalRequests, color: 'text-primary' },
-                  { label: t('status.PENDING', 'Pending'), value: stats.pendingRequests, color: 'text-amber-600' },
-                  { label: t('common.active', 'Active'), value: stats.acceptedRequests, color: 'text-blue-600' },
-                  { label: t('status.COMPLETED', 'Completed'), value: stats.completedRequests, color: 'text-emerald-600' },
-                  { label: t('status.CANCELLED', 'Cancelled'), value: stats.cancelledRequests, color: 'text-rose-600' }
+                  { label: t('admin.totalUsers', 'Total Users'), value: stats.totalUsers ?? 0, color: 'text-forest-dark' },
+                  { label: t('admin.totalNgos', 'Total NGOs'), value: stats.totalNgos ?? 0, color: 'text-blue-600' },
+                  { label: t('status.VERIFIED', 'Verified NGOs'), value: stats.verifiedNgos ?? 0, color: 'text-emerald-600' },
+                  { label: t('admin.verificationsQueue', 'Pending Verification Review'), value: stats.pendingVerifications ?? 0, color: 'text-purple-600' },
+                  { label: t('admin.totalRequests', 'Total Requests'), value: stats.totalRequests ?? 0, color: 'text-primary' },
+                  { label: t('status.PENDING', 'Pending Needs'), value: stats.pendingRequests ?? 0, color: 'text-amber-600' },
+                  { label: t('common.active', 'Active / Accepted'), value: stats.acceptedRequests ?? 0, color: 'text-blue-600' },
+                  { label: t('status.COMPLETED', 'Completed'), value: stats.completedRequests ?? 0, color: 'text-emerald-600' },
+                  { label: t('status.EXPIRED', 'Expired Requests'), value: stats.expiredRequests ?? 0, color: 'text-gray-500' },
+                  { label: t('status.CANCELLED', 'Cancelled'), value: stats.cancelledRequests ?? 0, color: 'text-rose-600' }
                 ].map(s => (
                   <div key={s.label} className="bg-white rounded-2xl p-5 border border-forest-light/20 shadow-sm text-center">
                     <div className={`font-display font-bold text-2xl ${s.color}`}><AnimatedCounter value={s.value} /></div>

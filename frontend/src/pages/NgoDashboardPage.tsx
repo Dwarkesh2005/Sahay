@@ -50,6 +50,7 @@ export const NgoDashboardPage: React.FC = () => {
 
   // Incoming Requests state
   const [incomingRequests, setIncomingRequests] = useState<any[]>([]);
+  const [allIncoming, setAllIncoming] = useState<any[]>([]);
   const [incomingLoading, setIncomingLoading] = useState(true);
   const [incomingFilter, setIncomingFilter] = useState('PENDING');
 
@@ -90,10 +91,15 @@ export const NgoDashboardPage: React.FC = () => {
       if (incomingFilter && incomingFilter !== 'ALL') {
         params.status = incomingFilter;
       }
-      const data = await requestService.getNgoIncomingRequests(params);
-      setIncomingRequests(data.requests || []);
+      const [filteredData, allData] = await Promise.all([
+        requestService.getNgoIncomingRequests(params),
+        requestService.getNgoIncomingRequests({})
+      ]);
+      setIncomingRequests(filteredData.requests || []);
+      setAllIncoming(allData.requests || []);
     } catch {
       setIncomingRequests([]);
+      setAllIncoming([]);
     } finally {
       setIncomingLoading(false);
     }
@@ -294,6 +300,32 @@ export const NgoDashboardPage: React.FC = () => {
       {/* ─── TAB 1: INCOMING REQUESTS ─── */}
       {tab === 'incoming' && (
         <div className="space-y-6">
+          {/* Incoming Overview Stats Cards */}
+          {(() => {
+            const pool = allIncoming.length > 0 ? allIncoming : incomingRequests;
+            const ngoStats = {
+              total: pool.length,
+              pending: pool.filter((r) => r.status === 'PENDING').length,
+              accepted: pool.filter((r) => r.status === 'ACCEPTED').length,
+              completed: pool.filter((r) => r.status === 'COMPLETED').length,
+            };
+            return (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {[
+                  { label: t('ngo.totalIncoming', 'Total Requests Received'), value: ngoStats.total, color: 'text-forest-dark', bg: 'bg-white' },
+                  { label: t('status.PENDING', 'Awaiting Action'), value: ngoStats.pending, color: 'text-amber-600', bg: 'bg-amber-50/50' },
+                  { label: t('status.ACCEPTED', 'In Progress / Accepted'), value: ngoStats.accepted, color: 'text-blue-600', bg: 'bg-blue-50/50' },
+                  { label: t('status.COMPLETED', 'Successfully Completed'), value: ngoStats.completed, color: 'text-emerald-600', bg: 'bg-emerald-50/50' },
+                ].map((s) => (
+                  <div key={s.label} className={`rounded-2xl p-4 border border-forest-light/20 shadow-sm text-center ${s.bg}`}>
+                    <p className={`font-display font-bold text-2xl ${s.color}`}>{s.value}</p>
+                    <p className="text-xs text-emerald-950/60 font-medium mt-0.5">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+
           {/* Filter Sub-Tabs */}
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-2 flex-wrap">

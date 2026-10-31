@@ -15,11 +15,37 @@ ENV/
 .coverage
 htmlcov/
 
-# PaddleOCR models & cache
+# EasyOCR, PaddleOCR & PaddleX models & cache
+.EasyOCR/
+.paddlex/
 .paddleocr/
+.cache/
 inference/
+
+# Model weights & binary checkpoints
+*.pth
+*.pt
+*.pdiparams
+*.pdiparams.info
+*.pdmodel
+*.pdopt
+*.onnx
+*.safetensors
+*.bin
+*.h5
+*.tflite
+
+# Test images & temporary test documents
+test_pan.png
+test_*.png
+test_*.jpg
+test_*.jpeg
+test_*.pdf
+temp/
+tmp/
 
 # Environment files & logs
 .env
 .env.*
+!.env.example
 *.log

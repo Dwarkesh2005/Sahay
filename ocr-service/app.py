@@ -20,7 +20,8 @@ def health_check():
     return jsonify({
         "status": "healthy",
         "service": "SAHAY Python OCR Service",
-        "engine": "PaddleOCR",
+        "engine": ocr_engine.get_engine_name(),
+        "ocr_available": ocr_engine.is_available(),
         "paddle_available": ocr_engine.is_available(),
         "timestamp": time.time()
     }), 200

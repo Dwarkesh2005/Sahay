@@ -235,6 +235,16 @@ export const chatService = {
 };
 
 // ========================
+// Public Stats Service
+// ========================
+export const statsService = {
+  getPublicStats: async () => {
+    const response = await apiClient.get('/stats');
+    return response.data;
+  },
+};
+
+// ========================
 // Admin Service
 // ========================
 export const adminService = {

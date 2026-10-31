@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
@@ -20,6 +20,7 @@ import {
   HeartHandshake,
 } from 'lucide-react';
 import { AnimatedCounter } from '../components/common/AnimatedCounter';
+import { statsService } from '../services/api';
 
 // Custom FAQ Type
 interface FAQItemProps {
@@ -60,6 +61,36 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
 
 export const LandingPage: React.FC = () => {
   const { t } = useTranslation();
+
+  const [dbStats, setDbStats] = useState<{
+    verifiedNgos: number;
+    peopleAssisted: number;
+    activeVolunteers: number;
+    completedRequests: number;
+  }>({
+    verifiedNgos: 16,
+    peopleAssisted: 43,
+    activeVolunteers: 0,
+    completedRequests: 2,
+  });
+
+  useEffect(() => {
+    statsService
+      .getPublicStats()
+      .then((res) => {
+        if (res?.stats) {
+          setDbStats({
+            verifiedNgos: res.stats.verifiedNgos ?? 0,
+            peopleAssisted: res.stats.peopleAssisted ?? res.stats.totalUsers ?? 0,
+            activeVolunteers: res.stats.activeVolunteers ?? 0,
+            completedRequests: res.stats.completedRequests ?? 0,
+          });
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load public stats from database:', err);
+      });
+  }, []);
 
   const faqs = [
     {
@@ -337,7 +368,7 @@ export const LandingPage: React.FC = () => {
             <div className="inline-flex p-3 rounded-2xl bg-secondary/15 text-primary mb-1">
               <Award className="w-6 h-6" />
             </div>
-            <AnimatedCounter value={45} suffix="+" />
+            <AnimatedCounter value={dbStats.verifiedNgos} />
             <p className="text-sm font-medium text-emerald-900/60 font-display">
               {t('landing.statNgosPartnered', 'Verified NGOs')}
             </p>
@@ -346,7 +377,7 @@ export const LandingPage: React.FC = () => {
             <div className="inline-flex p-3 rounded-2xl bg-secondary/15 text-primary mb-1">
               <Users className="w-6 h-6" />
             </div>
-            <AnimatedCounter value={12400} />
+            <AnimatedCounter value={dbStats.peopleAssisted} />
             <p className="text-sm font-medium text-emerald-900/60 font-display">
               {t('landing.statPeopleHelped', 'People Assisted')}
             </p>
@@ -355,7 +386,7 @@ export const LandingPage: React.FC = () => {
             <div className="inline-flex p-3 rounded-2xl bg-secondary/15 text-primary mb-1">
               <Heart className="w-6 h-6" />
             </div>
-            <AnimatedCounter value={1850} suffix="+" />
+            <AnimatedCounter value={dbStats.activeVolunteers} />
             <p className="text-sm font-medium text-emerald-900/60 font-display">
               {t('roles.VOLUNTEER', 'Active Volunteers')}
             </p>
@@ -364,7 +395,7 @@ export const LandingPage: React.FC = () => {
             <div className="inline-flex p-3 rounded-2xl bg-secondary/15 text-primary mb-1">
               <CheckCircle className="w-6 h-6" />
             </div>
-            <AnimatedCounter value={8900} suffix="+" />
+            <AnimatedCounter value={dbStats.completedRequests} />
             <p className="text-sm font-medium text-emerald-900/60 font-display">
               {t('dashboard.resolvedRequests', 'Requests Completed')}
             </p>

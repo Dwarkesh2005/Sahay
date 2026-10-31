@@ -19,10 +19,17 @@ class IOCREngine(ABC):
         pass
 
 class PaddleOCREngine(IOCREngine):
+    """
+    Robust OCR Engine supporting:
+    1. EasyOCR (PyTorch CPU, robust on Windows)
+    2. PaddleOCR (alternative)
+    3. PyMuPDF (fitz) for PDF digital text & page rasterization
+    """
     def __init__(self, lang: str = "en", use_gpu: bool = False):
         self.lang = lang
         self.use_gpu = use_gpu
         self._ocr = None
+        self._engine_type = None
         self._init_attempted = False
         self._available = False
 
@@ -30,19 +37,61 @@ class PaddleOCREngine(IOCREngine):
         if self._init_attempted:
             return
         self._init_attempted = True
+
+        # 1. Try EasyOCR (Primary engine - reliable on Windows CPU)
         try:
-            from paddleocr import PaddleOCR
-            print(f"[PaddleOCREngine] Initializing PaddleOCR (lang={self.lang}, gpu={self.use_gpu})...")
-            self._ocr = PaddleOCR(use_angle_cls=True, lang=self.lang, show_log=False)
+            import easyocr
+            model_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".EasyOCR", "model"))
+            print(f"[OCREngine] Initializing EasyOCR (lang={self.lang}, gpu={self.use_gpu}, model_dir={model_dir})...")
+            self._ocr = easyocr.Reader(
+                [self.lang],
+                gpu=self.use_gpu,
+                model_storage_directory=model_dir,
+                user_network_directory=model_dir,
+                download_enabled=False,
+                verbose=False
+            )
+            self._engine_type = "EasyOCR"
             self._available = True
-            print("[PaddleOCREngine] PaddleOCR initialized successfully.")
+            print("[OCREngine] EasyOCR initialized successfully.")
+            return
         except Exception as e:
-            print(f"[PaddleOCREngine] PaddleOCR initialization failed or library not present: {e}")
-            self._available = False
+            print(f"[OCREngine] EasyOCR with local model_dir failed, trying default: {e}")
+            try:
+                import easyocr
+                self._ocr = easyocr.Reader([self.lang], gpu=self.use_gpu, verbose=False)
+                self._engine_type = "EasyOCR"
+                self._available = True
+                print("[OCREngine] EasyOCR initialized with default directory.")
+                return
+            except Exception as e2:
+                print(f"[OCREngine] EasyOCR completely failed: {e2}")
+
+        # 2. Try PaddleOCR (Secondary)
+        try:
+            import os
+            os.environ["PADDLE_PDX_CACHE_HOME"] = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "..", ".paddlex")
+            )
+            from paddleocr import PaddleOCR
+            print(f"[OCREngine] Initializing PaddleOCR (lang={self.lang}, gpu={self.use_gpu})...")
+            self._ocr = PaddleOCR(use_angle_cls=False, lang=self.lang)
+            self._engine_type = "PaddleOCR"
+            self._available = True
+            print("[OCREngine] PaddleOCR initialized successfully.")
+            return
+        except Exception as e:
+            print(f"[OCREngine] PaddleOCR not available or failed: {e}")
+
+        self._available = False
 
     def is_available(self) -> bool:
         self._ensure_initialized()
         return self._available
+
+    def get_engine_name(self) -> str:
+        self._ensure_initialized()
+        return self._engine_type or "None"
 
     def process_image(self, image: Image.Image, page_num: int) -> PageOCRResult:
         self._ensure_initialized()
@@ -57,20 +106,36 @@ class PaddleOCREngine(IOCREngine):
 
         try:
             img_np = np.array(image.convert("RGB"))
-            result = self._ocr.ocr(img_np, cls=True)
             lines = []
             confidences = []
 
-            if result and len(result) > 0 and result[0] is not None:
-                for line in result[0]:
-                    box = line[0]
-                    text, conf = line[1]
-                    lines.append({
-                        "text": text,
-                        "confidence": float(conf),
-                        "box": box
-                    })
-                    confidences.append(float(conf))
+            if self._engine_type == "EasyOCR":
+                results = self._ocr.readtext(img_np)
+                for item in results:
+                    bbox, text, prob = item
+                    text_str = str(text).strip()
+                    if text_str:
+                        lines.append({
+                            "text": text_str,
+                            "confidence": float(prob),
+                            "box": bbox
+                        })
+                        confidences.append(float(prob))
+
+            elif self._engine_type == "PaddleOCR":
+                result = self._ocr.ocr(img_np)
+                if result and len(result) > 0 and result[0] is not None:
+                    for line in result[0]:
+                        box = line[0]
+                        text, conf = line[1]
+                        text_str = str(text).strip()
+                        if text_str:
+                            lines.append({
+                                "text": text_str,
+                                "confidence": float(conf),
+                                "box": box
+                            })
+                            confidences.append(float(conf))
 
             full_text = "\n".join([l["text"] for l in lines])
             cleaned_text = TextCleaner.clean_text(full_text)
@@ -84,7 +149,7 @@ class PaddleOCREngine(IOCREngine):
                 lines=lines
             )
         except Exception as e:
-            print(f"[PaddleOCREngine] Error processing image for page {page_num}: {e}")
+            print(f"[OCREngine] Error processing image for page {page_num}: {e}")
             return PageOCRResult(
                 page=page_num,
                 text="",
@@ -117,7 +182,7 @@ class PaddleOCREngine(IOCREngine):
                     ))
                 return results
 
-            # If scanned PDF (no digital text), convert pages to images
+            # If scanned PDF (no digital text), convert pages to images using PyMuPDF
             images = PDFProcessor.convert_pdf_to_images(file_path)
             if images and self.is_available():
                 for idx, img in enumerate(images):
@@ -137,13 +202,12 @@ class PaddleOCREngine(IOCREngine):
                 ))
             return results
 
-        # 2. Handle Image (JPG, PNG, etc.)
+        # 2. Handle Image (JPG, PNG, JPEG)
         try:
             img = Image.open(file_path)
             if self.is_available():
                 results.append(self.process_image(img, page_num=1))
             else:
-                # Fallback image handler: image metadata or basic notice
                 results.append(PageOCRResult(
                     page=1,
                     text="",
@@ -152,7 +216,7 @@ class PaddleOCREngine(IOCREngine):
                     lines=[]
                 ))
         except Exception as e:
-            print(f"[PaddleOCREngine] Failed to open image {file_path}: {e}")
+            print(f"[OCREngine] Failed to open image {file_path}: {e}")
             results.append(PageOCRResult(page=1, text="", confidence=0.0, word_count=0, lines=[]))
 
         return results

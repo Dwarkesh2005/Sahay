@@ -16,6 +16,7 @@ const verificationRoutes_1 = __importDefault(require("./routes/verificationRoute
 const notificationRoutes_1 = __importDefault(require("./routes/notificationRoutes"));
 const verificationController_1 = require("./controllers/verificationController");
 const requestController_1 = require("./controllers/requestController");
+const db_1 = require("./db");
 // Load environment variables
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -41,6 +42,42 @@ app.get('/api/verification/document/download', verificationController_1.Verifica
 // Health Check
 app.get('/health', (_req, res) => {
     res.status(200).json({ status: 'ok', service: 'SAHAY Backend' });
+});
+// Public platform statistics for landing page and overview
+app.get('/api/stats', async (_req, res) => {
+    try {
+        const [totalUsers, totalNgos, verifiedNgos, totalRequests, completedRequests, activeVolunteers, migrantUsers] = await Promise.all([
+            db_1.prisma.users.count({ where: { is_active: true } }),
+            db_1.prisma.ngos.count(),
+            db_1.prisma.ngos.count({
+                where: {
+                    verification_status: {
+                        in: ['GOVERNMENT_VERIFIED', 'CONTACT_VERIFIED', 'MANUALLY_VERIFIED']
+                    }
+                }
+            }),
+            db_1.prisma.help_requests.count(),
+            db_1.prisma.help_requests.count({ where: { status: 'COMPLETED' } }),
+            db_1.prisma.users.count({ where: { role: 'VOLUNTEER', is_active: true } }),
+            db_1.prisma.users.count({ where: { role: 'MIGRANT', is_active: true } })
+        ]);
+        res.status(200).json({
+            success: true,
+            stats: {
+                totalUsers,
+                totalNgos,
+                verifiedNgos,
+                totalRequests,
+                completedRequests,
+                activeVolunteers,
+                peopleAssisted: completedRequests > 0 ? completedRequests : (migrantUsers || totalUsers)
+            }
+        });
+    }
+    catch (error) {
+        console.error('Error fetching public stats:', error);
+        res.status(500).json({ error: 'Failed to fetch public statistics' });
+    }
 });
 // Start Server
 app.listen(PORT, () => {

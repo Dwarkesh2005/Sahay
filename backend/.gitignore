@@ -8,15 +8,32 @@ dist/
 # Private uploaded documents (never commit sensitive documents)
 uploads/
 uploads/verification/
+**/uploads/
+temp/
+tmp/
 
-# Environment variables
+# Environment variables & secrets
 .env
 .env.*
 !.env.example
+*.pem
+*.key
+*.cert
+*.crt
 
 # Logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Prisma
+# Prisma & Databases
 /generated/prisma
+*.sqlite
+*.sqlite3
+*.db
+
+# Test coverage & cache
+coverage/
+.nyc_output/

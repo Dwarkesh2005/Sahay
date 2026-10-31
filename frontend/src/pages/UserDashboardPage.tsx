@@ -57,6 +57,7 @@ export const UserDashboardPage: React.FC = () => {
   };
 
   const [requests, setRequests] = useState<HelpRequest[]>([]);
+  const [allRequests, setAllRequests] = useState<HelpRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState('');
@@ -79,10 +80,12 @@ export const UserDashboardPage: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const params: any = {};
-      if (statusFilter) params.status = statusFilter;
-      const data = await requestService.getUserRequests(params);
-      setRequests(data.requests || []);
+      const [filteredData, allData] = await Promise.all([
+        requestService.getUserRequests(statusFilter ? { status: statusFilter } : {}),
+        requestService.getUserRequests({})
+      ]);
+      setRequests(filteredData.requests || []);
+      setAllRequests(allData.requests || []);
     } catch {
       setError(t('errors.failedToLoad', 'Failed to load your requests. Please try again.'));
     } finally {
@@ -182,11 +185,12 @@ export const UserDashboardPage: React.FC = () => {
     return `${hours}h`;
   };
 
+  const currentRequestsPool = allRequests.length > 0 ? allRequests : requests;
   const stats = {
-    total: requests.length,
-    pending: requests.filter((r) => r.status === 'PENDING' && !r.is_expired).length,
-    completed: requests.filter((r) => r.status === 'COMPLETED' || r.status === 'ACCEPTED').length,
-    expired: requests.filter((r) => r.status === 'EXPIRED' || r.is_expired).length
+    total: currentRequestsPool.length,
+    pending: currentRequestsPool.filter((r) => r.status === 'PENDING' && !r.is_expired).length,
+    completed: currentRequestsPool.filter((r) => r.status === 'COMPLETED' || r.status === 'ACCEPTED').length,
+    expired: currentRequestsPool.filter((r) => r.status === 'EXPIRED' || r.is_expired).length
   };
 
   return (

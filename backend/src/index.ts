@@ -11,6 +11,7 @@ import verificationRoutes from './routes/verificationRoutes';
 import notificationRoutes from './routes/notificationRoutes';
 import { VerificationController } from './controllers/verificationController';
 import { autoExpirePendingRequests } from './controllers/requestController';
+import { prisma } from './db';
 
 // Load environment variables
 dotenv.config();
@@ -43,6 +44,51 @@ app.get('/api/verification/document/download', VerificationController.downloadSi
 // Health Check
 app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok', service: 'SAHAY Backend' });
+});
+
+// Public platform statistics for landing page and overview
+app.get('/api/stats', async (_req, res) => {
+  try {
+    const [
+      totalUsers,
+      totalNgos,
+      verifiedNgos,
+      totalRequests,
+      completedRequests,
+      activeVolunteers,
+      migrantUsers
+    ] = await Promise.all([
+      prisma.users.count({ where: { is_active: true } }),
+      prisma.ngos.count(),
+      prisma.ngos.count({
+        where: {
+          verification_status: {
+            in: ['GOVERNMENT_VERIFIED', 'CONTACT_VERIFIED', 'MANUALLY_VERIFIED']
+          }
+        }
+      }),
+      prisma.help_requests.count(),
+      prisma.help_requests.count({ where: { status: 'COMPLETED' } }),
+      prisma.users.count({ where: { role: 'VOLUNTEER', is_active: true } }),
+      prisma.users.count({ where: { role: 'MIGRANT', is_active: true } })
+    ]);
+
+    res.status(200).json({
+      success: true,
+      stats: {
+        totalUsers,
+        totalNgos,
+        verifiedNgos,
+        totalRequests,
+        completedRequests,
+        activeVolunteers,
+        peopleAssisted: completedRequests > 0 ? completedRequests : (migrantUsers || totalUsers)
+      }
+    });
+  } catch (error: any) {
+    console.error('Error fetching public stats:', error);
+    res.status(500).json({ error: 'Failed to fetch public statistics' });
+  }
 });
 
 // Start Server
