@@ -79,6 +79,8 @@ def process_document():
         return jsonify(result.to_dict()), 200
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print(f"[OCR-Service] Error processing doc_id={doc_id}: {e}")
         return jsonify({
             "success": False,

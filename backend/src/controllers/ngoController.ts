@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { prisma } from '../db';
 import { AuthRequest } from '../middleware/authMiddleware';
+import { ALLOWED_GUJARAT_CITIES } from './citiesController';
 
 /**
  * GET /api/ngos - Search & filter NGOs
@@ -14,7 +15,11 @@ export const getNgos = async (req: AuthRequest, res: Response): Promise<void> =>
     const limitNum = Math.min(50, Math.max(1, parseInt(limit as string, 10) || 20));
     const skip = (pageNum - 1) * limitNum;
 
-    const where: any = {};
+    const where: any = {
+      cities: {
+        city_name: { in: ALLOWED_GUJARAT_CITIES }
+      }
+    };
 
     // Filter by service type
     if (service && typeof service === 'string') {

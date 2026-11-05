@@ -13,7 +13,7 @@ router.put('/my/profile', authenticateToken, requireRole(['NGO']), updateMyNgoPr
 // Public: Get single NGO details
 router.get('/:id', getNgoById);
 
-// Protected: Report an NGO
-router.post('/:id/report', authenticateToken, reportNgo);
+// Protected: Report an NGO (Restricted to logged-in MIGRANT role only)
+router.post('/:id/report', authenticateToken, requireRole(['MIGRANT']), reportNgo);
 
 export default router;

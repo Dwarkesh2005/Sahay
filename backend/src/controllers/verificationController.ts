@@ -64,11 +64,11 @@ export class VerificationController {
       }
 
       if (!req.file) {
-        res.status(400).json({ error: 'No file uploaded. Supported formats: PDF, JPG, JPEG, PNG.' });
+        res.status(400).json({ error: 'No file uploaded. Supported formats: PDF, JPG, JPEG, PNG. Expected field name: document or file.' });
         return;
       }
 
-      const docType = req.body.document_type as document_type;
+      const rawDocType = req.body?.document_type ? String(req.body.document_type).trim().toUpperCase() : 'REGISTRATION_CERTIFICATE';
       const validTypes = [
         'REGISTRATION_CERTIFICATE',
         'PAN_DOCUMENT',
@@ -82,13 +82,15 @@ export class VerificationController {
         'OTHER',
       ];
 
-      if (!docType || !validTypes.includes(docType)) {
+      if (!validTypes.includes(rawDocType)) {
         FileService.deleteFile(req.file.path);
         res.status(400).json({
-          error: `Invalid document_type. Must be one of: ${validTypes.join(', ')}`,
+          error: `Invalid document_type '${req.body?.document_type}'. Must be one of: ${validTypes.join(', ')}`,
         });
         return;
       }
+
+      const docType = rawDocType as document_type;
 
       const document = await VerificationService.uploadDocument(ngo.ngo_id, req.file, docType);
 

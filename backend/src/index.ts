@@ -91,6 +91,16 @@ app.get('/api/stats', async (_req, res) => {
   }
 });
 
+// Global Error Handler (ensure JSON responses for all unhandled / Multer errors)
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  console.error('[Unhandled Error]', err);
+  if (err?.name === 'MulterError') {
+    res.status(400).json({ error: `Upload error: ${err.message}` });
+    return;
+  }
+  res.status(err?.status || 500).json({ error: err?.message || 'Internal server error' });
+});
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`[SAHAY Backend] Server is running on port ${PORT}`);

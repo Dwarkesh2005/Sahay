@@ -6,7 +6,8 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate",
     "seed": "ts-node src/seed.ts",
-    "test": "ts-node src/__tests__/test_verification_system.ts && ts-node src/__tests__/test_recommendation.ts && ts-node src/__tests__/test_need_management.ts && ts-node src/__tests__/test_workflow.ts"
+    "test": "ts-node src/__tests__/test_verification_system.ts && ts-node src/__tests__/test_recommendation.ts && ts-node src/__tests__/test_need_management.ts && ts-node src/__tests__/test_workflow.ts",
+    "ocr": "python ../ocr-service/app.py"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",

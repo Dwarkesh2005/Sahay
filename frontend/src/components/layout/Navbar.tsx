@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Menu, X, LogIn, LogOut, LayoutDashboard, Search, PlusCircle, Building2, Shield, User, Bell, CheckCheck, Loader2 } from 'lucide-react';
+import { Menu, X, LogIn, LogOut, LayoutDashboard, Search, PlusCircle, Building2, Shield, User, Bell, CheckCheck, Loader2, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { notificationService } from '../../services/api';
 import { LanguageSwitcher } from '../common/LanguageSwitcher';
@@ -167,6 +167,14 @@ export const Navbar: React.FC = () => {
 
           {isAuthenticated && user ? (
             <>
+              {user.role === 'MIGRANT' && (
+                <Link
+                  to="/report-ngo"
+                  className="font-medium text-rose-600 hover:text-rose-700 transition-colors flex items-center gap-1 text-sm"
+                >
+                  <AlertTriangle className="w-3.5 h-3.5" /> {t('navbar.reportNgo', 'Report NGO')}
+                </Link>
+              )}
               {(user.role === 'MIGRANT' || user.role === 'VOLUNTEER' || user.role === 'ADMIN') && (
                 <Link
                   to="/request-help"
@@ -404,6 +412,15 @@ export const Navbar: React.FC = () => {
 
             {isAuthenticated && user ? (
               <>
+                {user.role === 'MIGRANT' && (
+                  <Link
+                    to="/report-ngo"
+                    onClick={() => setIsOpen(false)}
+                    className="font-medium text-rose-600 hover:text-rose-700 transition-colors py-2 border-b border-forest-light/20 flex items-center gap-2"
+                  >
+                    <AlertTriangle className="w-4 h-4" /> {t('navbar.reportNgo', 'Report NGO / Fraud')}
+                  </Link>
+                )}
                 {(user.role === 'MIGRANT' || user.role === 'VOLUNTEER' || user.role === 'ADMIN') && (
                   <Link
                     to="/request-help"

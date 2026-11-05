@@ -191,6 +191,8 @@ class FieldExtractor:
                 if match:
                     raw_addr = " ".join(match.group(1).split())
                     raw_addr = re.sub(r"\s+", " ", raw_addr).strip()
+                    raw_addr = re.sub(r"^.*?(?:Registered\s+Office\s+Address|Office\s+Address|Registered\s+Office|Address|Location)[\s:]*", "", raw_addr, flags=re.IGNORECASE).strip()
+                    raw_addr = re.sub(r"^(?:Address|Location)[\s:]*", "", raw_addr, flags=re.IGNORECASE).strip()
                     if len(raw_addr) > 5:
                         return ExtractedField(
                             field_name="address",

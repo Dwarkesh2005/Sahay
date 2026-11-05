@@ -11,6 +11,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 // Load env just in case it is imported early
 dotenv_1.default.config();
 const connectionString = process.env.DATABASE_URL;
-const pool = new pg_1.Pool({ connectionString });
+const pool = new pg_1.Pool({
+    connectionString,
+    max: 10,
+    idleTimeoutMillis: 30000
+});
 const adapter = new adapter_pg_1.PrismaPg(pool);
 exports.prisma = new client_1.PrismaClient({ adapter });

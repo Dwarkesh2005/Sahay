@@ -47,7 +47,7 @@ class PaddleOCREngine(IOCREngine):
                 [self.lang],
                 gpu=self.use_gpu,
                 model_storage_directory=model_dir,
-                user_network_directory=model_dir,
+                user_network_directory=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.EasyOCR', 'user_network')),
                 download_enabled=False,
                 verbose=False
             )
@@ -69,7 +69,6 @@ class PaddleOCREngine(IOCREngine):
 
         # 2. Try PaddleOCR (Secondary)
         try:
-            import os
             os.environ["PADDLE_PDX_CACHE_HOME"] = os.path.abspath(
                 os.path.join(os.path.dirname(__file__), "..", ".paddlex")
             )

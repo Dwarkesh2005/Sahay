@@ -1,4 +1,5 @@
 import { prisma } from '../db';
+import { ALLOWED_GUJARAT_CITIES } from '../controllers/citiesController';
 
 // ─── Need Category Constants ───────────────────────────────────────
 
@@ -406,6 +407,7 @@ export async function getRecommendations(
   //    Then also get NGOs in the same city/district/state for location relevance
   const candidateNgos = await prisma.ngos.findMany({
     where: {
+      cities: { city_name: { in: ALLOWED_GUJARAT_CITIES } },
       OR: [
         // NGOs matching at least one need category
         {

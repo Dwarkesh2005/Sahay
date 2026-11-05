@@ -1,5 +1,19 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any
+import numpy as np
+
+def to_serializable(val: Any) -> Any:
+    if isinstance(val, (np.integer,)):
+        return int(val)
+    elif isinstance(val, (np.floating,)):
+        return float(val)
+    elif isinstance(val, np.ndarray):
+        return val.tolist()
+    elif isinstance(val, dict):
+        return {k: to_serializable(v) for k, v in val.items()}
+    elif isinstance(val, (list, tuple)):
+        return [to_serializable(v) for v in val]
+    return val
 
 @dataclass
 class ExtractedField:
@@ -28,15 +42,15 @@ class DocumentProcessResult:
     error: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        data = {
             "success": self.success,
             "document_id": self.document_id,
             "pages": [
                 {
-                    "page": p.page,
+                    "page": int(p.page),
                     "text": p.text,
-                    "confidence": p.confidence,
-                    "word_count": p.word_count,
+                    "confidence": float(p.confidence),
+                    "word_count": int(p.word_count),
                     "lines": p.lines
                 }
                 for p in self.pages
@@ -45,16 +59,17 @@ class DocumentProcessResult:
                 k: {
                     "field_name": v.field_name,
                     "value": v.value,
-                    "confidence": v.confidence,
-                    "page": v.page,
+                    "confidence": float(v.confidence),
+                    "page": int(v.page),
                     "raw_snippet": v.raw_snippet
                 }
                 for k, v in self.extracted_fields.items()
             },
             "quality": {
-                "overall_confidence": self.quality_score,
+                "overall_confidence": float(self.quality_score),
                 "is_readable": self.quality_score >= 0.5,
                 "issues": self.quality_issues
             },
             "error": self.error
         }
+        return to_serializable(data)

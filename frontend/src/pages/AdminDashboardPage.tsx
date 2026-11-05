@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Users, Building2, FileText, ShieldCheck, ShieldAlert, Loader2, ToggleLeft, ToggleRight, Search, AlertCircle, BarChart3, FileCheck2, Eye } from 'lucide-react';
+import { Users, Building2, FileText, ShieldCheck, ShieldAlert, Loader2, ToggleLeft, ToggleRight, Search, AlertCircle, BarChart3, FileCheck2, Eye, AlertTriangle, CheckCircle } from 'lucide-react';
 import { adminService } from '../services/api';
 import { AnimatedCounter } from '../components/common/AnimatedCounter';
 
 export const AdminDashboardPage: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [tab, setTab] = useState<'overview' | 'verifications' | 'ngos' | 'users' | 'requests'>('overview');
+  const [tab, setTab] = useState<'overview' | 'verifications' | 'ngos' | 'users' | 'requests' | 'reports'>('overview');
   const [stats, setStats] = useState<any>(null);
   const [statsLoading, setStatsLoading] = useState(true);
 
@@ -37,6 +37,12 @@ export const AdminDashboardPage: React.FC = () => {
   const [requests, setRequests] = useState<any[]>([]);
   const [requestsLoading, setRequestsLoading] = useState(false);
   const [reqStatusFilter, setReqStatusFilter] = useState('');
+
+  // Reports / Complaints Queue
+  const [reports, setReports] = useState<any[]>([]);
+  const [reportsLoading, setReportsLoading] = useState(false);
+  const [reportStatusFilter, setReportStatusFilter] = useState('');
+  const [resolvingReportId, setResolvingReportId] = useState<number | null>(null);
 
   useEffect(() => {
     adminService.getStats().then(d => setStats(d.stats)).catch(console.error).finally(() => setStatsLoading(false));
@@ -92,10 +98,39 @@ export const AdminDashboardPage: React.FC = () => {
     finally { setRequestsLoading(false); }
   };
 
+  const loadReports = async () => {
+    setReportsLoading(true);
+    try {
+      const params: any = {};
+      if (reportStatusFilter) params.status = reportStatusFilter;
+      const data = await adminService.getReports(params);
+      setReports(data.reports || []);
+    } catch {
+      setReports([]);
+    } finally {
+      setReportsLoading(false);
+    }
+  };
+
+  const handleResolveReport = async (reportId: number, status: 'REVIEWED' | 'RESOLVED') => {
+    setResolvingReportId(reportId);
+    try {
+      await adminService.resolveReport(reportId, status);
+      await loadReports();
+      // Refresh stats as well
+      adminService.getStats().then(d => setStats(d.stats)).catch(console.error);
+    } catch (err: any) {
+      alert(err.response?.data?.error || 'Failed to update report status.');
+    } finally {
+      setResolvingReportId(null);
+    }
+  };
+
   useEffect(() => { if (tab === 'verifications') loadVerifications(); }, [tab, verifStatusFilter]); // eslint-disable-line
   useEffect(() => { if (tab === 'ngos') loadNgos(); }, [tab, ngoStatusFilter]); // eslint-disable-line
   useEffect(() => { if (tab === 'users') loadUsers(); }, [tab, userRoleFilter]); // eslint-disable-line
   useEffect(() => { if (tab === 'requests') loadRequests(); }, [tab, reqStatusFilter]); // eslint-disable-line
+  useEffect(() => { if (tab === 'reports') loadReports(); }, [tab, reportStatusFilter]); // eslint-disable-line
 
   const handleVerify = async (ngoId: number) => {
     setVerifying(ngoId);
@@ -137,7 +172,21 @@ export const AdminDashboardPage: React.FC = () => {
           { key: 'verifications', label: t('admin.verificationsQueue', 'Verifications Queue'), icon: <FileCheck2 className="w-3.5 h-3.5" /> },
           { key: 'ngos', label: t('admin.ngos', 'NGOs'), icon: <Building2 className="w-3.5 h-3.5" /> },
           { key: 'users', label: t('admin.users', 'Users'), icon: <Users className="w-3.5 h-3.5" /> },
-          { key: 'requests', label: t('admin.requests', 'Requests'), icon: <FileText className="w-3.5 h-3.5" /> }
+          { key: 'requests', label: t('admin.requests', 'Requests'), icon: <FileText className="w-3.5 h-3.5" /> },
+          {
+            key: 'reports',
+            label: (
+              <span className="flex items-center gap-1.5">
+                {t('admin.reportsTab', 'Dispute & Fraud Reports')}
+                {stats?.pendingReports > 0 && (
+                  <span className="bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">
+                    {stats.pendingReports}
+                  </span>
+                )}
+              </span>
+            ),
+            icon: <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
+          }
         ].map(t => (
           <button key={t.key} onClick={() => setTab(t.key as any)}
             className={`flex items-center gap-1.5 px-4 py-2 rounded-xl font-medium text-sm transition-all ${tab === t.key ? 'bg-primary text-white shadow-sm' : 'bg-bg-nature text-forest-dark/70 hover:bg-forest-light/30'}`}>
@@ -164,7 +213,8 @@ export const AdminDashboardPage: React.FC = () => {
                   { label: t('common.active', 'Active / Accepted'), value: stats.acceptedRequests ?? 0, color: 'text-blue-600' },
                   { label: t('status.COMPLETED', 'Completed'), value: stats.completedRequests ?? 0, color: 'text-emerald-600' },
                   { label: t('status.EXPIRED', 'Expired Requests'), value: stats.expiredRequests ?? 0, color: 'text-gray-500' },
-                  { label: t('status.CANCELLED', 'Cancelled'), value: stats.cancelledRequests ?? 0, color: 'text-rose-600' }
+                  { label: t('status.CANCELLED', 'Cancelled'), value: stats.cancelledRequests ?? 0, color: 'text-rose-600' },
+                  { label: t('admin.pendingReports', 'Pending Fraud Reports'), value: stats.pendingReports ?? 0, color: 'text-rose-600' }
                 ].map(s => (
                   <div key={s.label} className="bg-white rounded-2xl p-5 border border-forest-light/20 shadow-sm text-center">
                     <div className={`font-display font-bold text-2xl ${s.color}`}><AnimatedCounter value={s.value} /></div>
@@ -500,6 +550,121 @@ export const AdminDashboardPage: React.FC = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Reports & Complaints Tab */}
+      {tab === 'reports' && (
+        <div className="space-y-4">
+          <div className="flex gap-2 flex-wrap items-center justify-between">
+            <div className="flex gap-2 flex-wrap">
+              {[
+                { val: '', label: 'All Reports' },
+                { val: 'PENDING', label: 'Pending Action' },
+                { val: 'REVIEWED', label: 'Reviewed' },
+                { val: 'RESOLVED', label: 'Resolved' }
+              ].map(s => (
+                <button
+                  key={s.val}
+                  onClick={() => setReportStatusFilter(s.val)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                    reportStatusFilter === s.val
+                      ? 'bg-rose-600 text-white shadow-xs'
+                      : 'bg-bg-nature text-forest-dark/70 hover:bg-forest-light/30'
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={() => loadReports()}
+              className="text-xs text-primary font-semibold hover:underline"
+            >
+              Refresh Reports
+            </button>
+          </div>
+
+          {reportsLoading ? (
+            <div className="text-center py-10">
+              <Loader2 className="w-6 h-6 text-primary animate-spin mx-auto" />
+            </div>
+          ) : reports.length === 0 ? (
+            <div className="text-center py-12 bg-white rounded-2xl border border-forest-light/20 p-8 space-y-2">
+              <ShieldCheck className="w-10 h-10 text-emerald-500 mx-auto" />
+              <p className="text-sm font-semibold text-forest-dark">No Fraud or Incident Reports Found</p>
+              <p className="text-xs text-emerald-950/50">There are currently no reports matching this filter.</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {reports.map((rep: any) => (
+                <div
+                  key={rep.report_id}
+                  className="bg-white rounded-2xl border border-forest-light/20 p-5 shadow-sm space-y-3 transition-all hover:border-forest-light/40"
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-2 border-b border-forest-light/10 pb-3">
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-sm text-forest-dark flex items-center gap-1.5">
+                          <Building2 className="w-4 h-4 text-primary" />
+                          {rep.ngos?.ngo_name || `NGO #${rep.ngo_id}`}
+                        </span>
+                        <span
+                          className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${
+                            rep.status === 'PENDING'
+                              ? 'bg-rose-100 text-rose-800'
+                              : rep.status === 'REVIEWED'
+                              ? 'bg-amber-100 text-amber-800'
+                              : 'bg-emerald-100 text-emerald-800'
+                          }`}
+                        >
+                          {rep.status}
+                        </span>
+                      </div>
+                      <p className="text-xs text-emerald-950/60">
+                        Reported by: <span className="font-medium text-forest-dark">{rep.users?.full_name || 'Anonymous User'}</span> ({rep.users?.email})
+                        {' • '}
+                        {new Date(rep.created_at).toLocaleString()}
+                      </p>
+                    </div>
+
+                    {/* Admin Action Buttons */}
+                    <div className="flex items-center gap-2">
+                      {rep.status === 'PENDING' && (
+                        <button
+                          onClick={() => handleResolveReport(rep.report_id, 'REVIEWED')}
+                          disabled={resolvingReportId === rep.report_id}
+                          className="px-3 py-1.5 rounded-xl border border-amber-300 bg-amber-50 text-amber-800 text-xs font-semibold hover:bg-amber-100 transition-all disabled:opacity-50"
+                        >
+                          Mark Under Review
+                        </button>
+                      )}
+                      {rep.status !== 'RESOLVED' && (
+                        <button
+                          onClick={() => handleResolveReport(rep.report_id, 'RESOLVED')}
+                          disabled={resolvingReportId === rep.report_id}
+                          className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1 disabled:opacity-50"
+                        >
+                          <CheckCircle className="w-3.5 h-3.5" /> Mark Solved / Resolved
+                        </button>
+                      )}
+                      {rep.status === 'RESOLVED' && (
+                        <span className="text-xs text-emerald-700 font-bold flex items-center gap-1">
+                          <CheckCircle className="w-4 h-4 text-emerald-600" /> Case Solved
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Complaint Reason Body */}
+                  <div className="bg-bg-nature/70 rounded-xl p-3.5 text-xs text-forest-dark whitespace-pre-wrap leading-relaxed border border-forest-light/15 font-mono text-[12px]">
+                    {rep.reason}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>

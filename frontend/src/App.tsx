@@ -13,6 +13,7 @@ import { NgoVerificationPage } from './pages/NgoVerificationPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
 import { AdminVerificationDetailPage } from './pages/AdminVerificationDetailPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { ReportNgoPage } from './pages/ReportNgoPage';
 import { ProtectedRoute } from './components/common/ProtectedRoute';
 
 function App() {
@@ -29,6 +30,14 @@ function App() {
             <Route path="/ngos/:id" element={<NgoDetailPage />} />
 
             {/* Protected Routes: Migrant / User */}
+            <Route
+              path="/report-ngo"
+              element={
+                <ProtectedRoute allowedRoles={['MIGRANT']}>
+                  <ReportNgoPage />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/request-help"
               element={

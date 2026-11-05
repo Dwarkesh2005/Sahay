@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { MapPin, ShieldCheck, Phone, Mail, Globe, ArrowLeft, Loader2, AlertCircle, Send } from 'lucide-react';
+import { MapPin, ShieldCheck, Phone, Mail, Globe, ArrowLeft, Loader2, AlertCircle, Send, AlertTriangle } from 'lucide-react';
 import { ngoService } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -191,8 +191,8 @@ export const NgoDetailPage: React.FC = () => {
             )}
           </div>
 
-          {/* CTA */}
-          <div className="pt-4 border-t border-forest-light/15">
+          {/* CTA & Actions */}
+          <div className="pt-4 border-t border-forest-light/15 flex flex-wrap items-center justify-between gap-4">
             {isAuthenticated && user && (user.role === 'MIGRANT' || user.role === 'VOLUNTEER') ? (
               <Link
                 to="/request-help"
@@ -207,7 +207,17 @@ export const NgoDetailPage: React.FC = () => {
               >
                 {t('navbar.login', 'Login to Request Help')}
               </Link>
-            ) : null}
+            ) : <div />}
+
+            {isAuthenticated && user?.role === 'MIGRANT' && (
+              <Link
+                to={`/report-ngo?ngoId=${ngo.ngo_id}`}
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-rose-200 bg-rose-50/50 hover:bg-rose-100/70 text-rose-700 text-xs font-semibold transition-all"
+              >
+                <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
+                {t('ngo.reportThisNgo', 'Report Fraud / Misconduct')}
+              </Link>
+            )}
           </div>
         </div>
       </motion.div>
